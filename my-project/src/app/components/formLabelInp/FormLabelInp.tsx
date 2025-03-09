@@ -1,0 +1,1 @@
+// label and input component dono ka compoenet bnana hai

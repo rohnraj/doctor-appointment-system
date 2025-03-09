@@ -1,0 +1,126 @@
+
+.pageContainer {
+    background: url('/assets/loginBackgrndImg.svg') no-repeat;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 81vh;
+    width: 100vw;
+}
+
+.formContainer {
+    width: 440px;
+    padding: 30px;
+    background: rgba(255, 255, 255, 0.4); /* Transparent Blur Background */
+    backdrop-filter: blur(10px); /* Blur Effect */
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    font-family: var(--primary-font);
+}
+
+/* Login Heading */
+.loginHeading {
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 10px;
+    text-align: start;
+}
+
+/* Paragraph Styling */
+.para {
+    text-align: center;
+    color: #555;
+    font-size: 14px;
+    font-size: 12px;
+    text-align: start;
+}
+
+/* Form Fields */
+.form {
+    padding-top: 15px;
+}
+
+.form label {
+    font-weight: 500;
+    color: #333;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+/* Button Container */
+.btnContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+
+/* Forgot Password */
+.forgotPara {
+    text-align: center;
+    margin-top: 10px;
+    font-size: 14px;
+    color: #555;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.inputContainer{
+    position: relative;
+}
+.inputContainer input{
+    width: 100%;
+    padding: 12px 40px 12px 40px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+    outline: none;
+}
+#iconeye{
+    position: absolute;
+    left: 340px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: gray;
+    opacity: 0.5;
+}
+.inputContainer i{
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: gray;
+    opacity: 0.5;
+}
+
+
+/* media query */
+@media (min-width: 768px) and (max-width: 1024px) {
+
+    .formContainer {
+        width: 340px;
+    }
+  
+  
+  }
+    
+  @media (min-width: 320px) and (max-width: 767px){
+  
+    .formContainer {
+        width: 340px;
+    }
+  }
+    
+    

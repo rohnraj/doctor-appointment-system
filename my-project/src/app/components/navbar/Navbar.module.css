@@ -1,0 +1,171 @@
+
+#bars{
+  display: none;
+}
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--seconday-color);
+  padding: 36px 60px 36px 60px;
+  /* width: 1512px; */
+  height: 128px;
+}
+.ultag{
+  list-style: none;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  /* width: 727px;
+  height: 56px; */
+}
+
+.logo {
+  font-size: 20px;
+  font-weight: bold;
+  color: var(--primary-color);
+  position: relative;
+  display: flex;
+  align-items: center;
+  /* justify-content: space-between; */
+  width: 191px;
+  height: 56px;
+}
+
+.logofst{
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--primary-color);
+}
+.logoscd{
+  padding:5px;
+  font-family: var(--primary-font);
+}
+
+.logoImg{
+  position: relative;
+  top:8.25px;
+  left:8.25px;
+}
+
+.navLinks {
+  display: flex;
+  gap: 20px;
+  list-style: none;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.navLinks li {
+  font-size: 16px;
+  cursor: pointer;
+  /* color: #444; */
+  /* transition: color 0.3s ease-in-out; */
+  font-family: var(--primary-font);
+  white-space: nowrap;
+}
+
+.navLinks li:hover {
+  color:var(--primary-color);
+}
+
+.authButtons {
+  display: flex;
+  gap: 15px;
+  list-style: none;
+  width: 257px;
+  height: 44px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* media query */
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  .navbar {
+    
+    padding: 26px 20px 26px 20px;
+   
+  }
+  .ultag{
+    justify-content: flex-start;
+  }
+  .logo {
+    width: 160px;
+    height: 56px;
+  }
+}
+
+
+@media (min-width: 320px) and (max-width: 768px) {
+  
+  .navLinks{
+    display: none;
+    /* padding:10px;
+    font-size: 10px; */
+  }
+  .ultag{
+    width: 75%;
+  }
+  #bars{
+    display: block;
+    width: 100%;
+  }
+  .navLinkContainer{
+    order: 0;
+    width: 25%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* position: relative; */
+  }
+
+  .logo{
+    order: 1;
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .navbar {
+    
+    padding: 26px 20px 26px 20px;
+   
+  }
+  .logofst{
+    object-fit: cover; 
+    flex-shrink: 0;
+  }
+  .authButtons{
+    display: none;
+  }
+  
+
+  /* bar click */
+
+  .showMenu{
+    display: flex;
+    /* flex-direction: column;   */
+    gap: 5px;
+    position: absolute;
+    top: 128px;
+    left: 0;
+    width: 100%;
+    background-color: var(--seconday-color);
+    /* padhna hai isse */
+    background: rgba(255, 255, 255, 0.2); /* Transparent White */
+    backdrop-filter: blur(10px); /* Apply Blur Effect */
+    -webkit-backdrop-filter: blur(10px); /* For Safari */
+  }
+
+  .showMenu li{
+    font-size: 10px;
+    cursor: pointer;
+    font-family: var(--primary-font);
+    white-space: nowrap;
+    padding: 10px;
+    text-align: center;
+  }
+}
+
