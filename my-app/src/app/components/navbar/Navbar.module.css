@@ -1,0 +1,231 @@
+
+#bars{
+  display: none;
+}
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--seconday-color);
+  padding: 36px 60px 36px 60px;
+  /* width: 1512px; */
+  height: 128px;
+}
+.ultag{
+  list-style: none;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  /* width: 727px;
+  height: 56px; */
+}
+
+.logo {
+  font-size: 20px;
+  font-weight: bold;
+  color: var(--primary-color);
+  position: relative;
+  display: flex;
+  align-items: center;
+  /* justify-content: space-between; */
+  width: 191px;
+  height: 56px;
+}
+
+.logofst{
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--primary-color);
+}
+.logoscd{
+  padding:5px;
+  font-family: var(--primary-font);
+}
+
+.logoImg{
+  position: relative;
+  top:8.25px;
+  left:8.25px;
+}
+
+.navLinks {
+  display: flex;
+  gap: 20px;
+  list-style: none;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.navLinks li {
+  font-size: 16px;
+  cursor: pointer;
+  /* color: #444; */
+  /* transition: color 0.3s ease-in-out; */
+  font-family: var(--primary-font);
+  white-space: nowrap;
+}
+#cros{
+  display: none;
+}
+
+
+.authButtons {
+  display: flex;
+  gap: 15px;
+  list-style: none;
+  width: 16rem;
+  height: 3rem;
+  display: flex;
+  justify-content: flex-end;
+
+}
+.libtn{
+  display: none;
+}
+
+/* media query */
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  .navbar {
+    
+    padding: 26px 20px 26px 20px;
+   
+  }
+  .ultag{
+    justify-content: flex-start;
+  }
+  .logo {
+    width: 160px;
+    height: 56px;
+  }
+  .authButtons{
+    align-items: center;
+  }
+}
+
+
+@media (min-width: 320px) and (max-width: 768px) {
+  .navbar {
+      padding: 26px 20px;
+  }
+
+  .navLinks {
+      display: none;
+  }
+
+  .ultag {
+      width: 75%;
+  }
+
+  #bars {
+      display: block;
+      font-size: 24px;
+      cursor: pointer;
+  }
+
+  .navLinkContainer {
+      order: 0;
+      width: 25%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+  }
+
+  .logo {
+      order: 1;
+      width: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+  }
+
+  .authButtons {
+      display: none;
+  }
+
+  /* 🔹 Sidebar Styling */
+  .sidebarMenu {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 50%;
+      height: 100vh;
+      background-color: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      box-shadow: -4px 0 10px rgba(0, 0, 0, 0.2);
+      transition: right 0.3s ease-in-out;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      gap:50px;
+      padding-top: 100px;
+      z-index: 1001;
+      font-family: var(--primary-font);
+  }
+
+  #cros{
+    display: block;
+    position: relative;
+    /* left: 100px;
+    top:0; */
+  }
+
+  .logofst{
+    object-fit: cover; 
+    flex-shrink: 0;
+  }
+
+  /* Show sidebar */
+  .showMenu {
+      right: 0;
+  }
+
+  /* Sidebar Links */
+  .sidebarLinks {
+      list-style: none;
+      padding: 0;
+      width: 100%;
+      text-align: center;
+  }
+
+  .sidebarLinks li {
+      font-size: 18px;
+      padding: 15px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+  }
+
+  .sidebarLinks li:hover {
+      background-color: rgba(0, 0, 0, 0.1);
+  }
+
+  /* Sidebar Buttons */
+  .libtn {
+      padding: 15px;
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+  }
+
+  /* Close Button */
+  #closeBtn {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      font-size: 24px;
+      cursor: pointer;
+  }
+
+  /* Overlay Effect */
+  .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 1000;
+  }
+}

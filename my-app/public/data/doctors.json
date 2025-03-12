@@ -1,0 +1,75 @@
+[
+    {
+        "id":1,
+      "name": "Dr. Sophia Patel",
+      "degree": "MD, PhD",
+      "img_url": "https://plus.unsplash.com/premium_photo-1682089874677-3eee554feb19?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "age": 45,
+      "speciality": "Cardiologist",
+      "rating": 3,
+      "gender": "Female",
+      "experience": 20,
+      "college": "Harvard Medical School"
+    },
+    {
+        "id":2,
+      "name": "Dr. Rajesh Verma",
+      "degree": "MBBS",
+      "img_url": "https://plus.unsplash.com/premium_photo-1658506671316-0b293df7c72b?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "age": 50,
+      "speciality": "Neurologist",
+      "rating": 4.7,
+      "gender": "Male",
+      "experience": 25,
+      "college": "Johns Hopkins University"
+    },
+    {
+        "id":3,
+      "name": "Dr. Emily Thompson",
+      "degree": "PBS",
+      "img_url": "https://plus.unsplash.com/premium_photo-1661341423936-40b48564a5bf?q=80&w=1976&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "age": 38,
+      "speciality": "Dermatologist",
+      "rating": 4.5,
+      "gender": "Female",
+      "experience": 12,
+      "college": "Stanford University"
+    },
+    {
+        "id":4,
+      "name": "Dr. Michael Chen",
+      "degree": "FNB",
+      "img_url": "https://plus.unsplash.com/premium_photo-1661578535048-7a30e3a71d25?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "age": 42,
+      "speciality": "Orthopedic Surgeon",
+      "rating": 4.6,
+      "gender": "Male",
+      "experience": 15,
+      "college": "Mayo Clinic School of Medicine"
+    },
+    {
+        "id":5,
+      "name": "Dr. Aisha Khan",
+      "degree": "MDS",
+      "img_url": "https://plus.unsplash.com/premium_photo-1661580574627-9211124e5c3f?q=80&w=1587&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "age": 37,
+      "speciality": "Pediatrician",
+      "rating": 4.9,
+      "gender": "Female",
+      "experience": 10,
+      "college": "University of Oxford"
+    },
+    {
+        "id":6,
+      "name": "Dr. Daniel Rodriguez",
+      "degree": "BHMS",
+      "img_url": "https://plus.unsplash.com/premium_photo-1723514536306-26fe5c4adeb7?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "age": 48,
+      "speciality": "Oncologist",
+      "rating": 4.7,
+      "gender": "Male",
+      "experience": 18,
+      "college": "University of California, San Francisco"
+    }
+  ]
+  

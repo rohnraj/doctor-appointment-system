@@ -1,0 +1,360 @@
+/* General styles */
+.section{
+    position: relative;
+    top:20px;
+}
+
+.headerContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 120px;
+    font-family: var(--primary-font);
+}
+
+.headerpara {
+    font-size: 20px;
+}
+
+/* Search Bar */
+.inputContainer {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: 80%;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.inputContainer input {
+    flex: 1;
+    padding: 16px 40px;
+    /* border: 1px solid #ccc; */
+    font-size: 16px;
+    outline: none;
+    border: none;
+    width: 90%;
+}
+.inputContainer i{
+    position: relative;
+    left:15px;
+}
+
+.inputContainer button {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 16px 40px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;    
+    min-width: 10%;
+}
+
+/* Main Container */
+.mainContainer {
+    padding: 40px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap:40px;
+}
+
+/* Header */
+.mainheader {
+    height: auto;
+    font-family: var(--primary-font);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.mainheader h1 {
+    margin-bottom: 10px;
+}
+
+.mainheader p {
+    font-size: 12px;
+}
+
+/* Container holding filters & doctors */
+.container {
+    display: flex;
+    gap: 50px;
+    min-height: auto;
+}
+
+/* Sidebar (Filters) */
+.aside {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 30%;
+}
+.asidefstDiv{
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--primary-font);
+    font-size: 12px;
+}
+
+.filterContainer {
+    display: grid;
+    grid-template-rows: 2fr 2fr 1fr;
+    gap: 10px;
+    height: 85%;
+}
+
+/* Individual Filters */
+.rating, .experience, .gender {
+    background-color: #FBFBFB;
+    border: 1px solid #E0E8E0;
+    border-radius: 16px;
+    padding: 10px 20px;
+    font-family: var(--primary-font);
+    font-size: 0.7rem;
+    font-weight: bold;
+    /* height: 100%; */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.radioInp {
+    display: flex;
+    gap: 5px;
+}
+
+.filterhead{
+    display: none;
+}
+
+.filtermain{
+    height: 90%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+/* Doctor Cards Grid */
+.doctorCard {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 15px;
+    width: 70%;
+    justify-items: center;
+    align-items: center;
+}
+
+/* Individual Doctor Cards */
+/* .doctor {
+    background-color: #F8FCF9;
+    border-radius: 16px;
+    border: 1px solid #E0E8E0;
+    width: 100%;
+    max-width: 220px;
+    padding: 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    gap: 30px;
+    font-family: var(--primary-font);
+} */
+/* .doctor p{
+    padding:5px;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    gap:2px;
+} */
+
+/* .doctor div:nth-of-type(2){
+    font-size: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap:5px;
+} */
+/* .doctor div:nth-of-type(2) p{
+    display: flex;
+    justify-content: space-evenly;
+} */
+/* .doctor div:nth-of-type(2) p>span{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+} */
+
+/* .doctor div:nth-of-type(2) p>span img , .doctor div:nth-of-type(2) p>span span{
+    padding:2px;
+    opacity: 0.5;
+    font-size: 10px;
+} */
+/* Doctor Profile Picture */
+/* .displayPhoto {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.displayPhoto img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+} */
+
+/* Doctor Details */
+/* .name {
+    font-size: 13px;
+    font-weight: bold;
+    color: #2d2d2d;
+    margin: 5px 0;
+} */
+
+/* .specialityExp p {
+    font-size: 14px;
+    color: #6b6b6b;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+} */
+
+/* Book Button */
+/* .btn {
+    background-color: #F8FCF9;
+    border: 1px solid #DEDEDE;
+    color: var(--primary-color);
+    padding: 8px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    width: 100%;
+} */
+
+/* 📱 Responsive Fixes */
+@media (max-width: 1024px) {
+    .container {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .aside {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .filterContainer {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        width: 100%;
+        align-items: center;
+    }
+    
+    .asidefstDiv{
+        width: 80%;
+    }
+    .filterContainer div {
+        width: 80%;
+    }
+    
+    .rating, .experience, .gender {
+        background-color: #FBFBFB;
+        border: 1px solid #E0E8E0;
+        border-radius: 16px;
+        padding: 10px 20px;
+        font-family: var(--primary-font);
+        font-size: 0.9rem;
+        font-weight: bold;
+        width: 100%;
+    }
+    
+    .rating label, .experience label, .gender label {
+        display: block;
+        margin-bottom: 5px;
+        font-size: 1rem;
+        font-weight: bold;
+        color: #333;
+    }
+    
+    .showInp{
+        display: none;
+    }
+    
+    
+    .rating select, .experience select, .gender select {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        font-size: 1rem;
+        background-color: white;
+        cursor: pointer;
+    }
+    
+    .doctorCard {
+        width: 100%;
+    }
+
+    .filterhead{
+        display: flex;
+        width: 100% !important;
+        justify-content: space-between;
+    }
+    .rating> label, .experience>label, .gender>label{
+        display: none;
+    }
+}
+
+
+@media (max-width: 768px) {
+    .doctorCard {
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    }
+    .aside{
+        justify-content: center;
+        align-items: center;
+    }
+    .filterContainer{
+        width: 70%;
+        grid-template-rows: 1fr 1fr 1fr;
+        grid-template-columns: none;
+        /* gap: 10px; */
+    }
+    .filterContainer div{
+        width: 100%;
+    }
+    .asidefstDiv{
+        width: 50%;
+    }
+    /* .aside{
+        order:2;
+    }
+    .doctorCard{
+        order:1;
+    } */
+    .inputContainer{
+        max-width: 90%;
+    }
+    .headerContainer {
+        justify-content: space-evenly;
+    }
+    .headerpara {
+        font-size: 15px;
+    }
+    .mainheader h1 {
+        font-size: 27px;
+    }
+}
