@@ -5,7 +5,7 @@ interface ButtonProps {
   text: string;
   onClick?: () => void;
   type?: "button" | "submit" | "reset";
-  variant?: "smallGreenBtn" | "smallWhiteBtn" | "largeGreenBtn" | "largeBrownBtn" | "mainPageButton" | "tinyGreenBtn" | "tinyWhiteBtn" | "cardButton"; 
+  variant?: "smallGreenBtn" | "smallWhiteBtn" | "largeGreenBtn" | "largeBrownBtn" | "mainPageButton" | "tinyGreenBtn" | "tinyWhiteBtn" | "cardButton" | "cardButtonGreen"; 
   disabled?: boolean;
 }
 

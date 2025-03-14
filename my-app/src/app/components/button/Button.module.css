@@ -95,3 +95,14 @@
     font-size: 14px;
     width: 100%;
 }
+
+.cardButtonGreen {
+    background-color: var(--primary-color);
+    border: 1px solid #DEDEDE;
+    color: var(--seconday-color);
+    padding: 8px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    width: 35%;
+}

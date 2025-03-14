@@ -9,7 +9,8 @@
       "rating": 3,
       "gender": "Female",
       "experience": 20,
-      "college": "Harvard Medical School"
+      "college": "Harvard Medical School",
+      "address": "123 Main St, New York, NY 10001"
     },
     {
         "id":2,
@@ -21,7 +22,8 @@
       "rating": 4.7,
       "gender": "Male",
       "experience": 25,
-      "college": "Johns Hopkins University"
+      "college": "Johns Hopkins University",
+      "address": "MedicareHeart Institute, Okhla Road"
     },
     {
         "id":3,
@@ -33,7 +35,8 @@
       "rating": 4.5,
       "gender": "Female",
       "experience": 12,
-      "college": "Stanford University"
+      "college": "Stanford University",
+      "address": "AIMS, New Delhi"
     },
     {
         "id":4,
@@ -45,7 +48,8 @@
       "rating": 4.6,
       "gender": "Male",
       "experience": 15,
-      "college": "Mayo Clinic School of Medicine"
+      "college": "Mayo Clinic School of Medicine",
+      "address":"Apollo , Gurugram Haryana"
     },
     {
         "id":5,
@@ -57,7 +61,8 @@
       "rating": 4.9,
       "gender": "Female",
       "experience": 10,
-      "college": "University of Oxford"
+      "college": "University of Oxford",
+      "address": "Balaji Action Hospital, paschim vihar"
     },
     {
         "id":6,
@@ -69,7 +74,8 @@
       "rating": 4.7,
       "gender": "Male",
       "experience": 18,
-      "college": "University of California, San Francisco"
+      "college": "University of California, San Francisco",
+      "address": "Medanta, Gurugram Haryana"
     }
   ]
   
