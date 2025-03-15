@@ -68,11 +68,11 @@ const page: React.FC<Doctor>=({address})=> {
                     <article>
                         <div className={styles.heading_and_button}>
                             <p>Schedule Appointment</p>
-                            <Button text={'Book Appointment'} onClick={()=>{}} type={'submit'} variant={'cardButtonGreen'}/>
+                            <Button text={'Book Appointment'} onClick={()=>{}} type={'submit'} variant={'smallcardButtonGreen'}/>
                         </div>
                         <div className={styles.booking}>
-                            <button className="btn active">Book Video Consult</button>
-                            <button className="btn">Book Hospital Visit</button>
+                            <button>Book Video Consult</button>
+                            <button>Book Hospital Visit</button>
                         </div>
                         <div className={styles.address}>
                             <div className={styles.select} onClick={()=>setIsOpen(!isOpen)}>
@@ -96,16 +96,46 @@ const page: React.FC<Doctor>=({address})=> {
                     <article>
                         <div className={styles.slotOne}>
                             <div>
-                                <span>Morning</span>
+                                <span>
+                                    <i className="fa-solid fa-cloud-sun"></i>
+                                    <label>Morning</label>
+                                </span>
                                 <span>2 slot</span>
                             </div>
                             <hr/>
-                            <div></div>
+                            <div>
+                                <span><Button text={'9:00 AM'} onClick={()=>{}} type={'submit'} variant={'slotGreenBtn'}/></span>
+                                <span><Button text={'9:30 AM'} onClick={()=>{}} type={'submit'} variant={'slotGreenBtn'}/></span>
+                                <span><Button text={'10:00 AM'} onClick={()=>{}} type={'submit'} variant={'slotGreenBtn'}/></span>
+                                <span><Button text={'10:30 AM'} onClick={()=>{}} type={'submit'} variant={'slotGreenBtn'}/></span>
+                                <span><Button text={'11:00 AM'} onClick={()=>{}} type={'submit'} variant={'slotGreenBtn'}/></span>
+                                <span><Button text={'11:30 AM'} onClick={()=>{}} type={'submit'} variant={'slotGreenBtn'}/></span>
+                                <span><Button text={'12:00 AM'} onClick={()=>{}} type={'submit'} variant={'slotGreenBtn'}/></span>
+                                <span><Button text={'12:30 PM'} onClick={()=>{}} type={'submit'} variant={'slotGreenBtn'}/></span>
+                            </div>
                         </div>
                         <div className={styles.slotTwo}>
-
+                            <div>
+                                <span>
+                                    <i className="fa-solid fa-cloud-moon"></i>
+                                    <label>Afternoon</label>
+                                </span>
+                                <span>2 slot</span>
+                            </div>
+                            <hr/>
+                            <div>
+                                <span><Button text={'1:00 PM'} onClick={()=>{}} type={'submit'} variant={'slotGreenBtn'}/></span>
+                                <span><Button text={'1:30 PM'} onClick={()=>{}} type={'submit'} variant={'slotGreenBtn'}/></span>
+                                <span><Button text={'2:00 PM'} onClick={()=>{}} type={'submit'} variant={'slotGreenBtn'}/></span>
+                                <span><Button text={'2:30 PM'} onClick={()=>{}} type={'submit'} variant={'slotGreenBtn'}/></span>
+                                <span><Button text={'3:00 PM'} onClick={()=>{}} type={'submit'} variant={'slotGreenBtn'}/></span>
+                                <span><Button text={'3:30 PM'} onClick={()=>{}} type={'submit'} variant={'slotGreenBtn'}/></span>
+                                <span><Button text={'4:00 PM'} onClick={()=>{}} type={'submit'} variant={'slotGreenBtn'}/></span>
+                                <span><Button text={'4:30 PM'} onClick={()=>{}} type={'submit'} variant={'slotGreenBtn'}/></span>
+                            </div>
                         </div>
                     </article>
+                    <Button text={'Next'} onClick={()=>{}} type={'submit'} variant={'largeGreenBtn'}/>
                 </div>
             </div>
         </main>

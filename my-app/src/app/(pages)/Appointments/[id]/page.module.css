@@ -1,7 +1,7 @@
 
 .hero{
     display: flex;
-    height: 860px;
+    min-height: 860px;
 }
 
 .fstcontainer{
@@ -76,6 +76,7 @@
     font-family: var(--primary-font);
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 .heading_and_button p{
     font-size: 18px;
@@ -181,39 +182,100 @@
 }
 .slotContainer article:nth-child(3) > .slotOne{
     width: 100%;
-    height: 180px;
+    min-height: 180px;
     box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
 }
 
 .slotContainer article:nth-child(3) > .slotTwo{
     width: 100%;
-    height: 180px;
+    min-height: 180px;
     box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
 }
 
-.slotOne > div:nth-child(1){
+.slotOne > div:nth-of-type(1){
     height:20%;
     display: flex;
     justify-content: space-between;
-    padding:16px 30px;
+    padding:2% 4%;
 }
-.slotOne > div:nth-child(2){
+.slotOne > div:nth-of-type(1) span:nth-child(1){
+    display: flex;
+    gap:5px;
+}
+.slotOne > div:nth-of-type(1) span:nth-child(2){
+    background-color: #EDEBFF;
+    border-radius: 10px;
+    font-size: 12px;
+    width: 60px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.slotOne>hr{
+    opacity: 0.2;
+}
+
+.slotOne > div:nth-of-type(2){
     height:80%;
+    padding:2% 4%;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap:10px;
+    align-items: center;
+    justify-items: center;
 }
+
+.slotTwo > div:nth-of-type(1){
+    height:20%;
+    display: flex;
+    justify-content: space-between;
+    padding:2% 4%;
+}
+.slotTwo > div:nth-of-type(1) span:nth-child(1){
+    display: flex;
+    gap:5px;
+}
+.slotTwo > div:nth-of-type(1) span:nth-child(2){
+    background-color: #EDEBFF;
+    border-radius: 10px;
+    font-size: 12px;
+    width: 60px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.slotTwo>hr{
+    opacity: 0.2;
+}
+.slotTwo > div:nth-of-type(2){
+    height:80%;
+    padding:2% 4%;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap:10px;
+    align-items: center;
+    justify-items: center;
+}
+
+/* .slotOne > div:nth-of-type(2)> span{
+    padding:5px 0px;
+} */
 /* media query */
 /* Tablets (max-width: 1024px) */
 @media (min-width: 768px) and (max-width: 1024px) {
 
   .fstcontainer{
-    height: 100%;
-    width: 50%;
-
+    /* height: 100%;
+    width: 50%; */
+    display: none;
   }
   .scdcontainer{
     height: 100%;
-    width: 50%;
+    width: 100%;
 
   }
 
@@ -225,8 +287,8 @@
         /* flex-shrink: 0; */
     }
     .containt{
-        width: 90%;
-        height: 80%;
+        width: 100%;
+        height: 100%;
     }
 
 
@@ -238,14 +300,18 @@
         flex-direction: column;
     }
     .fstcontainer{
-        height: 50%;
+        /* height: 50%;
         width: 100%;
-        order: 2;
+        order: 2; */
+        display: none;
     }
     .scdcontainer{
-        height: 50%;
+        height: 100%;
         width: 100%;
         order: 1;
+    }
+    .heading_and_button p{
+        font-size: 14px;
     }
     .heroImg{
         width: 100%;
@@ -262,6 +328,18 @@
     } */
     .getstartedbtn{
         font-size: 8px;
+    }
+
+    .booking button:nth-child(1) {
+        font-size: 12px;
+    }
+    
+    .booking button:nth-child(2) {
+        font-size: 12px;
+    }
+
+    .showpTag{
+        font-size: 12px;
     }
 }
   
