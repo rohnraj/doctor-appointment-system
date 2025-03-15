@@ -30,6 +30,7 @@
   /* justify-content: space-between; */
   width: 191px;
   height: 56px;
+  cursor: pointer;
 }
 
 .logofst{

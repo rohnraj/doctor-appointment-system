@@ -15,7 +15,7 @@ export default function Navbar() {
     <>
     <nav className={styles.navbar}>
         <ul className={styles.ultag}>
-            <li className={styles.logo}>
+            <li className={styles.logo} onClick={()=>router.push('/')}>
                 <div className={styles.logofst}><img src='/assets/Trust.png' alt='logo here' className={styles.logoImg} /></div>
                 <div className={styles.logoscd}>MedCare</div>
             </li>
@@ -27,20 +27,20 @@ export default function Navbar() {
                     <li id={styles.cros} onClick={()=>{
                         setMenuOpen(!menuOpen);
                     }}><i className="fa-solid fa-xmark"></i></li>
-                    <li onClick={()=>router.push('/home')}>Home</li>
+                    <li onClick={()=>router.push('/')}>Home</li>
                     <li onClick={()=>router.push('/Appointments')}>Appointments</li>
                     <li>Health Blog</li>
                     <li>Reviews</li>
                     <li className={styles.libtn}>
-                        <span><Button text={'Login'} onClick={()=>{}} type={'submit'} variant={'tinyWhiteBtn'}/></span>
-                        <span><Button text={'Register'} onClick={()=>{}} type={'submit'} variant={'tinyGreenBtn'}/></span>
+                        <span><Button text={'Login'} onClick={()=>router.push('/login')} type={'submit'} variant={'tinyWhiteBtn'}/></span>
+                        <span><Button text={'Register'} onClick={()=>router.push('/signup')} type={'submit'} variant={'tinyGreenBtn'}/></span>
                     </li>
                 </ul>
             </li>
         </ul>
         <ul className={styles.authButtons}>
-            <li><Button text={'Login'} onClick={()=>{}} type={'submit'} variant={'smallWhiteBtn'}/></li>
-            <li><Button text={'Register'} onClick={()=>{}} type={'submit'} variant={'smallGreenBtn'}/></li>
+            <li><Button text={'Login'} onClick={()=>router.push('/login')} type={'submit'} variant={'smallWhiteBtn'}/></li>
+            <li><Button text={'Register'} onClick={()=>router.push('/signup')} type={'submit'} variant={'smallGreenBtn'}/></li>
         </ul>
     </nav>
     </>
