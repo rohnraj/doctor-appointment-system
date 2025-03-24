@@ -1,4 +1,5 @@
 import "./globals.css";
+import IsAuthProvider from "./components/useContext/ContextProvider";
 
 export default function RootLayout({
   children,
@@ -12,7 +13,10 @@ export default function RootLayout({
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"/>
       </head>
       <body>
-        {children}
+        <IsAuthProvider>
+
+          {children}
+        </IsAuthProvider>
       </body>
     </html>
   );

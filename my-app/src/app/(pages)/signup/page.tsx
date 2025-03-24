@@ -5,58 +5,123 @@ import React from 'react'
 import styles from './page.module.css'
 import Navbar from '@/app/components/navbar/Navbar'
 import Button from '@/app/components/button/Button'
+import { useRouter } from 'next/navigation'
+
+interface User {
+    email: string;
+    google_id: string | null;
+    id: string;
+    name: string;
+    password: string;
+    phone: string;
+    role: string;
+  }
+  
+  interface SignupResponse {
+    message: string;
+    success: boolean;
+    token: string;
+    user: User;
+  }
+
+
 
 export default function page() {
 
     let [eyetoggle, seteyetoggle] = React.useState(true);
-    let [passwrdTyep, setpasswrdType] = React.useState('password');
+    let [passwrdType, setpasswrdType] = React.useState('password');
+
+    let [role, setrole]= React.useState('')
+    let [name, setname]= React.useState('')
+    let [email, setemail]= React.useState('')
+    let [phone, setphone]= React.useState<number | null>(null)
+    let [password, setpassword]= React.useState('')
+
+    // let [tokenData, setTokenData]=React.useState<SignupResponse | null>(null)
+
+    async function handleSingup(e: React.FormEvent){
+        e.preventDefault();
+        try{
+
+            const res:SignupResponse=await (await fetch('http://localhost:8080/api/auth/signup',
+                {
+                    headers: {
+                        'Accept': 'application/json',
+                      'Content-Type': 'application/json',
+                    //   'authorization':`Bearer ${localStorage.getItem('token')}` 
+                    },
+                    method: "POST",
+                    body: JSON.stringify({role, name, email, password, phone})
+                })).json()
+            console.log(res)
+            // setTokenData(res);
+            
+            if(res.success){
+                // doubt why ye chal gya with res.success not with tokenData?.Data
+                alert('use Resgistered')
+                // localStorage.setItem('token', res.token); 
+                // localStorage.setItem('user', JSON.stringify(res.user));
+                router.push('/login')
+            } 
+            else alert('Failed To Resgistered')
+        }
+        catch(err){
+            console.log(err);
+        }
+
+    }
+
+    // if(tokenData) console.log(tokenData.success)
+    // else console.log('no data inside tokenData')
+
+    let router=useRouter()
     return (
         <>
-        
+
             <Navbar/>
             <div className={styles.pageContainer}>
                 <div className={styles.formContainer}>
                     <div className={styles.loginHeading}>Sign Up</div><br/>
                     <div className={styles.para}>Already a member? <strong>Login.</strong></div>
 
-                    <form action="#" className={styles.form}>
+                    <form action="#" className={styles.form} onSubmit={handleSingup}>
 
-                        {/* <div className={`${styles.RoleContainer} ${styles.inputContainer}`}>
+                        <div className={`${styles.RoleContainer} ${styles.inputContainer}`}>
                             <i className="fa-solid fa-user"></i>
                             <label htmlFor="Role">Role</label>
-                            <input type="text" id='Role'  className={styles.RoleInp} placeholder='Select Role'/><br/><br/>
-                        </div> */}
+                            <input type="text" id='Role'  className={styles.RoleInp} placeholder='Select Role' onChange={(e:any)=>setrole(e.target.value)}/><br/><br/>
+                        </div>
 
                         <div className={`${styles.NameContainer}  ${styles.inputContainer}`}>
                             <i className="fa-solid fa-id-card"></i>
                             <label htmlFor="Name">Name</label>
-                            <input type="text" id='Name' placeholder='Enter your name'/><br/><br/>
+                            <input type="text" id='Name' placeholder='Enter your name' onChange={(e)=>setname(e.target.value)}/><br/><br/>
                         </div>
 
-                        {/* <div className={`${styles.phoneContainer}  ${styles.inputContainer}`}>
+                        <div className={`${styles.phoneContainer}  ${styles.inputContainer}`}>
                             <i className="fa-solid fa-phone"></i>
                             <label htmlFor="phone">phone</label>
-                            <input type="text" id='phone' placeholder='Enter your number'/><br/><br/>
-                        </div> */}
+                            <input type="text" id='phone' placeholder='Enter your number' onChange={(e)=>setphone(Number(e.target.value))}/><br/><br/>
+                        </div>
 
                         <div className={`${styles.emailContainer} ${styles.inputContainer}`}>
                             <i className="fa-solid fa-at" id={styles.iconAt}></i>
                             <label htmlFor="email">Email</label>
-                            <input type='text' id='email'  className={styles.emailInp} placeholder='Enter your email address'/><br/><br/>
+                            <input type='text' id='email'  className={styles.emailInp} placeholder='Enter your email address' onChange={(e)=>setemail(e.target.value)}/><br/><br/>
                         </div>
 
                         <div className={`${styles.passwrdContainer} ${styles.inputContainer}`}>
                             <i className="fa-solid fa-lock"></i>
                             <span onClick={()=>{
                                 seteyetoggle(!eyetoggle);
-                                setpasswrdType(passwrdTyep==='password' ? 'text' : 'password');
+                                setpasswrdType(passwrdType==='password' ? 'text' : 'password');
                             }}>{eyetoggle===true ? <i className="fa-solid fa-eye" id={styles.iconeye}></i> : <i className="fa-solid fa-eye-slash" id={styles.iconeye}></i>}</span>
                             <label htmlFor="passwrd">Password</label>
-                            <input type={passwrdTyep==='password'? 'password' : 'text'} id='passwrd' /><br/><br/>
+                            <input type={passwrdType==='password'? 'password' : 'text'} id='passwrd' onChange={(e)=>setpassword(e.target.value)}/><br/><br/>
                         </div>
 
                         <div className={styles.btnContainer}>
-                            <Button text={'Login'} onClick={()=>{}} type={'submit'} variant={'largeGreenBtn'}/>
+                            <Button text={'Sign Up'} type={'submit'} variant={'largeGreenBtn'}/>
                             <Button text={'Reset'} onClick={()=>{}} type={'submit'} variant={'largeBrownBtn'}/>
                         </div>
 

@@ -97,8 +97,9 @@
     top: 50%;
     transform: translateY(-50%);
     color: gray;
-    opacity: 0.5;
+    opacity: 1;
 }
+
 .inputContainer i{
     position: absolute;
     left: 20px;

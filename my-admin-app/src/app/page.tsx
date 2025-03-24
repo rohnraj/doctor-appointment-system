@@ -39,7 +39,7 @@ export default function page() {
                     alert(`${res.message}`)
                     // localStorage.setItem('token', res.token); 
                     // localStorage.setItem('user', JSON.stringify(res.user));
-                    router.push('/Appointments')
+                    router.push('/home')
                 } 
                 else alert('Failed To Resgistered')
             }

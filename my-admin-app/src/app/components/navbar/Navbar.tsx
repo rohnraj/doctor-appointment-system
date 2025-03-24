@@ -2,7 +2,7 @@
 
 import React , {useState, useEffect} from "react";
 import styles from "./Navbar.module.css";
-import Button from "../button/Button";
+import Button from "@/app/components/button/Button";
 import Link from "next/link";
 import { link } from "fs";
 import { useRouter } from "next/navigation";
@@ -51,7 +51,7 @@ export default function Navbar() {
         if(localStorage.getItem("token")){
             router.push(route);
         }else{
-            router.push("/login");
+            router.push("/");
         }
     }
 
@@ -62,7 +62,7 @@ export default function Navbar() {
             credentials: "include",
         })).json();
 
-        if(res.success) router.push("/login"); 
+        if(res.success) router.push("/"); 
     };
 
   return (
@@ -81,11 +81,10 @@ export default function Navbar() {
                     <li id={styles.cros} onClick={()=>{
                         setMenuOpen(!menuOpen);
                     }}><i className="fa-solid fa-xmark"></i></li>
-                    <li onClick={()=>router.push('/')}>Home</li>
-                    <li onClick={()=>handleRoute('/Appointments')}>Appointments</li>
+                    <li onClick={()=>handleRoute('/home')}>Home</li>
                     {/* <li onClick={()=>handleRoute('/healthblog')}>Health Blog</li>  --do this when Health blog page is ready, same for Reviews*/}
-                    <li>Health Blog</li>
-                    <li>Reviews</li>
+                    <li onClick={()=>handleRoute('/add-doctor')}>Add Doctor</li>
+                    <li onClick={()=>handleRoute('/remove-doctor')}>Remove Doctor</li>
                     <li className={styles.libtn}>
                     {isAuth ? (
                         <span>
@@ -94,10 +93,7 @@ export default function Navbar() {
                     ) : (
                         <>
                             <span>
-                                <Button text={"Login"} onClick={() => router.push("/login")} type={"submit"} variant={"tinyWhiteBtn"} />
-                            </span>
-                            <span>
-                                <Button text={"Register"} onClick={() => router.push("/signup")} type={"submit"} variant={"tinyGreenBtn"} />
+                                <Button text={"Login"} onClick={() => router.push("/")} type={"submit"} variant={"tinyWhiteBtn"} />
                             </span>
                         </>
                     )}
@@ -113,10 +109,7 @@ export default function Navbar() {
                 ) : (
                     <>
                         <li>
-                            <Button text={"Login"} onClick={() => router.push("/login")} type={"submit"} variant={"smallWhiteBtn"} />
-                        </li>
-                        <li>
-                            <Button text={"Register"} onClick={() => router.push("/signup")} type={"submit"} variant={"smallGreenBtn"} />
+                            <Button text={"Login"} onClick={() => router.push("/")} type={"submit"} variant={"smallWhiteBtn"} />
                         </li>
                     </>
                 )}
