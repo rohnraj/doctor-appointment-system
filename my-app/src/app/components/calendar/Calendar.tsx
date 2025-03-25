@@ -1,7 +1,10 @@
 import { useState, useRef, useEffect } from "react";
 import styles from "./Calendar.module.css";
 
-const Calendar = () => {
+interface childProp{
+  handleprops: (data: Date)=>void 
+}
+const Calendar : React.FC<childProp> = ({handleprops}) => {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [currentMonth, setCurrentMonth] = useState(new Date());
   const [visibleDates, setVisibleDates] = useState<Date[]>([]);
@@ -78,6 +81,7 @@ const Calendar = () => {
               }`}
               onClick={() => {
                   setSelectedDate(date)
+                  handleprops(date)
                   console.log(selectedDate)
                 }
               }

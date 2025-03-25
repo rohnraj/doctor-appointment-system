@@ -40,7 +40,7 @@ function AddDoctor() {
   
     setFormData((prev) => ({
       ...prev,
-      [name]: name === "availableTimes" ? value.split(",").map(time => time.trim()) : value
+      [name]: name === "availableTimes" || name === "availableDate" ? value.split(",").map(time => time.trim()) : value
     }));
 
 

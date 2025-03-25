@@ -5,16 +5,16 @@ import { getTopDoctors, searchDoctors, getDoctorById, createDoctor, getAllDoctor
 export const createDoctorController = async (req, res) => {
   try {
     console.log('create controller running');
-    const { name, specialty, experience, degree, location, availableTimes, photo, gender } = req.body;
+    const { name, specialty, experience, degree, location, availableTimes, availableDate, photo, gender } = req.body;
     console.log(req.body);
 
     // Check for required fields
-    if (!name || !photo || !specialty || !experience || !degree || !location || !availableTimes || !gender) {
+    if (!name || !photo || !specialty || !experience || !degree || !location || !availableTimes || !availableDate || !gender) {
       return res.status(400).json({ error: "All fields are required." });
     }
 
     // Create doctor
-    const newDoctor = await createDoctor(null, name, photo, specialty, experience, degree, location, availableTimes, gender);
+    const newDoctor = await createDoctor(null, name, photo, specialty, experience, degree, location, availableTimes, availableDate, gender);
 
     res.status(201).json({ message: "Doctor created successfully", doctor: newDoctor });
   } catch (error) {

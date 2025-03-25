@@ -1,15 +1,18 @@
 import pool from "../config/db.js";
 import { v4 as uuidv4 } from "uuid"; // Import UUID generator
 
-export const createDoctor = async (userId, name, photo, specialty, experience, degree, location, availableTimes, gender) => {
+export const createDoctor = async (userId, name, photo, specialty, experience, degree, location, availableTimes, availableDate, gender) => {
   if (!userId) userId = uuidv4(); // Generate UUID if missing
 
+  // console.log(typeof availableTimes)
+  const availableDates = availableDate.split(',')
+  console.log(availableDates)
   const query = `
-    INSERT INTO doctors (user_id, name, photo, specialty, experience, degree, location, available_times, gender, rating) 
-    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, 0) 
+    INSERT INTO doctors (user_id, name, photo, specialty, experience, degree, location, available_times, available_dates, gender, rating) 
+    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, 0) 
     RETURNING *;
   `;
-  const values = [userId, name, photo, specialty, experience, degree, location, JSON.stringify(availableTimes), gender];
+  const values = [userId, name, photo, specialty, experience, degree, location, availableTimes, availableDates, gender];
 
   const result = await pool.query(query, values);
   return result.rows[0];
