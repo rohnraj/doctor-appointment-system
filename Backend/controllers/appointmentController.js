@@ -4,7 +4,7 @@ import { sendAppointmentEmail } from "../utils/emailService.js"; // Import email
 
 export const bookAppointmentController = async (req, res) => {
   try {
-    const { doctorId, userId, timeSlot, details, consultType, patientInfo } = req.body;
+    const { doctorId, userId, timeSlot, details, consultType } = req.body;
 
     if (!doctorId || !userId || !timeSlot || !consultType) {
       return res.status(400).json({ success: false, message: "Missing required fields" });
@@ -25,7 +25,6 @@ export const bookAppointmentController = async (req, res) => {
       timeSlot,
       details,
       consultType,
-      patientInfo,
       doctor.location // Fetch doctor’s location from DB
     );
 

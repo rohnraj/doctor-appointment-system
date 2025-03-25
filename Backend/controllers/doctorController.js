@@ -1,4 +1,4 @@
-import { getTopDoctors, searchDoctors, getDoctorById, createDoctor, getAllDoctorsModel, deleteDoctorById } from "../models/doctorModel.js";
+import { getTopDoctors, searchDoctors, getDoctorById, createDoctor, getAllDoctorsModel, deleteDoctorById, availableSlotModel } from "../models/doctorModel.js";
 // import * as res from 'express/lib/response';
 
 // Only Admins Can Create Doctors
@@ -85,6 +85,25 @@ export const deleteDoctorController = async(req, res) =>{
     const doctor = await deleteDoctorById(id);
 
     res.status(200).json({ success: true, doctor });
+  } catch (error) {
+    res.status(500).json({ success: false, message: "Server error" });
+  }
+}
+
+//getting avaliable slot
+export const getAvailableSlotController = async(req, res) =>{
+  try {
+    const { id } = req.params;
+    if (!id) return res.status(404).json({ success: false, message: "ID not found" });
+
+    try{
+
+      const availableSlots = await availableSlotModel(id);
+      res.status(200).json({ success: true, availableSlots });
+    }
+    catch(err){
+      res.status(500).json({ success: false, message: "error while collecting available slot from DB" });
+    }
   } catch (error) {
     res.status(500).json({ success: false, message: "Server error" });
   }

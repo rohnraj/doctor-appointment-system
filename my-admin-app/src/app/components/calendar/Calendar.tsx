@@ -1,7 +1,10 @@
 import { useState, useRef, useEffect } from "react";
 import styles from "./Calendar.module.css";
 
-const Calendar = () => {
+interface childProp{
+  handleDatesArr: (data: Date)=>void 
+}
+const Calendar : React.FC<childProp>= ({handleDatesArr}) => {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [currentMonth, setCurrentMonth] = useState(new Date());
   const [visibleDates, setVisibleDates] = useState<Date[]>([]);
@@ -15,6 +18,7 @@ const Calendar = () => {
 
     const firstDay = new Date(month.getFullYear(), month.getMonth(), 1);
     const lastDay = new Date(month.getFullYear(), month.getMonth() + 1, 0);
+    // const [selectUnSelect, setselectUnselect] = useState(true)
 
     for (let day = new Date(firstDay); day <= lastDay; day.setDate(day.getDate() + 1)) {
       const newDate = new Date(day);
@@ -59,35 +63,36 @@ const Calendar = () => {
     <div className={styles.calendar_container}>
       {/* Month Navigation */}
       <div className={styles.month_navigation}>
-        <button className={styles.nav_btn} onClick={prevMonth}>{"<"}</button>
+        <button type='button' className={styles.nav_btn} onClick={prevMonth}>{"<"}</button>
         <span className={styles.month_label}>
           {currentMonth.toLocaleDateString("en-US", { month: "long", year: "numeric" })}
         </span>
-        <button className={styles.nav_btn} onClick={nextMonth}>{">"}</button>
+        <button type='button' className={styles.nav_btn} onClick={nextMonth}>{">"}</button>
       </div>
 
       {/* Scrollable 7-Day Calendar */}
       <div className={styles.scroll_wrapper}>
-        <button className={styles.scroll_btn} onClick={() => scroll("left")}>{"<"}</button>
+        <button type='button' className={styles.scroll_btn} onClick={() => scroll("left")}>{"<"}</button>
         <div className={styles.dates_list} ref={scrollRef}>
           {visibleDates.map((date, index) => (
             <button
               key={index}
-              className={`${styles.date_button} ${
-                selectedDate.toDateString() === date.toDateString() ? styles.selected : ""
-              }`}
+              className={`${styles.date_button}  ${styles.selected}`}
+              // id={`${styles[`selected${index}`]}`}
               onClick={() => {
                   setSelectedDate(date)
-                  console.log(selectedDate)
+                  handleDatesArr(date)
+                  // console.log(selectedDate)
                 }
               }
+              type="button"
             >
               {date.toLocaleDateString("en-US", { weekday: "short" })} <br />
               {date.getDate()} {date.toLocaleDateString("en-US", { month: "short" })}
             </button>
           ))}
         </div>
-        <button className={styles.scroll_btn} onClick={() => scroll("right")}>{">"}</button>
+        <button type='button' className={styles.scroll_btn} onClick={() => scroll("right")}>{">"}</button>
       </div>
     </div>
   );

@@ -47,6 +47,13 @@ const page: React.FC<Doctor>=({address})=> {
     // console.log(addressData);
     // let {address}=data
     // const [selectedOption, setSelectedOption] = useState(options[0])
+
+    function dateClick(){
+        async function fetching(){
+            const fetchData = await (await fetch(`http://localhost:8080/api/doctors/Appointments/${Number(id)}/slotAvailable`)).json()
+            console.log(fetchData)
+        }fetching()
+    }
   return (  
     <>
 

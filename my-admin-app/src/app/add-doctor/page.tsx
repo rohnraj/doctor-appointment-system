@@ -7,6 +7,7 @@ import Navbar from "@/app/components/navbar/Navbar"
 import Button from "@/app/components/button/Button"
 import Footer from "@/app/components/footer/Footer"
 import { useRouter } from "next/navigation"
+import Calendar from "@/app/components/calendar/Calendar"
 import { LucideArrowLeft, LucideUpload } from "lucide-react"
 
 
@@ -18,16 +19,38 @@ function AddDoctor() {
     speciality: "",
     experience: "",
     address: "",
-    avaliableTimes: "",
-    gender: ""
+    availableTimes: "",
+    availableDate: "",
+    gender: "",
   })
   const [imagePreview, setImagePreview] = useState<string | null>(null)
+  const [selectedDatesArr, setSelectedDatesArr] = useState<string[]> ([])
+  const [isEditingDates, setIsEditingDates] = useState(false);
+
+  // @ts-ignore
+  // const handleChange = (e) => {
+  //   const { name, value } = e.target
+  //   console.log(e.target.value)
+  //     // @ts-ignore
+  //   setFormData((prev) => ({ ...prev, [name]: name === "availableTimes" || name === "availableDate" ? value.split(",").map(time => time.trim()) : value }))
+  // }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target
-    console.log(e.target.value)
-    setFormData((prev) => ({ ...prev, [name]: name === "avaliableTimes" ? value.split(",").map(time => time.trim()) : value }))
-  }
+    const { name, value } = e.target;
+  
+    setFormData((prev) => ({
+      ...prev,
+      [name]: name === "availableTimes" ? value.split(",").map(time => time.trim()) : value
+    }));
+
+
+    if (name === "availableDate") {
+      const dates=e.target.value
+      setSelectedDatesArr(dates.split(", ").map(date => date.trim()));
+    }
+  };
+  
+  console.log(formData)
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
@@ -81,9 +104,10 @@ function AddDoctor() {
           experience: formData.experience,
           degree: formData.degree,
           location: formData.address, 
-          availableTimes: formData.avaliableTimes, 
+          availableTimes: formData.availableTimes, 
           photo: imagePreview,
-          gender: formData.gender
+          gender: formData.gender,
+          availableDate: formData.availableDate,
         }),
       });
   
@@ -93,7 +117,40 @@ function AddDoctor() {
       console.error("❌ Fetch Error:", error);
     }
   }
+
+  // function gettingDataFromChild(data: Date){
+  //   // const formattedDate = data.toISOString().split("T")[0];
+  //   // setSelectedDatesArr([...selectedDatesArr, formattedDate])
+  //   // console.log('selected Dates '+selectedDatesArr)
+  //   // console.log('typeof'+ typeof selectedDatesArr[0])
+
+  //   const year = data.getUTCFullYear();
+  //   const month = String(data.getUTCMonth() + 1).padStart(2, "0"); 
+  //   const day = String(data.getUTCDate()).padStart(2, "0");
+    
+  //   const formattedDate = `${year}-${month}-${day}`;
+  //   setSelectedDatesArr([...selectedDatesArr, formattedDate]);
+  //   // console.log("selected Dates " + selectedDatesArr);
+    
+    
+  // }
+
+  function gettingDataFromChild(data: Date) {
+    const year = data.getUTCFullYear();
+    const month = String(data.getUTCMonth() + 1).padStart(2, "0"); 
+    const day = String(data.getUTCDate()).padStart(2, "0");
   
+    const formattedDate = `${year}-${month}-${day}`;
+  
+    setSelectedDatesArr((prevDates) => {
+      const newDates = [...prevDates, formattedDate]; 
+      setFormData((prev) => ({ ...prev, availableDate: newDates.join(", ") }));
+      return newDates;
+    });
+  }
+  
+
+
   return (
     <>
       <Navbar />
@@ -211,14 +268,72 @@ function AddDoctor() {
                   Choose Image
                 </label>
               </div>
+                
+                <div className={styles.parentCalendar}>
 
+                {/* <div className={styles.calendar}>
+                  <div><Calendar handleDatesArr={gettingDataFromChild}/></div>
+                  <div className={`${styles.formGroup} ${styles.inpCalender}`}>
+                    
+                    <input
+                      type="text"
+                      id="availableDate"
+                      name="availableDate"  
+                      value={formData.availableDate}
+                      onChange={handleChange}
+                      placeholder={selectedDatesArr.join(", ")}
+                      required
+                    />
+                    <button className={styles.AddButton} onClick={(e)=>{
+                      selectedDatesArr
+                    }}>Add Dates</button>
+                  </div>
+                </div>
+                </div> */}
+
+                <div className={styles.calendar}>
+                  <div><Calendar handleDatesArr={gettingDataFromChild}/></div>
+                  <div className={`${styles.formGroup} ${styles.inpCalender}`}>
+                    <input
+                      type="text"
+                      id="availableDate"
+                      name="availableDate"
+                      value={formData.availableDate}
+                      onChange={handleChange}
+                      readOnly={!isEditingDates} 
+                      placeholder="Select dates using calendar"
+                    />
+                    {isEditingDates ? (
+                      <button 
+                        className={styles.SaveButton} 
+                        type="button" 
+                        onClick={() => {
+                          setIsEditingDates(false);
+                        }}
+                      >
+                        Save
+                      </button>
+                    ) : (
+                      <button 
+                        className={styles.EditButton} 
+                        type="button" 
+                        onClick={() => setIsEditingDates(true)}
+                      >
+                        Edit Dates
+                      </button>
+                    )}
+                  </div>
+                </div>
+
+
+              </div>
               <div className={styles.formGroup}>
                 <label htmlFor="Time">Avaliable Time</label>
                 <input
                   type="text"
-                  id="avaliableTimes"
-                  name="avaliableTimes"  
-                  value={formData.avaliableTimes}
+                  id="availableTimes"
+                  name="availableTimes"  
+                  value={formData.availableTimes}
                   onChange={handleChange}
                   placeholder="Doctor's available time slots (comma-separated)"
                   required

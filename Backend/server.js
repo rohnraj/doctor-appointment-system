@@ -24,7 +24,7 @@ const app = express();
 // Middleware
 app.use(
   cors({
-    origin: ["http://localhost:3000" ,  'http://localhost:3002'], // Allow requests from frontend
+    origin: ["http://localhost:3000" ,  'http://localhost:3002', 'http://localhost:3001'], // Allow requests from frontend
     credentials: true, // Allow cookies and authentication headers
   })
 );

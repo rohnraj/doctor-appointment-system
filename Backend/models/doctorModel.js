@@ -164,3 +164,10 @@ export const deleteDoctorById = async(id) =>{
   const data = await pool.query(query,[id]);
   return data.rows.length;
 }
+
+//getting Availabe slot
+export const availableSlotModel = async(id) =>{
+  const query = `SELECT available_times FROM doctors WHERE id = $1;`;
+  const data = await pool.query(query, [id]);
+  return data.rows[0].available_times;
+}
