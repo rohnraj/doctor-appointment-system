@@ -18,7 +18,7 @@ interface Doctor {
     rating: number;
     // img_url: string;
     photo: string;
-    id:number;
+    id:string;
     gender:string;
 }
 
@@ -125,6 +125,8 @@ export default function app(){
         }
         fetching();     
     }
+
+    // console.log(doctors.id)
 
     function handleReset(){
         // setRatingFilter(decimals)
@@ -344,7 +346,10 @@ export default function app(){
                                                     img_url={doctor.photo} 
                                                     rating={doctor.rating} 
                                                     experience={doctor.experience} 
-                                                    buttonFunctionality={() => routes.push(`/Appointments/${doctor.id}`)}
+                                                    buttonFunctionality={() => {
+                                                        console.log('doctor id '+doctor.id)
+                                                        routes.push(`/Appointments/${doctor.id}`)
+                                                    }}
                                                 />
                                             </div>
                                         )

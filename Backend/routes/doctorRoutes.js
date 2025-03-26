@@ -9,7 +9,7 @@ const router = express.Router();
 router.get('/getAllDoc', getAllDoctorsController)
 router.post("/create", authenticateJWT, createDoctorController);
 router.delete('/deleteDoc/:id', authenticateJWT, deleteDoctorController)
-router.get("/top/", getTopDoctorsController); // Fetch top 6 doctors
+router.get("/top", getTopDoctorsController); // Fetch top 6 doctors
 router.get("/search", searchDoctorsController); // Search doctors
 router.get("/:id", getDoctorProfileController); // Fetch doctor details by ID
 router.get("/Appointments/:id/slotAvailable", getAvailableSlotController)

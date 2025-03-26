@@ -84,8 +84,11 @@ export const getTopDoctors = async (page, rating, experience, gender) => {
   }
 
   // Pagination - fix offset calculation
-  query += ` ORDER BY rating DESC LIMIT 6 OFFSET ($${index++})`;
-  values.push((page - 1) * 6);
+  if(page) {
+    query += ` ORDER BY rating DESC LIMIT 6 OFFSET ($${index++})`;
+    values.push((page - 1) * 6);
+  }
+    
 
   // Execute the query
 

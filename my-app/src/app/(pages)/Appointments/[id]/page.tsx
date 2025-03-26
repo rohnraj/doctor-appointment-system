@@ -17,57 +17,48 @@ interface Doctor {
     experience: number;
     rating: number;
     photo: string;
-    id:number;
+    // id:number;
     location:string;
     available_times:string[];
-    available_dates:Date[];
+    available_dates:string[];
     gender:string;
 }
 
 
-const page: React.FC<Doctor>=()=> {
+const page =()=> {
+    
+
+    let {id}=useParams<{ id: string }>()
 
     let [isOpen, setIsOpen] = useState(false)
     let [pisOpen, setpIsOpen] = useState(false)
-    let [addressData, setaddressData]=useState<string | null>(null)
+    // let [addressData, setaddressData]=useState<string | null>(null)
 
     let [doctorData, setdoctorData] = useState<Doctor | null>(null)
-    let {id}=useParams()
-    // const options = [
-    //     'MedicareHeart Institute, Okhla Road',
-    // ]
 
     const [selectedDate, setSelectedDate] = useState<string> ('')
     const [fetchDate, setfetchDate] = useState<string[]>([])
 
-    useEffect(()=>{
+    
+    useEffect(()=>{ 
         async function fetching(){
             let fetchData=await(await fetch(`http://localhost:8080/api/doctors/${id}`)).json()
             setdoctorData(fetchData.doctor)
-            // console.log(fetchData)
         }
         fetching()
-
-        const formattedDates = doctorData?.available_dates.map(date => new Date(date).toISOString().split('T')[0]);
-        console.log(typeof formattedDates, formattedDates)
-        // @ts-ignore
-        setfetchDate(formattedDates)
     },[id])
 
-    console.log(doctorData)
+    console.log(doctorData?.available_times)
 
-    // console.log(addressData);
-    // let {address}=data
-    // const [selectedOption, setSelectedOption] = useState(options[0])
+    useEffect(()=>{
+        if (!doctorData?.available_dates) return; 
+        const formattedDates = doctorData?.available_dates.map(date => new Date(date).toISOString().split('T')[0]);
+        console.log('formatted dates ',typeof formattedDates, formattedDates)
+        // @ts-ignore
+        setfetchDate(formattedDates)
+    },[doctorData])
 
-    // function dateClick(){
-    //     async function fetching(){
-    //         const fetchData = await (await fetch(`http://localhost:8080/api/doctors/Appointments/${Number(id)}/slotAvailable`)).json()
-    //         console.log(fetchData)
-    //     }fetching()
-    // }
-
-    console.log(doctorData?.available_dates)
+    console.log(fetchDate)
 
     function gettingDataFromChild(data: Date) {
         const year = data.getUTCFullYear();
@@ -79,9 +70,9 @@ const page: React.FC<Doctor>=()=> {
         setSelectedDate(formattedDate)
       }
 
-      console.log(selectedDate)
+    console.log(selectedDate)
       
-      
+    
 
   return (  
     <>
@@ -139,6 +130,7 @@ const page: React.FC<Doctor>=()=> {
                                 <span>2 slot</span>
                             </div>
                             <div>
+                            {/* && fetchDate?.includes(selectedDate) */}
                                 <span><Button text={'9:00 AM'} onClick={()=>{}} type={'submit'} variant={'slotGreenBtn'}  disabled={doctorData?.available_times.includes('09:00:00') && fetchDate?.includes(selectedDate) ? false : true}/></span>
                                 <span><Button text={'9:30 AM'} onClick={()=>{}} type={'submit'} variant={'slotGreenBtn'} disabled={doctorData?.available_times.includes('09:30:00') && fetchDate?.includes(selectedDate) ? false : true}/></span>
                                 <span><Button text={'10:00 AM'} onClick={()=>{}} type={'submit'} variant={'slotGreenBtn'} disabled={doctorData?.available_times.includes('10:00:00') && fetchDate?.includes(selectedDate) ? false : true}/></span>
@@ -159,14 +151,14 @@ const page: React.FC<Doctor>=()=> {
                             </div>
                             <hr/>
                             <div>
-                                <span><Button text={'1:00 PM'} onClick={()=>{}} type={'submit'} variant={'slotGreenBtn'}/></span>
-                                <span><Button text={'1:30 PM'} onClick={()=>{}} type={'submit'} variant={'slotGreenBtn'}/></span>
-                                <span><Button text={'2:00 PM'} onClick={()=>{}} type={'submit'} variant={'slotGreenBtn'}/></span>
-                                <span><Button text={'2:30 PM'} onClick={()=>{}} type={'submit'} variant={'slotGreenBtn'}/></span>
-                                <span><Button text={'3:00 PM'} onClick={()=>{}} type={'submit'} variant={'slotGreenBtn'}/></span>
-                                <span><Button text={'3:30 PM'} onClick={()=>{}} type={'submit'} variant={'slotGreenBtn'}/></span>
-                                <span><Button text={'4:00 PM'} onClick={()=>{}} type={'submit'} variant={'slotGreenBtn'}/></span>
-                                <span><Button text={'4:30 PM'} onClick={()=>{}} type={'submit'} variant={'slotGreenBtn'}/></span>
+                                <span><Button text={'1:00 PM'} onClick={()=>{}} type={'submit'} variant={'slotGreenBtn'} disabled={doctorData?.available_times.includes('13:00:00') && fetchDate?.includes(selectedDate) ? false : true}/></span>
+                                <span><Button text={'1:30 PM'} onClick={()=>{}} type={'submit'} variant={'slotGreenBtn'} disabled={doctorData?.available_times.includes('13:30:00') && fetchDate?.includes(selectedDate) ? false : true}/></span>
+                                <span><Button text={'2:00 PM'} onClick={()=>{}} type={'submit'} variant={'slotGreenBtn'} disabled={doctorData?.available_times.includes('14:00:00') && fetchDate?.includes(selectedDate) ? false : true}/></span>
+                                <span><Button text={'2:30 PM'} onClick={()=>{}} type={'submit'} variant={'slotGreenBtn'} disabled={doctorData?.available_times.includes('14:30:00') && fetchDate?.includes(selectedDate) ? false : true}/></span>
+                                <span><Button text={'3:00 PM'} onClick={()=>{}} type={'submit'} variant={'slotGreenBtn'} disabled={doctorData?.available_times.includes('15:00:00') && fetchDate?.includes(selectedDate) ? false : true}/></span>
+                                <span><Button text={'3:30 PM'} onClick={()=>{}} type={'submit'} variant={'slotGreenBtn'} disabled={doctorData?.available_times.includes('15:30:00') && fetchDate?.includes(selectedDate) ? false : true}/></span>
+                                <span><Button text={'4:00 PM'} onClick={()=>{}} type={'submit'} variant={'slotGreenBtn'} disabled={doctorData?.available_times.includes('16:00:00') && fetchDate?.includes(selectedDate) ? false : true}/></span>
+                                <span><Button text={'4:30 PM'} onClick={()=>{}} type={'submit'} variant={'slotGreenBtn'} disabled={doctorData?.available_times.includes('16:30:00') && fetchDate?.includes(selectedDate) ? false : true}/></span>
                             </div>
                         </div>
                     </article>

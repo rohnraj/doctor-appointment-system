@@ -34,7 +34,7 @@ export const getTopDoctorsController = async (req, res) => {
     const doctors = await getTopDoctors(page, rating, experience, gender);
     res.status(200).json({ success: true, doctors });
   } catch (error) {
-    res.status(500).json({ success: false, message: "Server error" });
+    res.status(500).json({ success: false, message: "Server error" , err:error.message});
   }
 };
 
@@ -56,6 +56,7 @@ export const searchDoctorsController = async (req, res) => {
 export const getDoctorProfileController = async (req, res) => {
   try {
     const { id } = req.params;
+    console.log('doctor id '+id)
     const doctor = await getDoctorById(id);
     if (!doctor) return res.status(404).json({ success: false, message: "Doctor not found" });
 
