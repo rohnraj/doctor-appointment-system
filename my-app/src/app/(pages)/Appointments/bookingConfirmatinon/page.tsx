@@ -10,6 +10,14 @@ import Button from "@/app/components/button/Button"
 import Footer from "@/app/components/footer/Footer"
 import { LucideArrowLeft, LucideCalendar, LucideClock, LucideMapPin, LucideUser } from "lucide-react"
 
+interface userInformation{
+    id: string,
+    name: string,
+    email: string,
+    password: string , 
+    phone: Number
+}
+
 const BookingConfirmation = () => {
   const router = useRouter()
   const searchParams = useSearchParams()
@@ -33,6 +41,8 @@ const BookingConfirmation = () => {
     healthProblem: "",
   })
 
+  const [userInfo, setusrInfo] = useState<userInformation | null>(null)
+
     //useEffect to get user data
     useEffect(()=>{
         async function fetching(){
@@ -46,6 +56,7 @@ const BookingConfirmation = () => {
                 credentials: "include",
             })).json()
             console.log(fetchUesr)
+            setusrInfo(fetchUesr)
         }
         fetching()
     },[])   
@@ -58,32 +69,11 @@ const BookingConfirmation = () => {
     }))
   }
 
-  const handleSubmit = async (e: React.FormEvent) => {
+
+
+  //@ts-ignore
+  async function handleSubmit(e){
     e.preventDefault()
-
-    try {
-      // Here you would send the appointment data to your API
-      console.log("Submitting appointment:", {
-        doctorId,
-        name,
-        specialty,
-        date,
-        time,
-        location,
-        typeofConsult,
-        patientInfo,
-      })
-
-      // Navigate to success page or show confirmation
-      alert("Appointment confirmed successfully!")
-      router.push("/") // Or navigate to a success page
-    } catch (error) {
-      console.error("Error confirming appointment:", error)
-      alert("There was an error confirming your appointment. Please try again.")
-    }
-  }
-
-  async function handleSubmitbtn(){
     const response = await (await fetch('http://localhost:8080/api/appointments/book',{
         headers: {
             'Accept': 'application/json',
@@ -92,9 +82,11 @@ const BookingConfirmation = () => {
         //   'authorization':`Bearer ${localStorage.getItem('token')}` 
         },
         method: "PUT",
-        body: JSON.stringify({userInfo:JSON.stringify(patientInfo)}),
+        body: JSON.stringify( {doctor_id:doctorId,  user_id: userInfo?.id,  consult_type: typeofConsult, location,  appointment_dates:date, appointment_time:time, user_info: JSON.stringify(patientInfo)}),
         credentials: "include",
     })).json()
+
+    console.log('---->'+response)
   }
 
   return (
@@ -161,7 +153,7 @@ const BookingConfirmation = () => {
                   type="text"
                   id="fullName"
                   name="fullName"
-                  placeholder="Enter patient's full name"
+                  placeholder={userInfo?.name}
                   value={patientInfo.fullName}
                   onChange={handleInputChange}
                   className={styles.formInput}
@@ -217,7 +209,7 @@ const BookingConfirmation = () => {
                   type="tel"
                   id="phoneNumber"
                   name="phoneNumber"
-                  placeholder="Enter phone number"
+                  placeholder={userInfo?.phone.toString()}
                   value={patientInfo.phoneNumber}
                   onChange={handleInputChange}
                   className={styles.formInput}
@@ -236,7 +228,7 @@ const BookingConfirmation = () => {
                   type="email"
                   id="email"
                   name="email"
-                  placeholder="Enter email address"
+                  placeholder={userInfo?.email}
                   value={patientInfo.email}
                   onChange={handleInputChange}
                   className={styles.formInput}
@@ -262,7 +254,7 @@ const BookingConfirmation = () => {
               </div>
             </div>
 
-            <Button text="Confirm Appointment" onClick={()=>handleSubmitbtn()} type="submit" variant="largeGreenBtn" />
+            <Button text="Confirm Appointment" onClick={(e)=>handleSubmit(e)} type="submit" variant="largeGreenBtn" />
           </form>
         </div>
       </main>

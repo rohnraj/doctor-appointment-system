@@ -1,20 +1,35 @@
 import pool from "../config/db.js";
 
-// Check if time slot is available (Prevent overlapping)
-export const isTimeSlotAvailable = async (doctorId, timeSlot) => {
-  const query = `SELECT * FROM appointments WHERE doctor_id = $1 AND time_slot = $2`;
-  const result = await pool.query(query, [doctorId, timeSlot]);
-  return result.rowCount === 0; // True if slot is available
+
+export const isTimeSlotAvailable = async (appointment_dates, appointment_time) => {
+
+  try{
+
+    const query = `SELECT COUNT(*) FROM appointments WHERE appointments_dates = $1 AND appointments_time = $2 AND status = 'Confirmed'`;
+    const result = await pool.query(query, [appointment_dates, appointment_time]);
+    console.log(result.rows[0].count === '0')
+    return result.rows[0].count === '0'; // Returns true if no pending appointment exists
+  }
+  catch(err){
+    console.log('isTimeSlotAvailable query not working err: '+ err)
+  }
 };
 
 // Book an Appointment
-export const bookAppointment = async (doctorId, userId, timeSlot, details, consultType, patientInfo, doctorLocation) => {
-  const query = `
-    INSERT INTO appointments (doctor_id, user_id, time_slot, details, consult_type, status, patient_info, location) 
-    VALUES ($1, $2, $3, $4, $5, 'Confirmed', $6, $7) 
-    RETURNING *;
-  `;
-  const values = [doctorId, userId, timeSlot, details, consultType, JSON.stringify(patientInfo), doctorLocation];
-  const result = await pool.query(query, values);
-  return result.rows[0];
+export const bookAppointment = async (doctor_id, user_id, consult_type, location ,appointment_dates, appointment_time, user_info, status='Pending') => {
+
+  try{
+    const query = `
+      INSERT INTO appointments (doctor_id, user_id, consult_type, status, location, appointments_dates, appointments_time, user_info) 
+      VALUES ($1, $2, $3, $4, $5, $6, $7, $8) 
+      RETURNING *;
+    `;
+    const values = [doctor_id, user_id, consult_type, status, location, appointment_dates, appointment_time, JSON.stringify(user_info)];
+    const result = await pool.query(query, values);
+    console.log('bookAppointment query working properly')
+    return result.rows[0];
+  }
+  catch(err){
+    console.log('bookAppointment query not working err: '+ err)
+  }
 };
