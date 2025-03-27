@@ -3,6 +3,6 @@ import { bookAppointmentController } from "../controllers/appointmentController.
 
 const router = express.Router();
 
-router.post("/book", bookAppointmentController); // Book an appointment
+router.put("/book", bookAppointmentController); // Book an appointment
 
 export default router;

@@ -79,6 +79,7 @@ export const logout = async (req, res) => {
 
 //isAuthenticated
 export const chekAuth = (req, res) => {
+  console.log(req.user)
   res.json({ success: true, message: "User is authenticated", user: req.user });
 };
 

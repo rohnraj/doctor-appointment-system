@@ -11,6 +11,7 @@ import { authenticateJWT } from "./middlewares/authMiddleware.js";
 import reviewRoutes from "./routes/reviewRoutes.js"
 import cookieParser from "cookie-parser";
 import * as multer from 'multer';
+import userRoutes from "./routes/userRoutes.js"
 // import * as upload from 'express-fileupload';
 
 dotenv.config();
@@ -50,7 +51,8 @@ app.use(passport.session());
 app.use("/api/auth", authRoutes);
 app.use("/api/doctors", doctorRoutes);
 app.use("/api/appointments", authenticateJWT, appointmentRoutes);
-app.use("/api/reviews", reviewRoutes); 
+app.use("/api/reviews", reviewRoutes);
+app.use("/api/user", userRoutes) 
 
 // Default Route
 app.get("/", (req, res) => {
