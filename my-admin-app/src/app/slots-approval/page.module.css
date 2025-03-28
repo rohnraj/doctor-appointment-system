@@ -2,6 +2,7 @@
     min-height: 80vh;
     background-color: #f5f7fa;
     padding: 2rem 1rem;
+    font-family: var(--primary-font);
   }
   
   .header {
@@ -89,15 +90,15 @@
     border-left: 4px solid transparent;
   }
   
-  .requestCard.pending {
+  .requestCard.Pending {
     border-left-color: #f59e0b;
   }
   
-  .requestCard.approved {
+  .requestCard.Approved {
     border-left-color: #10b981;
   }
   
-  .requestCard.denied {
+  .requestCard.Denied {
     border-left-color: #ef4444;
   }
   
@@ -130,17 +131,17 @@
     border-radius: 9999px;
   }
   
-  .pending .statusBadge {
+  .Pending .statusBadge {
     background-color: #fef3c7;
     color: #d97706;
   }
   
-  .approved .statusBadge {
+  .Approved .statusBadge {
     background-color: #d1fae5;
     color: #059669;
   }
   
-  .denied .statusBadge {
+  .Denied .statusBadge {
     background-color: #fee2e2;
     color: #dc2626;
   }

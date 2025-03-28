@@ -33,3 +33,16 @@ export const bookAppointment = async (doctor_id, user_id, consult_type, location
     console.log('bookAppointment query not working err: '+ err)
   }
 };
+
+export const getBookedSlots = async () =>{
+  try{
+    const query = `SELECT * FROM appointments`;
+    const result = await pool.query(query);
+    console.log('result rows '+ result.rows)
+    return result.rows;
+  }
+  catch(err){
+    console.log('getBookedSlots query not working err: '+ err)
+  }
+}
+

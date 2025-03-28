@@ -1,5 +1,6 @@
-import { bookAppointment, isTimeSlotAvailable } from "../models/appointmentModel.js";
+import { bookAppointment, isTimeSlotAvailable , getBookedSlots} from "../models/appointmentModel.js";
 import { sendAppointmentEmail } from "../utils/emailService.js"; // Import email service
+import { getDoctorById } from '../models/doctorModel.js';
 
 export const bookAppointmentController = async (req, res) => {
   try {
@@ -31,7 +32,7 @@ export const bookAppointmentController = async (req, res) => {
     }
     catch(error){
       console.log("Error booking appointment:", error);
-      return res.status(500).json({ success: false, message: "Error booking appointment" });
+      return res.status(500).json({ success: false, message: "Error booking appointment"});
     }
 
     // Send email confirmation to the patient
@@ -42,3 +43,34 @@ export const bookAppointmentController = async (req, res) => {
     res.status(500).json({ success: false, message: "Server error" });
   }
 };
+
+
+export const bookedSlotController = async (req, res) =>{
+  try{
+
+    let bookedSlots = await getBookedSlots();
+    const doctorDetails = await Promise.all(
+      bookedSlots.map(async (slot) => {
+        return await getDoctorById(slot.doctor_id);
+      })
+    );
+    console.log(doctorDetails)
+
+    console.log(bookedSlots)
+
+    const updatedBookedSlots = bookedSlots.map((slot, index) => ({
+      ...slot,
+      doctor_name: doctorDetails[index]?.name || "Unknown",
+      doctor_specialty: doctorDetails[index]?.specialty || "Unknown",
+    }));
+
+    console.log(updatedBookedSlots)
+    bookedSlots=updatedBookedSlots
+
+    return res.status(200).json({ success: true, message: "All slots fetched successfully", bookedSlots });
+  }
+  catch(err){
+    console.log("Error getting all slots:", err);
+    return res.status(500).json({ success: false, message: "error while getting all slots" });
+  }
+}

@@ -48,7 +48,7 @@ export default function Navbar() {
     },[])
 
     function handleRoute(route:string){
-        if(localStorage.getItem("token")){
+        if(isAuth){
             router.push(route);
         }else{
             router.push("/login");
