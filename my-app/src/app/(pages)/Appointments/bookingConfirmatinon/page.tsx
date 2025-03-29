@@ -9,6 +9,7 @@ import Navbar from "@/app/components/navbar/Navbar"
 import Button from "@/app/components/button/Button"
 import Footer from "@/app/components/footer/Footer"
 import { LucideArrowLeft, LucideCalendar, LucideClock, LucideMapPin, LucideUser } from "lucide-react"
+import { ToastContainer, toast, Bounce } from 'react-toastify';
 
 interface userInformation{
     id: string,
@@ -22,7 +23,6 @@ const BookingConfirmation = () => {
   const router = useRouter()
   const searchParams = useSearchParams()
 
-  // Get appointment details from URL params
   // Convert phone number to string when displaying in placeholder
   const name = searchParams.get("name") || ""
   const specialty = searchParams.get("specialty") || ""
@@ -70,8 +70,6 @@ const BookingConfirmation = () => {
     }))
   }
 
-
-
   //@ts-ignore
   async function handleSubmit(e){
     e.preventDefault()
@@ -87,7 +85,20 @@ const BookingConfirmation = () => {
         credentials: "include",
     })).json()
 
-    console.log('---->'+response)
+    alert('Slot Registered')
+
+    toast.success('🦄 Wait for the Confirmation email', {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: false,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      transition: Bounce,
+      });
+
   }
 
   return (

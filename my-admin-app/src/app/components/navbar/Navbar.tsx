@@ -48,7 +48,7 @@ export default function Navbar() {
     },[])
 
     function handleRoute(route:string){
-        if(localStorage.getItem("token")){
+        if(isAuth){
             router.push(route);
         }else{
             router.push("/");
@@ -69,7 +69,7 @@ export default function Navbar() {
     <>
     <nav className={styles.navbar}>
         <ul className={styles.ultag}>
-            <li className={styles.logo} onClick={()=>router.push('/')}>
+            <li className={styles.logo} onClick={()=>router.push('/home')}>
                 <div className={styles.logofst}><img src='/assets/Trust.png' alt='logo here' className={styles.logoImg} /></div>
                 <div className={styles.logoscd}>MedCare</div>
             </li>

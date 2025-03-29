@@ -5,6 +5,7 @@ import styles from './page.module.css'
 import Navbar from '@/app/components/navbar/Navbar'
 import Button from '@/app/components/button/Button'
 import { useRouter } from 'next/navigation'
+import { ToastContainer, toast, Bounce } from 'react-toastify';
 
 export default function page() {
 
@@ -37,12 +38,37 @@ export default function page() {
                 if(res.success){
                     // doubt why ye chal gya with res.success not with tokenData?.Data
                     alert(`${res.message}`)
+
+                    toast.success('🦄 logedIn Successfully!', {
+                        position: "top-right",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: false,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                        transition: Bounce,
+                        });
                     // localStorage.setItem('token', res.token); 
                     // localStorage.setItem('user', JSON.stringify(res.user));
                     router.push('/home')
                 } 
-                else alert('Failed To Resgistered')
-            }
+                else{
+                    alert('Failed To Resgistered') 
+                    toast.warn('🦄 Check your email & password', {
+                        position: "top-right",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: false,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                        transition: Bounce,
+                        }); 
+                } 
+                }
             catch(err){
                 console.log(err);
             }
@@ -55,7 +81,7 @@ export default function page() {
             <div className={styles.pageContainer}>
                 <div className={styles.formContainer}>
                     <div className={styles.loginHeading}>Login</div><br/>
-                    <div className={styles.para}>Are you a new member? <strong>Sign up here.</strong></div>
+                    <div className={styles.para}>Are you Admin ?</div>
 
                     <form action="#" className={styles.form} onSubmit={handleLogin}>
 
@@ -82,7 +108,7 @@ export default function page() {
 
                         <div className={styles.btnContainer}>
                             <Button text={'Login'} onClick={()=>{}} type={'submit'} variant={'largeGreenBtn'}/>
-                            <Button text={'Reset'} onClick={()=>{}} type={'submit'} variant={'largeBrownBtn'}/>
+                            <Button text={'Reset'} onClick={()=>{}} type={'reset'} variant={'largeBrownBtn'}/>
                         </div>
 
                         <div className={styles.forgotPara}><strong>Forgot Password ?</strong></div>

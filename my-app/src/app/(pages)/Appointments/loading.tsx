@@ -1,4 +1,9 @@
-export default function Loading() {
-    return <h1>Loading...</h1>;
-  }
-  
+
+import { Circles } from 'react-loader-spinner'
+
+export default function loading (){
+    return(
+        <div>
+        </div>
+    )
+}

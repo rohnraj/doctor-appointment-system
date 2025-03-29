@@ -43,6 +43,7 @@ const page =()=> {
     const [fetchDate, setfetchDate] = useState<string[]>([])
     const [typeofConsult, settypeofConsult] = useState('online')
     const [selectedTImeSlot, setselectedTImeSlot]=useState('')
+    
 
     
     useEffect(()=>{ 
@@ -116,7 +117,7 @@ const page =()=> {
             </div>
 
 
-            <div className={styles.scdcontainer}>
+            <div className={`${styles.scdcontainer} ${typeofConsult === 'online' ? styles.online : ''}`}>
                 <div className={styles.slotContainer}>
                     <article>
                         <div className={styles.heading_and_button}>
@@ -124,22 +125,34 @@ const page =()=> {
                             <Button text={'Book Appointment'} onClick={()=>{}} type={'submit'} variant={'smallcardButtonGreen'}/>
                         </div>
                         <div className={styles.booking}>
-                            <button onClick={()=>{
-                                settypeofConsult('online')
-                            }}>Book Video Consult</button>
-                            <button onClick={()=>{
-                                settypeofConsult('offline')
-                            }}>Book Hospital Visit</button>
+                            <button 
+                                className={typeofConsult === 'online' ? styles.active : ''}
+                                onClick={() => settypeofConsult('online')}
+                            >
+                                Book Video Consult
+                            </button>
+                            <button 
+                                className={typeofConsult === 'offline' ? styles.active : ''}
+                                onClick={() => settypeofConsult('offline')}
+                            >
+                                Book Hospital Visit
+                            </button>
                         </div>
+
                         <div className={styles.address}>
-                            <div className={styles.select} onClick={()=>setIsOpen(!isOpen)}>
-                                <p className={pisOpen ? styles.showpTag : styles.notshowpTag}>{doctorData?.location}</p>
+                            <div className={styles.select} onClick={() => setIsOpen(!isOpen)}>
+                                <p className={pisOpen ? styles.showpTag : styles.notshowpTag}>
+                                    {doctorData?.location}
+                                </p>
                                 <i className="fa-solid fa-caret-down"></i>
-                                <ul className={isOpen==true ? styles.show_select_options : styles.hide_select_options} onClick={()=>setpIsOpen(true)}>
+                                <ul 
+                                    className={isOpen ? styles.show_select_options : styles.hide_select_options} 
+                                    onClick={() => setpIsOpen(true)}
+                                >
                                     <li>{doctorData?.location}</li>
                                 </ul>
                             </div>
-                        </div>
+                         </div>
 
                     </article>
                     <article>
@@ -152,8 +165,9 @@ const page =()=> {
                                     <i className="fa-solid fa-cloud-sun"></i>
                                     <label>Morning</label>
                                 </span>
-                                <span>2 slot</span>
+                                <span>Slots</span>
                             </div>
+                            <hr/>
                             <div>
                             {/* && fetchDate?.includes(selectedDate) */}
                                 <span><Button text={'9:00 AM'} onClick={()=>bookSlot('9:00 AM')} type={'submit'} variant={'slotGreenBtn'}  disabled={doctorData?.available_times.includes('09:00:00') && fetchDate?.includes(selectedDate) ? false : true}/></span>
@@ -172,7 +186,7 @@ const page =()=> {
                                     <i className="fa-solid fa-cloud-moon"></i>
                                     <label>Afternoon</label>
                                 </span>
-                                <span>2 slot</span>
+                                <span>Slots</span>
                             </div>
                             <hr/>
                             <div>
@@ -187,6 +201,7 @@ const page =()=> {
                             </div>
                         </div>
                     </article>
+                    
                     <Button text={'Next'} onClick={()=>{
                         handleNext()
                     }} type={'submit'} variant={'largeGreenBtn'}/>

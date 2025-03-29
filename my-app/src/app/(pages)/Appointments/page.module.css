@@ -164,7 +164,12 @@
     height:50%;
 }
 
-
+.loaderContainer {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
 /* Individual Doctor Cards */
 /* .doctor {
     background-color: #F8FCF9;

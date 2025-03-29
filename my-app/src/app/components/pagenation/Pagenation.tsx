@@ -8,7 +8,7 @@ interface PaginationProps {
   totalPages: number;
 }
 
-const Pagination: React.FC<PaginationProps> = ({ page, handlePageChange,totalPages }) => {
+const Pagination: React.FC<PaginationProps> = ({ page, handlePageChange, totalPages }) => {
   return (
     <div className={styles.pagination}>
       {page > 1 && (

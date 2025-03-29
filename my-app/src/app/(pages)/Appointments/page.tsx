@@ -9,6 +9,8 @@ import Footer from "@/app/components/footer/Footer";
 import Doctorcard from "@/app/components/doctorCard/Doctorcard";
 import { useRouter } from "next/navigation";
 import Pagenation from '@/app/components/pagenation/Pagenation'
+import { Circles } from 'react-loader-spinner'
+
 
 interface Doctor {
     name: string;
@@ -46,6 +48,7 @@ export default function app(){
     // console.log(expArr)
     const [experienceFilter, setExperienceFilter] = useState<string | null>(null);
     const [genderFilter, setGenderFilter] = useState<number | null>(null);
+    const [loading, setLoading] = useState(false);
 
 
     //pagination
@@ -86,13 +89,18 @@ export default function app(){
 
     useEffect(() => {
         async function fetching() {
-            // const fetchData: Doctor[] = await (await fetch("http://localhost:8080/api/doctors/top")).json();
-            const fetchData= await (await fetch(`http://localhost:8080/api/doctors/top?page=${currentPage}&rating=${ratingFilter}&experience=${experienceFilter}&gender=${genderFilter}`)).json();
-            const res1 = await(await fetch('http://localhost:8080/api/doctors/getAllDoc')).json()
-            console.log(fetchData.doctors)
-            setDoctors(fetchData.doctors);
-            setAllDocNum(res1.doctors)
-            // if doctors state use kiya hota toh due to async behaviour doctors ka length 0 hi hota
+            setLoading(true); // Show loader
+            try {
+                const fetchData = await (await fetch(`http://localhost:8080/api/doctors/top?page=${currentPage}&rating=${ratingFilter}&experience=${experienceFilter}&gender=${genderFilter}`)).json();
+                const res1 = await (await fetch('http://localhost:8080/api/doctors/getAllDoc')).json();
+                
+                setDoctors(fetchData.doctors);
+                setAllDocNum(res1.doctors);
+            } catch (error) {
+                console.error("Error fetching doctors:", error);
+            } finally {
+                setLoading(false); // Hide loader after fetching
+            }
         }
         fetching();
     }, [currentPage, ratingFilter, experienceFilter, genderFilter]);
@@ -112,19 +120,22 @@ export default function app(){
         setsearch(e.target.value)
     }
 
-    function handleSerchClick(){
-        // name, specialty, experience, rating, degree
+    function handleSerchClick() {
+        setLoading(true); // Show loader before fetching
         async function fetching() {
-            const fetchData= await (await fetch(`http://localhost:8080/api/doctors/search?search=${search}`)).json();
-            console.log(fetchData.doctors)
-            setDoctors(fetchData.doctors);
-            if(fetchData.doctors!=0) {
-                console.log(doctors.length)
-                setcarVisible(true)
+            try {
+                const fetchData = await (await fetch(`http://localhost:8080/api/doctors/search?search=${search}`)).json();
+                setDoctors(fetchData.doctors);
+                setcarVisible(fetchData.doctors.length !== 0);
+            } catch (error) {
+                console.error("Error searching doctors:", error);
+            } finally {
+                setLoading(false); // Hide loader after fetching
             }
         }
-        fetching();     
+        fetching();
     }
+    
 
     // console.log(doctors.id)
 
@@ -332,39 +343,41 @@ export default function app(){
                         {/* ye grid banega */}
                         <div className={`${cardVisible ? styles.doctorCard : ''}`}>
 
-                            {doctors.length != 0 ? (
-                                    doctors.map((doctor, index) => (
-                                        // ratingFilter.includes(doctor.rating)  &&
-                                        // experienceFilter.includes(doctor.experience) &&
-                                        // genderFilter.includes(doctor.gender?.toLowerCase()) &&
-                                        ( 
-                                            <div key={index} className={`${styles[`doctor${index + 1}`]}`}>
-                                                <Doctorcard 
-                                                    name={doctor.name} 
-                                                    degree={doctor.degree} 
-                                                    speciality={doctor.specialty} 
-                                                    img_url={doctor.photo} 
-                                                    rating={doctor.rating} 
-                                                    experience={doctor.experience} 
-                                                    buttonFunctionality={() => {
-                                                        console.log('doctor id '+doctor.id)
-                                                        routes.push(`/Appointments/${doctor.id}`)
-                                                    }}
-                                                />
-                                            </div>
-                                        )
-                                    ))) 
-                                : (<div className={styles.noData}>
-                                    <img src='https://img.freepik.com/premium-vector/no-data-found-empty-file-folder-concept-design-vector-illustration_620585-1698.jpg?semt=ais_hybrid'/>
+                            {/* Show loader if loading */}
+                                {/* Show loader while fetching data */}
+                                {loading ? (
+                                    <div className={styles.loaderContainer}>
+                                        <Circles height="60" width="60" color="#1C4A2A" ariaLabel="loading" />
                                     </div>
-                                )
+                                    ) : (
+                                    <>
+                                        {/* Render doctor cards only when data is fetched */}
+                                        {doctors.length !== 0 ? (
+                                            doctors.map((doctor, index) => (
+                                                <div key={index} className={`${styles[`doctor${index + 1}`]}`}>
+                                                    <Doctorcard 
+                                                        name={doctor.name} 
+                                                        degree={doctor.degree} 
+                                                        speciality={doctor.specialty} 
+                                                        img_url={doctor.photo} 
+                                                        rating={doctor.rating} 
+                                                        experience={doctor.experience} 
+                                                        buttonFunctionality={() => routes.push(`/Appointments/${doctor.id}`)}
+                                                    />
+                                                </div>
+                                            ))
+                                        ) : (
+                                            <div className={styles.noData}>No doctors found</div>
+                                        )}
+                                    </>
+                                )}
 
-                            }
+
                         </div>
 
                     </div>
                     
-                    {doctors.length!=0 ? (<Pagenation page={currentPage} handlePageChange={handlePageChange}  totalPages={totalPages}/>) : ('')}
+                    {doctors.length!=0 ? (<Pagenation page={currentPage} handlePageChange={handlePageChange} totalPages={totalPages}/>) : ('')}
                 </main>
             </div>
 

@@ -43,7 +43,16 @@
     font-weight: bold;
     width: 100px;
     height: 40px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
 }
+.slotGreenBtn:hover {
+    transform: scale(1.05); /* Slightly enlarges the button */
+}
+.slotGreenBtn:active{
+    background-color: var(--primary-color);
+    color:white
+}
+
 .slotGreenBtn:disabled{
     padding: 8px 16px;
     border: 1px solid #F4D7D0;
@@ -98,6 +107,10 @@
     border-radius: 5px;
     cursor: pointer;
     font-family: var(--primary-font);
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+.largeGreenBtn:hover {
+    transform: scale(1.05); /* Slightly enlarges the button */
 }
 
 .largeBrownBtn{
@@ -110,6 +123,10 @@
     border-radius: 5px;
     cursor: pointer; 
     font-family: var(--primary-font);
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+.largeBrownBtn:hover {
+    transform: scale(1.05); /* Slightly enlarges the button */
 }
 
 .mainPageButton{
@@ -134,7 +151,13 @@
     cursor: pointer;
     font-size: 14px;
     width: 100%;
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transition */
 }
+
+.cardButton:hover {
+    transform: scale(1.05); /* Slightly enlarges the button */
+}
+
 
 .cardButtonGreen {
     background-color: var(--primary-color);

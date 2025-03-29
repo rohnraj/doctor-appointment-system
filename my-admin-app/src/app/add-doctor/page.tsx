@@ -9,6 +9,7 @@ import Footer from "@/app/components/footer/Footer"
 import { useRouter } from "next/navigation"
 import Calendar from "@/app/components/calendar/Calendar"
 import { LucideArrowLeft, LucideUpload } from "lucide-react"
+import { toast , Bounce} from "react-toastify"
 
 
 function AddDoctor() {
@@ -66,32 +67,11 @@ function AddDoctor() {
   }
   // console.log(imagePreview)
   
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     // Here you would typically send the data to your API
-    console.log("Form submitted:", formData)
-    alert("Doctor added successfully!")
-    // router.push("/admin")
-  }
+    // console.log("Form submitted:", formData)
 
-  // async function handleAddDoc (){
-  //     const data = await (await fetch('http://localhost:8080/api/doctors/create', {
-  //       method: 'POST',
-  //       headers: {
-  //         'Content-Type': 'application/json'
-  //       },
-  //       credentials: "include",
-
-  //       //{ name, specialty, experience, degree, location, availableTimes }
-  //       //@ts-ignore
-  //       body: JSON.stringify({name, speciality, experience, degree, location:address, avaliableTimes, photo:imagePreview})
-  //     })).json()
-
-  //     console.log(data)
-  // }
-  async function handleAddDoc() {
-    console.log("🚀 Sending API Request...");
-  
     try {
       const response = await fetch("http://localhost:8080/api/doctors/create", {
         method: "POST",
@@ -113,10 +93,48 @@ function AddDoctor() {
   
       const data = await response.json();
       console.log("🟢 API Response:", data);
+
     } catch (error) {
       console.error("❌ Fetch Error:", error);
     }
+
+    toast.success('🦄 Doctor Successfully!', {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: false,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      transition: Bounce,
+      });
+      
+    alert("Doctor added successfully!")
+
+    // router.push("/admin")
   }
+
+  // async function handleAddDoc (){
+  //     const data = await (await fetch('http://localhost:8080/api/doctors/create', {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json'
+  //       },
+  //       credentials: "include",
+
+  //       //{ name, specialty, experience, degree, location, availableTimes }
+  //       //@ts-ignore
+  //       body: JSON.stringify({name, speciality, experience, degree, location:address, avaliableTimes, photo:imagePreview})
+  //     })).json()
+
+  //     console.log(data)
+  // }
+  // async function handleAddDoc() {
+  //   console.log("🚀 Sending API Request...");
+  
+    
+  // }
 
   // function gettingDataFromChild(data: Date){
   //   // const formattedDate = data.toISOString().split("T")[0];
@@ -149,14 +167,28 @@ function AddDoctor() {
     });
   }
   
+  //@ts-ignore
+  function handleReset(e){
 
+      e.preventDefault(); // Prevents default form reset (optional)
+      setFormData({
+        name: "",
+        degree: "",
+        speciality: "",
+        experience: "",
+        address: "",
+        availableTimes: "",
+        availableDate: "",
+        gender: "",
+      });
+  }
 
   return (
     <>
       <Navbar />
       <main className={styles.addDoctorContainer}>
         <div className={styles.header}>
-          <button className={styles.backButton} onClick={() => router.push("/admin")}>
+          <button className={styles.backButton} onClick={() => router.push("/home")}>
             <LucideArrowLeft size={18} />
             <span>Back to Dashboard</span>
           </button>
@@ -344,8 +376,8 @@ function AddDoctor() {
           </div>
 
           <div className={styles.formActions}>
-            <Button text="Cancel" type="reset" variant="smallcardButtonGreen" /> 
-            <Button text="Add Doctor" onClick={() => {handleAddDoc()}} type="submit" variant="largeGreenBtn" />
+            <Button text="Reset" onClick={(e) => handleReset(e)} type="reset" variant="smallcardButtonGreen" /> 
+            <Button text="Add Doctor" onClick={() => {}} type="submit" variant="largeGreenBtn" />
           </div>
         </form>
       </main>

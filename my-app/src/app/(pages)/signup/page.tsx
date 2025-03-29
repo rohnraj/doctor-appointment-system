@@ -6,6 +6,7 @@ import styles from './page.module.css'
 import Navbar from '@/app/components/navbar/Navbar'
 import Button from '@/app/components/button/Button'
 import { useRouter } from 'next/navigation'
+import { ToastContainer, toast, Bounce } from 'react-toastify';
 
 interface User {
     email: string;
@@ -58,12 +59,37 @@ export default function page() {
             
             if(res.success){
                 // doubt why ye chal gya with res.success not with tokenData?.Data
-                alert('use Resgistered')
+                alert('user Resgistered')
+
+                toast.success('🦄 User Resgistered Successfully!', {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: false,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                    transition: Bounce,
+                    });
                 // localStorage.setItem('token', res.token); 
                 // localStorage.setItem('user', JSON.stringify(res.user));
                 router.push('/login')
             } 
-            else alert('Failed To Resgistered')
+            else{
+                alert('Failed To Resgistered')
+                toast.warn('🦄 Check your email & password', {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: false,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                    transition: Bounce,
+                });
+            }
         }
         catch(err){
             console.log(err);
@@ -82,7 +108,7 @@ export default function page() {
             <div className={styles.pageContainer}>
                 <div className={styles.formContainer}>
                     <div className={styles.loginHeading}>Sign Up</div><br/>
-                    <div className={styles.para}>Already a member? <strong>Login.</strong></div>
+                    <div className={styles.para}>Already a member? <strong onClick={()=> router.push('/login')}>Login.</strong></div>
 
                     <form action="#" className={styles.form} onSubmit={handleSingup}>
 

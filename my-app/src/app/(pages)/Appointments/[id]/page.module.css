@@ -54,6 +54,7 @@
     height: 100%;
 }
 
+
 .slotContainer{
     background-color: var(--seconday-color);
     width: 100%;
@@ -87,35 +88,23 @@
     width: 100%;
 }
 
-.booking button:nth-child(1) {
+.booking button {
     width: 50%;
     padding: 10px 20px;
-    border: none;
-    background: var(--primary-color);
-    color: white;
+    border: 1px solid #F4D7D0;
+    background: var(--secondary-color); 
+    color: var(--primary-color);
     font-size: 16px;
     cursor: pointer;
     transition: 0.3s;
-    border-top-left-radius:5px;
-    border-bottom-left-radius:5px;
-}
-.booking button:nth-child(1):active{
-    background-color: var(--secondary-color);
-    color: var(--primary-color);
 }
 
-.booking button:nth-child(2) {
-    width: 50%;
-    background: var(--secondary-color); 
-    color: var(--primary-color);
-    border: 1px solid #F4D7D0;
-    border-top-right-radius:5px;
-    border-bottom-right-radius:5px;
+.booking button.active {
+    background: var(--primary-color);
+    color: white;
 }
-.booking button:nth-child(2):active{
-    background-color: var(--primary-color);
-    color: white
-}
+
+
 
 .address {
     width: 100%;
@@ -179,6 +168,9 @@
     font-size: 16px;
 }
 
+.slotContainer{
+    height: 100%;
+}
 .slotContainer article:nth-child(3){
     display: flex;
     flex-direction: column;
