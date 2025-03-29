@@ -5,7 +5,7 @@ export const isTimeSlotAvailable = async (appointment_dates, appointment_time) =
 
   try{
 
-    const query = `SELECT COUNT(*) FROM appointments WHERE appointments_dates = $1 AND appointments_time = $2 AND status = 'Confirmed'`;
+    const query = `SELECT COUNT(*) FROM appointments WHERE appointments_dates = $1 AND appointments_time = $2 AND status = 'Approved'`;
     const result = await pool.query(query, [appointment_dates, appointment_time]);
     console.log(result.rows[0].count === '0')
     return result.rows[0].count === '0'; // Returns true if no pending appointment exists
@@ -46,3 +46,26 @@ export const getBookedSlots = async () =>{
   }
 }
 
+export const approveSlot = async (id) =>{
+  try{
+    const query = `UPDATE appointments SET status = 'Approved' WHERE id = $1 RETURNING *`;
+    const result = await pool.query(query, [id]);
+    console.log('result rows '+ result.rows)
+    return result.rows;
+  }
+  catch(err){
+    console.log('approveSlot query not working err: '+ err)
+  }
+}
+
+export const rejectSlot = async (id) =>{
+  try{
+    const query = `UPDATE appointments SET status = 'Denied' WHERE id = $1 RETURNING *`;
+    const result = await pool.query(query, [id]);
+    console.log('result rows '+ result.rows)
+    return result.rows;
+  }
+  catch(err){
+    console.log('rejectSlot query not working err: '+ err)
+  }
+}

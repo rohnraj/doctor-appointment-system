@@ -1,7 +1,7 @@
 
 'use client'
 
-import React, { useRef, useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import styles from './page.module.css'
 import Navbar from '@/app/components/navbar/Navbar'

@@ -1,4 +1,4 @@
-import { getTopDoctors, searchDoctors, getDoctorById, createDoctor, getAllDoctorsModel, deleteDoctorById, availableSlotModel } from "../models/doctorModel.js";
+import { getTopDoctors, searchDoctors, getDoctorById, createDoctor, getAllDoctorsModel, deleteDoctorById, availableSlotModel, updateDoctorslot } from "../models/doctorModel.js";
 // import * as res from 'express/lib/response';
 
 // Only Admins Can Create Doctors
@@ -109,3 +109,27 @@ export const getAvailableSlotController = async(req, res) =>{
     res.status(500).json({ success: false, message: "Server error" });
   }
 }
+
+export const updateDoctorController = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const {newAvailableTimes} = req.body;
+
+    // Check for required fields
+    if (!newAvailableTimes) {
+      return res.status(400).json({ error: "fields are required." });
+    }
+
+    // Update doctor
+    try{
+      const updatedDoctor = await updateDoctorslot(id,newAvailableTimes);
+      res.status(200).json({success: true, message: 'slots updated successfully'})
+    }
+    catch(err){
+      console.log('in query to update doctor slots '+err)
+    }
+  }
+  catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};

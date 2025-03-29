@@ -18,20 +18,26 @@ interface UserInfo {
 
 interface SlotRequest {
   id: string;
-  doctorId: string;
+  doctor_id: string;
   doctor_name: string;
   doctor_specialty: string;
   appointments_dates: string;
-  appointments_time: string[];
+  appointments_time: string;
   status: string
   user_info: UserInfo;
   location: string;
   consult_type: string;
 }
 
+// interface Doctor {
+//   available_times: string[];
+//   available_dates: string[];
+// }
+
 function SlotsApproval() {
   const router = useRouter();
   const [slotRequests, setSlotRequests] = useState<SlotRequest[]>([]);
+  // const [doctorDetails, setDoctorDetails] = useState<Doctor[] >([])
   const [filter, setFilter] = useState<"all" | "Pending" | "Approved" | "Denied">("all");
 
   useEffect(() => {
@@ -54,20 +60,63 @@ function SlotsApproval() {
       } catch (error) {
         console.error("Error fetching slot requests:", error);
       }
-    }
 
+    }
+    
+    
     fetchAppointments();
   }, []);
-
+  
   console.log(slotRequests)
   
+  
+  const handleApprove = (id: string, doctor_id : string, date : string , time : string) => {
+    // setSlotRequests(slotRequests.map((request) => (request.id === id ? { ...request, status: "approved" } : request)));
+    async function fetching(){
+      const response = await (await fetch(`http://localhost:8080/api/appointments/approveSlot?id=${id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      })).json()
+      console.log(response)
+      
+      const dateArr = await (await fetch(`http://localhost:8080/api/doctors/${doctor_id}`, {
+        method: 'GET',
+      })).json()
+      console.log('datesArr" '+ dateArr)
+      const {available_times} = dateArr.doctor
 
-  const handleApprove = (id: string) => {
-    setSlotRequests(slotRequests.map((request) => (request.id === id ? { ...request, status: "approved" } : request)));
+      //@ts-ignore
+      const newAvailableTimes = available_times.filter(item  => item !== time);
+
+
+      // to edit doctos table date or time 
+      const response1 = await (await fetch(`http://localhost:8080/api/doctors/${doctor_id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({newAvailableTimes}),
+        credentials: "include",
+      })).json()
+        console.log(response1)
+    }fetching()
   };
 
   const handleDeny = (id: string) => {
-    setSlotRequests(slotRequests.map((request) => (request.id === id ? { ...request, status: "denied" } : request)));
+    // setSlotRequests(slotRequests.map((request) => (request.id === id ? { ...request, status: "denied" } : request)));
+    async function fetching(){
+      const response = await (await fetch(`http://localhost:8080/api/appointments/rejectSlot?id=${id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      })).json()
+      console.log(response)
+    }fetching()
   };
 
   const filteredRequests = filter === "all" ? slotRequests : slotRequests.filter((request) => request.status === filter);
@@ -126,7 +175,7 @@ function SlotsApproval() {
 
                   {request.status === "Pending" && (
                     <div className={styles.actionButtons}>
-                      <button className={styles.approveButton} onClick={() => handleApprove(request.id)}>
+                      <button className={styles.approveButton} onClick={() => handleApprove(request.id, request.doctor_id, request.appointments_dates, request.appointments_time)}>
                         <span>Approve</span>
                       </button>
                       <button className={styles.denyButton} onClick={() => handleDeny(request.id)}>

@@ -23,6 +23,7 @@ const BookingConfirmation = () => {
   const searchParams = useSearchParams()
 
   // Get appointment details from URL params
+  // Convert phone number to string when displaying in placeholder
   const name = searchParams.get("name") || ""
   const specialty = searchParams.get("specialty") || ""
   const date = searchParams.get("date") || ""
@@ -209,7 +210,7 @@ const BookingConfirmation = () => {
                   type="tel"
                   id="phoneNumber"
                   name="phoneNumber"
-                  placeholder={userInfo?.phone.toString()}
+                  placeholder={userInfo?.phone ? userInfo.phone.toString() : ""}
                   value={patientInfo.phoneNumber}
                   onChange={handleInputChange}
                   className={styles.formInput}

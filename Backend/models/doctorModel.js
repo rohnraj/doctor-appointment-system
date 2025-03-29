@@ -177,3 +177,15 @@ export const availableSlotModel = async(id) =>{
   const data = await pool.query(query, [id]);
   return data.rows[0].available_times;
 }
+
+export const updateDoctorslot = async(id, availableTimes) =>{
+  try{
+
+    const query = `UPDATE doctors SET available_times = $1 WHERE id = $2;`;
+    const data = await pool.query(query, [availableTimes, id]);
+    return data.rows[0];
+  }
+  catch(err){
+    console.log('some error in query to update doctor slot')
+  }
+}

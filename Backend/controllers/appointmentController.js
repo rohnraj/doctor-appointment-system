@@ -1,6 +1,18 @@
-import { bookAppointment, isTimeSlotAvailable , getBookedSlots} from "../models/appointmentModel.js";
+import { bookAppointment, isTimeSlotAvailable , getBookedSlots , approveSlot, rejectSlot} from "../models/appointmentModel.js";
 import { sendAppointmentEmail } from "../utils/emailService.js"; // Import email service
 import { getDoctorById } from '../models/doctorModel.js';
+
+// export const isSlotAvailableController = async (req, res) =>{
+//   try{
+//     const {appointment_dates, appointment_time} = req.query
+//     const isAvailable = await isTimeSlotAvailable(appointment_dates, appointment_time);
+//     if (!isAvailable) return res.status(400).json({ success: false, message: "Time slot is already booked" });
+//     res.status(200).json({success: true, message: 'No booking on this slot'})
+//   }
+//   catch(err){
+//     console.log('some issue in isAvailable controller '+ err)
+//   }
+// }
 
 export const bookAppointmentController = async (req, res) => {
   try {
@@ -74,3 +86,41 @@ export const bookedSlotController = async (req, res) =>{
     return res.status(500).json({ success: false, message: "error while getting all slots" });
   }
 }
+
+export const approveSlotController = async(req, res) =>{
+  try{
+
+    const {id} = req.query;
+    console.log('slot id: '+id)
+    const response = await approveSlot(id);
+    console.log(response)
+    res.status(200).json({success: true , message: response})
+  }
+  catch(err){
+    console.log("Error approving slot:", err);
+    return res.status(500).json({ success: false, message: "error while approving slot" });
+  }
+}
+
+export const rejectSlotController = async (req, res) => {
+  try{
+
+    const {id} = req.query;
+    const response = await rejectSlot(id);
+    res.status(200).json({success: true , message: response})
+  }
+  catch(err){
+    console.log("Error reject slot:", err);
+    res.status(500).json({ success: false, message: "error while reject slot" });
+  }
+}
+
+// export const updateDoctorController = async (req, res) =>{
+//   try{
+//     const {id} = req.body;
+//     const response = await updateDoctor();
+//   }
+//   catch(err){
+
+//   }
+// }
