@@ -1,17 +1,30 @@
 "use client"
-import React , {useEffect, useState} from "react"
+import React , {useEffect, useState, useContext} from "react"
 import styles from "./page.module.css"
 import Navbar from "@/app/components/navbar/Navbar"
 import Button from "@/app/components/button/Button"
 import Footer from "@/app/components/footer/Footer"
 import { useRouter } from "next/navigation"
 import { LucideUsers, LucideUserMinus, LucideCalendarCheck, LucideShield } from "lucide-react"
+import {IsAuthContext} from '@/app/components/useContext/UseContext'
 
 function AdminDashboard() {
   const router = useRouter()
 
   const [allUsersNum, setAllUserNum] = useState<number | string>('-')
   const [allDocNum, setAllDocNum] = useState<number | string>('-')
+
+  const authContext = useContext(IsAuthContext)
+  
+      useEffect(() => {
+          if (authContext && !authContext.isAuth) {
+              router.push("/"); // Redirect if not authenticated
+          }
+        }, [authContext?.isAuth, router]);
+  
+      if (!authContext?.isAuth) {
+          return <p>Loading...</p>; // Show a loading message while checking auth
+      }
 
   const handleNavigation = (path: string) => {
     router.push(`/${path}`)
@@ -27,6 +40,7 @@ function AdminDashboard() {
     }fetching()
   }, [])
 
+   
   return (
     <>
       <Navbar />

@@ -1,10 +1,12 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import styles from "./page.module.css";
 import Navbar from "@/app/components/navbar/Navbar";
 import Footer from "@/app/components/footer/Footer";
 import { useRouter } from "next/navigation";
+import { ToastContainer, toast, Bounce } from 'react-toastify';
+import {IsAuthContext} from '@/app/components/useContext/UseContext'
 
 interface UserInfo {
   fullName: string;
@@ -39,6 +41,17 @@ function SlotsApproval() {
   const [slotRequests, setSlotRequests] = useState<SlotRequest[]>([]);
   // const [doctorDetails, setDoctorDetails] = useState<Doctor[] >([])
   const [filter, setFilter] = useState<"all" | "Pending" | "Approved" | "Denied">("all");
+
+  const authContext = useContext(IsAuthContext)
+  useEffect(() => {
+    if (authContext && !authContext.isAuth) {
+        router.push("/"); // Redirect if not authenticated
+    }
+    }, [authContext?.isAuth, router]);
+
+  if (!authContext?.isAuth) {
+    return <p>Loading...</p>; // Show a loading message while checking auth
+  }
 
   useEffect(() => {
     async function fetchAppointments() {
@@ -103,6 +116,18 @@ function SlotsApproval() {
       })).json()
         console.log(response1)
     }fetching()
+
+    toast.success('🦄 Slot Approved Successfully!', {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: false,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      transition: Bounce,
+    });
   };
 
   const handleDeny = (id: string) => {
@@ -117,9 +142,26 @@ function SlotsApproval() {
       })).json()
       console.log(response)
     }fetching()
+
+    toast.warn('🦄 Slot Denied Successfully!', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+      }); 
   };
 
   const filteredRequests = filter === "all" ? slotRequests : slotRequests.filter((request) => request.status === filter);
+
+
+
+
+  
 
   return (
     <>

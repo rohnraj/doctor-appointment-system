@@ -1,7 +1,7 @@
 "use client"
 
 import type React from "react"
-import { useState } from "react"
+import { useState, useContext, useEffect } from "react"
 import styles from "./page.module.css"
 import Navbar from "@/app/components/navbar/Navbar"
 import Button from "@/app/components/button/Button"
@@ -10,6 +10,7 @@ import { useRouter } from "next/navigation"
 import Calendar from "@/app/components/calendar/Calendar"
 import { LucideArrowLeft, LucideUpload } from "lucide-react"
 import { toast , Bounce} from "react-toastify"
+import {IsAuthContext} from '@/app/components/useContext/UseContext'
 
 
 function AddDoctor() {
@@ -27,6 +28,18 @@ function AddDoctor() {
   const [imagePreview, setImagePreview] = useState<string | null>(null)
   const [selectedDatesArr, setSelectedDatesArr] = useState<string[]> ([])
   const [isEditingDates, setIsEditingDates] = useState(false);
+
+  const authContext = useContext(IsAuthContext)
+
+  useEffect(() => {
+      if (authContext && !authContext.isAuth) {
+          router.push("/"); // Redirect if not authenticated
+      }
+    }, [authContext?.isAuth, router]);
+
+  if (!authContext?.isAuth) {
+      return <p>Loading...</p>; // Show a loading message while checking auth
+  }
 
   // @ts-ignore
   // const handleChange = (e) => {
@@ -182,6 +195,8 @@ function AddDoctor() {
         gender: "",
       });
   }
+
+ 
 
   return (
     <>

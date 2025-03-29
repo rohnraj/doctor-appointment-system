@@ -1,7 +1,7 @@
 'use client'
 
 import Navbar from "@/app/components/navbar/Navbar";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styles from "./page.module.css";
 import Footer from "@/app/components/footer/Footer";
 // import Star from "@/app/components/stars/Stars";
@@ -10,6 +10,7 @@ import Doctorcard from "@/app/components/doctorCard/Doctorcard";
 import { useRouter } from "next/navigation";
 import Pagenation from '@/app/components/pagenation/Pagenation'
 import { Circles } from 'react-loader-spinner'
+import {IsAuthContext} from '@/app/components/useContext/ContextProvider'
 
 
 interface Doctor {
@@ -31,6 +32,9 @@ interface Pagenation{
 }
 
 export default function app(){
+
+    let routes=useRouter()
+
     const [doctors, setDoctors] = useState<Doctor[]>([]);
     // const [doctorsSlice, setDoctorsSlice] = useState<Doctor[]>([])
     // const [doctorSearch, setDoctorsSearch]=useState<Doctor[]>([]);
@@ -114,7 +118,7 @@ export default function app(){
         // setDoctorsSlice(doctors.slice(0, 6))
     }, [doctors])
 
-    let routes=useRouter()
+    
 
     function handleDoctorSearchInp(e:any){
         setsearch(e.target.value)
@@ -136,6 +140,18 @@ export default function app(){
         fetching();
     }
     
+
+    const authContext = useContext(IsAuthContext)
+
+    useEffect(() => {
+        if (authContext && !authContext.isAuth) {
+            routes.push("/login"); // Redirect if not authenticated
+        }
+      }, [authContext?.isAuth, routes]);
+
+    if (!authContext?.isAuth) {
+        return <p>Loading...</p>; // Show a loading message while checking auth
+    }
 
     // console.log(doctors.id)
 

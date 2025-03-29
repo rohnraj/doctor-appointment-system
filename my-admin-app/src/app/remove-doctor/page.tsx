@@ -1,12 +1,13 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useContext } from "react"
 import styles from "./page.module.css"
 import Navbar from "@/app/components/navbar/Navbar"
 import Footer from "@/app/components/footer/Footer"
 import { useRouter } from "next/navigation"
 import { LucideArrowLeft, LucideSearch, LucideTrash2, LucideAlertCircle } from "lucide-react"
 import Pagenation from '../components/pagenation/Pagenation'
+import {IsAuthContext} from '@/app/components/useContext/UseContext'
 
 interface Doctor {
   id: number
@@ -25,6 +26,18 @@ function RemoveDoctor() {
   const [showConfirmation, setShowConfirmation] = useState(false)
   const [currentPage, setCurrentPage] = useState(1);
   const[AllDocNum, setAllDocNum] = useState<string | number>('')
+
+  const authContext = useContext(IsAuthContext)
+
+  useEffect(() => {
+      if (authContext && !authContext.isAuth) {
+          router.push("/"); // Redirect if not authenticated
+      }
+    }, [authContext?.isAuth, router]);
+
+  if (!authContext?.isAuth) {
+      return <p>Loading...</p>; // Show a loading message while checking auth
+  }
 
   useEffect(() => {
     async function fetching() {
@@ -92,6 +105,8 @@ function RemoveDoctor() {
     console.log('page' + page)
     // setDoctorsSlice(doctors.slice(page+6-2, (page+6-1)+6))
 };
+
+  
 
   return (
     <>
