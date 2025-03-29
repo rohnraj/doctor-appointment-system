@@ -190,40 +190,82 @@
     margin-top: 0.5rem;
   }
   
-  .approveButton,
-  .denyButton {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    border: none;
-    border-radius: 8px;
-    padding: 0.75rem;
-    font-family: var(--primary-font);
-    font-size: 0.875rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background-color 0.2s;
-    flex: 1;
-  }
-  
-  .approveButton {
-    background-color: #d1fae5;
-    color: #059669;
-  }
-  
-  .approveButton:hover {
-    background-color: #a7f3d0;
-  }
-  
-  .denyButton {
-    background-color: #fee2e2;
-    color: #dc2626;
-  }
-  
-  .denyButton:hover {
-    background-color: #fecaca;
-  }
+.approveButton,
+.denyButton{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border: none;
+  border-radius: 8px;
+  padding: 0.75rem;
+  font-family: var(--primary-font);
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  flex: 1;
+}
+
+/* Approve Button */
+.approveButton {
+  background-color: #d1fae5;
+  color: #059669;
+}
+.approveButton:hover {
+  background-color: #a7f3d0;
+}
+
+/* Deny Button */
+.denyButton {
+  background-color: #fee2e2;
+  color: #dc2626;
+}
+.denyButton:hover {
+  background-color: #fecaca;
+}
+
+/* Delete Button (Appears after approval/denial) */
+/* Delete Button */
+.deleteButton {
+  background-color: #f87171;
+  color: white;
+  margin-top: 1rem;
+  width: 100%;
+  padding: 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-align: center;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Hover Effect */
+.deleteButton:hover {
+  background-color: #dc2626;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Active (Click) Effect */
+.deleteButton:active {
+  background-color: #b91c1c;
+  transform: translateY(1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Disabled Button Style (Optional) */
+.deleteButton:disabled {
+  background-color: #fca5a5;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+
+
   
   .noResults {
     grid-column: 1 / -1;

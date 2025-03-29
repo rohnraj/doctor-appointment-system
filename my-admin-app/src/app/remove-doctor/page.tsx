@@ -29,15 +29,15 @@ function RemoveDoctor() {
 
   const authContext = useContext(IsAuthContext)
 
-  useEffect(() => {
-      if (authContext && !authContext.isAuth) {
-          router.push("/"); // Redirect if not authenticated
-      }
-    }, [authContext?.isAuth, router]);
+  // useEffect(() => {
+  //     if (authContext && !authContext.isAuth) {
+  //         router.push("/"); // Redirect if not authenticated
+  //     }
+  //   }, [authContext?.isAuth, router]);
 
-  if (!authContext?.isAuth) {
-      return <p>Loading...</p>; // Show a loading message while checking auth
-  }
+  // if (!authContext?.isAuth) {
+  //     return <p>Loading...</p>; // Show a loading message while checking auth
+  // }
 
   useEffect(() => {
     async function fetching() {

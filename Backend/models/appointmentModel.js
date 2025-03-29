@@ -69,3 +69,14 @@ export const rejectSlot = async (id) =>{
     console.log('rejectSlot query not working err: '+ err)
   }
 }
+
+export const deleteSlot = (id) =>{
+  try{
+    const query = `DELETE FROM appointments WHERE id = $1 RETURNING *`; 
+    const result = pool.query(query, [id]);
+    return result.rows;
+  }
+  catch(err){
+    console.log('deleteSlot query not working err: '+ err)
+  }
+}

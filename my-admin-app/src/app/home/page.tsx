@@ -15,20 +15,21 @@ function AdminDashboard() {
   const [allDocNum, setAllDocNum] = useState<number | string>('-')
 
   const authContext = useContext(IsAuthContext)
+  console.log('authcontext: '+authContext?.isAuth)
   
-      useEffect(() => {
-          if (authContext && !authContext.isAuth) {
-              router.push("/"); // Redirect if not authenticated
-          }
-        }, [authContext?.isAuth, router]);
+      // useEffect(() => {
+      //     if (!authContext?.isAuth) {
+      //         router.push("/"); // Redirect if not authenticated
+      //     }
+      //   }, [authContext?.isAuth, router]);
   
-      if (!authContext?.isAuth) {
-          return <p>Loading...</p>; // Show a loading message while checking auth
-      }
+      // if (!authContext?.isAuth) {
+      //     return <p>Loading...</p>; // Show a loading message while checking auth
+      // }
 
-  const handleNavigation = (path: string) => {
-    router.push(`/${path}`)
-  }
+    const handleNavigation = (path: string) => {
+      router.push(`/${path}`)
+    }
 
   useEffect(()=>{
     async function fetching(){

@@ -142,16 +142,17 @@ export default function app(){
     
 
     const authContext = useContext(IsAuthContext)
+    // console.log('authContext: '+authContext?.isAuth)
 
-    useEffect(() => {
-        if (authContext && !authContext.isAuth) {
-            routes.push("/login"); // Redirect if not authenticated
-        }
-      }, [authContext?.isAuth, routes]);
+    // useEffect(() => {
+    //     if (!authContext?.loading && !authContext?.isAuth) {
+    //         routes.push("/login"); // Redirect if not authenticated
+    //     }
+    //   }, [authContext?.isAuth, authContext?.loading, routes]);
 
-    if (!authContext?.isAuth) {
-        return <p>Loading...</p>; // Show a loading message while checking auth
-    }
+    // if (authContext?.loading) {
+    //     return <p>Loading...</p>; // Show a loading message while checking auth
+    // }
 
     // console.log(doctors.id)
 

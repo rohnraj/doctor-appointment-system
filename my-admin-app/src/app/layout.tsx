@@ -29,7 +29,6 @@ export default function RootLayout({
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <IsAuthProvider>
 
-          {children}
           <ToastContainer
             position="top-right"
             autoClose={5000}
@@ -43,6 +42,7 @@ export default function RootLayout({
             theme="light"
             transition={Bounce}
           />
+          {children}
         </IsAuthProvider>
       </body>
     </html>

@@ -5,7 +5,7 @@ import styles from "./page.module.css";
 import Navbar from "@/app/components/navbar/Navbar";
 import Footer from "@/app/components/footer/Footer";
 import { useRouter } from "next/navigation";
-import { ToastContainer, toast, Bounce } from 'react-toastify';
+import { toast, Bounce } from 'react-toastify';
 import {IsAuthContext} from '@/app/components/useContext/UseContext'
 
 interface UserInfo {
@@ -39,19 +39,21 @@ interface SlotRequest {
 function SlotsApproval() {
   const router = useRouter();
   const [slotRequests, setSlotRequests] = useState<SlotRequest[]>([]);
+  const [Delete, setSDelete] = useState(false);
   // const [doctorDetails, setDoctorDetails] = useState<Doctor[] >([])
   const [filter, setFilter] = useState<"all" | "Pending" | "Approved" | "Denied">("all");
+  // const [showDelete, setShowDelete] = useState(false);
 
   const authContext = useContext(IsAuthContext)
-  useEffect(() => {
-    if (authContext && !authContext.isAuth) {
-        router.push("/"); // Redirect if not authenticated
-    }
-    }, [authContext?.isAuth, router]);
+  // useEffect(() => {
+  //   if (authContext && !authContext.isAuth) {
+  //       router.push("/"); // Redirect if not authenticated
+  //   }
+  //   }, [authContext?.isAuth, router]);
 
-  if (!authContext?.isAuth) {
-    return <p>Loading...</p>; // Show a loading message while checking auth
-  }
+  // if (!authContext?.isAuth) {
+  //   return <p>Loading...</p>; // Show a loading message while checking auth
+  // }
 
   useEffect(() => {
     async function fetchAppointments() {
@@ -78,7 +80,7 @@ function SlotsApproval() {
     
     
     fetchAppointments();
-  }, []);
+  }, [Delete]);
   
   console.log(slotRequests)
   
@@ -128,6 +130,8 @@ function SlotsApproval() {
       theme: "light",
       transition: Bounce,
     });
+
+    // setShowDelete(true);
   };
 
   const handleDeny = (id: string) => {
@@ -154,14 +158,49 @@ function SlotsApproval() {
         theme: "light",
         transition: Bounce,
       }); 
+
+      // setShowDelete(true);
   };
+
+  function handleDelete (id: string){
+
+    console.log('slot id to delete: '+id)
+    try{
+
+      async function fetching(){
+        const response = await (await fetch(`http://localhost:8080/api/appointments/deleteSlot?id=${id}`, {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+        })).json()
+        console.log(response)
+        if(response.success){
+
+          toast.error('🦄 Slot Deleted Successfully!', {
+              position: "top-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: false,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+              transition: Bounce,
+            });
+          
+        }
+        setSDelete(true)
+      }fetching()
+    }catch(err){
+      console.log('error while doing fetching to delete slot'+err)
+    }
+
+  } 
 
   const filteredRequests = filter === "all" ? slotRequests : slotRequests.filter((request) => request.status === filter);
 
-
-
-
-  
 
   return (
     <>
@@ -225,6 +264,11 @@ function SlotsApproval() {
                       </button>
                     </div>
                   )}
+
+                    
+                  <button className={styles.deleteButton} onClick={() => handleDelete(request.id)}>
+                    <span>Delete</span>
+                  </button>
                 </div>
               ))
             ) : (

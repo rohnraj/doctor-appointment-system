@@ -1,5 +1,5 @@
-import { bookAppointment, isTimeSlotAvailable , getBookedSlots , approveSlot, rejectSlot} from "../models/appointmentModel.js";
-import { sendAppointmentEmail } from "../utils/emailService.js"; // Import email service
+import { bookAppointment, isTimeSlotAvailable , getBookedSlots , approveSlot, rejectSlot, deleteSlot} from "../models/appointmentModel.js";
+import { sendAppointmentEmail } from "../utils/emailService.js"; 
 import { getDoctorById } from '../models/doctorModel.js';
 
 // export const isSlotAvailableController = async (req, res) =>{
@@ -93,8 +93,18 @@ export const approveSlotController = async(req, res) =>{
     const {id} = req.query;
     console.log('slot id: '+id)
     const response = await approveSlot(id);
-    console.log(response)
+    // console.log(response)
+
+    const doctor = await getDoctorById(response[0].doctor_id);
+    // console.log(doctor)
+
+    console.log(response[0].id ,response[0].user_id, doctor.name, response[0].appointments_dates, response[0].appointments_time, doctor.location)
+
+    await sendAppointmentEmail( response[0].consult_type ,response[0].user_id, doctor.name, response[0].appointments_dates, response[0].appointments_time, doctor.location, response[0].status)
+
     res.status(200).json({success: true , message: response})
+    // await sendAppointmentEmail(response.user_id, response.doctor_id, response);
+
   }
   catch(err){
     console.log("Error approving slot:", err);
@@ -107,6 +117,13 @@ export const rejectSlotController = async (req, res) => {
 
     const {id} = req.query;
     const response = await rejectSlot(id);
+
+    const doctor = await getDoctorById(response[0].doctor_id);
+
+    console.log(response[0].id ,response[0].user_id, doctor.name, response[0].appointments_dates, response[0].appointments_time, doctor.location)
+
+    await sendAppointmentEmail( response[0].consult_type ,response[0].user_id, doctor.name, response[0].appointment_dates, response[0].appointment_time, doctor.location, response[0].status)
+
     res.status(200).json({success: true , message: response})
   }
   catch(err){
@@ -115,12 +132,15 @@ export const rejectSlotController = async (req, res) => {
   }
 }
 
-// export const updateDoctorController = async (req, res) =>{
-//   try{
-//     const {id} = req.body;
-//     const response = await updateDoctor();
-//   }
-//   catch(err){
-
-//   }
-// }
+export const deleteSlotController = async(req, res) =>{
+  const {id} = req.query;
+  console.log('slot id: '+id) 
+  try{
+    const response = await deleteSlot(id);
+    res.status(200).json({success: true, message: 'slot delete successfully'})
+  }
+  catch(err){
+    console.log("Error deleting slot:", err);
+    res.status(500).json({ success: false, message: "error while deleting slot" });
+  }
+}

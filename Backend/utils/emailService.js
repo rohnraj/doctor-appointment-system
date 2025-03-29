@@ -9,24 +9,31 @@ const getUserEmail = async (userId) => {
 };
 
 // Send Appointment Confirmation Email
-export const sendAppointmentEmail = async (userId, doctor, appointment) => {
-  const userEmail = await getUserEmail(userId);
+export const sendAppointmentEmail = async (consult_type, user_id, doctor_name, date, time, location, status) => {
+
+  console.log(date,time)
+  const userEmail = await getUserEmail(user_id);
   if (!userEmail) return;
 
   const transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
-      user: "your-email@gmail.com",
-      pass: "your-email-password",
+      user: process.env.emailID,
+      pass: process.env.mail_password,
     },
   });
+  
 
-  const emailContent = appointment.consultType === "online"
-    ? `Your online appointment with Dr. ${doctor.name} is confirmed for ${appointment.timeSlot}.`
-    : `Your in-person appointment with Dr. ${doctor.name} at ${doctor.location} is confirmed for ${appointment.timeSlot}.`;
+  const emailContent = status === "Denied"
+    ? `Your appointment with Dr. ${doctor_name} is denied on ${date} at ${time}.`
+    : consult_type === "online"
+    ? `Your online appointment with Dr. ${doctor_name} is confirmed on ${date} at ${time}.`
+    : `Your in-person appointment with Dr. ${doctor_name} at ${location} is confirmed on ${date} at ${time}.`;
+
+  
 
   const mailOptions = {
-    from: "your-email@gmail.com",
+    from: process.env.emailID,
     to: userEmail,
     subject: "Appointment Confirmation",
     text: emailContent,

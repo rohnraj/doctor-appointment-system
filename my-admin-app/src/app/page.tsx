@@ -5,7 +5,7 @@ import styles from './page.module.css'
 import Navbar from '@/app/components/navbar/Navbar'
 import Button from '@/app/components/button/Button'
 import { useRouter } from 'next/navigation'
-import { ToastContainer, toast, Bounce } from 'react-toastify';
+import { toast, Bounce } from 'react-toastify';
 
 export default function page() {
 
@@ -67,7 +67,7 @@ export default function page() {
                         theme: "light",
                         transition: Bounce,
                         }); 
-                } 
+                    } 
                 }
             catch(err){
                 console.log(err);

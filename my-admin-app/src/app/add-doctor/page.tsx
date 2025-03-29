@@ -31,15 +31,15 @@ function AddDoctor() {
 
   const authContext = useContext(IsAuthContext)
 
-  useEffect(() => {
-      if (authContext && !authContext.isAuth) {
-          router.push("/"); // Redirect if not authenticated
-      }
-    }, [authContext?.isAuth, router]);
+  // useEffect(() => {
+  //     if (authContext && !authContext.isAuth) {
+  //         router.push("/"); // Redirect if not authenticated
+  //     }
+  //   }, [authContext?.isAuth, router]);
 
-  if (!authContext?.isAuth) {
-      return <p>Loading...</p>; // Show a loading message while checking auth
-  }
+  // if (!authContext?.isAuth) {
+  //     return <p>Loading...</p>; // Show a loading message while checking auth
+  // }
 
   // @ts-ignore
   // const handleChange = (e) => {
@@ -105,25 +105,27 @@ function AddDoctor() {
       });
   
       const data = await response.json();
-      console.log("🟢 API Response:", data);
+      console.log("API Response:", data);
+
+      alert("Doctor added successfully!")
+  
+      toast.success('🦄 Doctor Added Successfully!', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+        });
 
     } catch (error) {
-      console.error("❌ Fetch Error:", error);
+      console.error("Fetch Error:", error);
     }
 
-    toast.success('🦄 Doctor Successfully!', {
-      position: "top-right",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: false,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-      transition: Bounce,
-      });
       
-    alert("Doctor added successfully!")
 
     // router.push("/admin")
   }
@@ -310,6 +312,7 @@ function AddDoctor() {
                   accept="image/*"
                   onChange={handleImageChange}
                   className={styles.fileInput}
+                  required
                 />
                 <label htmlFor="doctorImage" className={styles.uploadButton}>
                   Choose Image
