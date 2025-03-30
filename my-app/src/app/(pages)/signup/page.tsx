@@ -38,8 +38,6 @@ export default function page() {
     let [phone, setphone]= React.useState<number | null>(null)
     let [password, setpassword]= React.useState('')
 
-    // let [tokenData, setTokenData]=React.useState<SignupResponse | null>(null)
-
     async function handleSingup(e: React.FormEvent){
         e.preventDefault();
         try{
@@ -97,8 +95,6 @@ export default function page() {
 
     }
 
-    // if(tokenData) console.log(tokenData.success)
-    // else console.log('no data inside tokenData')
 
     let router=useRouter()
     return (

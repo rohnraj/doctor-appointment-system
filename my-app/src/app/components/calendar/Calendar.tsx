@@ -10,7 +10,6 @@ const Calendar : React.FC<childProp> = ({handleprops}) => {
   const [visibleDates, setVisibleDates] = useState<Date[]>([]);
   const scrollRef = useRef<HTMLDivElement>(null);
 
-  // Generate days of the selected month starting from today (for current month)
   const generateMonthDates = (month: Date) => {
     const dates = [];
     const today = new Date();
@@ -22,25 +21,24 @@ const Calendar : React.FC<childProp> = ({handleprops}) => {
     for (let day = new Date(firstDay); day <= lastDay; day.setDate(day.getDate() + 1)) {
       const newDate = new Date(day);
       if (month.getMonth() === today.getMonth() && newDate < today) {
-        continue; // Skip past dates in current month
+        continue; 
       }
       dates.push(newDate);
     }
-    // console.log('dates of the month '+dates)
+    
     return dates;
   };
 
-  // Ensure visible dates update when month changes
+
   useEffect(() => {
     setVisibleDates(generateMonthDates(currentMonth));
   }, [currentMonth]);
 
-  // Change to next month
+
   const nextMonth = () => {
     setCurrentMonth((prev) => new Date(prev.getFullYear(), prev.getMonth() + 1, 1));
   };
 
-  // Change to previous month (only if it's not before the current month)
   const prevMonth = () => {
     const today = new Date();
     const previousMonth = new Date(currentMonth.getFullYear(), currentMonth.getMonth() - 1, 1);
@@ -49,11 +47,10 @@ const Calendar : React.FC<childProp> = ({handleprops}) => {
     }
   };
 
-  // Scroll left/right in the 7-day list
   const scroll = (direction: "left" | "right") => {
     if (scrollRef.current) {
 
-      const scrollAmount = 70 * 7; // Adjusted width to fit 7 buttons
+      const scrollAmount = 70 * 7; 
       scrollRef.current.scrollBy({ left: direction === "left" ? -scrollAmount : scrollAmount, behavior: "smooth" });
     }
   };

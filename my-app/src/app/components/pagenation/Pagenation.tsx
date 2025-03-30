@@ -4,7 +4,6 @@ import styles from "./Pagenation.module.css";
 interface PaginationProps {
   page: number;
   handlePageChange: (page: number) => void;
-  // handlePageChangePrev: (page: number) => void;
   totalPages: number;
 }
 

@@ -4,8 +4,6 @@ import Navbar from "@/app/components/navbar/Navbar";
 import React, { useContext, useEffect, useState } from "react";
 import styles from "./page.module.css";
 import Footer from "@/app/components/footer/Footer";
-// import Star from "@/app/components/stars/Stars";
-// import Button from "@/app/components/button/Button";
 import Doctorcard from "@/app/components/doctorCard/Doctorcard";
 import { useRouter } from "next/navigation";
 import Pagenation from '@/app/components/pagenation/Pagenation'
@@ -19,7 +17,6 @@ interface Doctor {
     specialty: string;
     experience: number;
     rating: number;
-    // img_url: string;
     photo: string;
     id:string;
     gender:string;
@@ -34,10 +31,19 @@ interface Pagenation{
 export default function app(){
 
     let routes=useRouter()
+     //@ts-ignore
+    //  const { isAuth, checkAuth} = useContext(IsAuthContext);
+    //  useEffect(() => {
+    //     if (!isAuth) {
+    //         routes.push('/login');
+    //     }
+    //   }, [isAuth, routes]);
+      
+    //   if (!isAuth) {
+    //     return <div>Redirecting to login...</div>;
+    //   }
 
     const [doctors, setDoctors] = useState<Doctor[]>([]);
-    // const [doctorsSlice, setDoctorsSlice] = useState<Doctor[]>([])
-    // const [doctorSearch, setDoctorsSearch]=useState<Doctor[]>([]);
     const [ratingDropDown, setRatingDropDown] = useState(true)
     const [expDropDown, setexpDropDown] = useState(true)
     const [genderDropDown, setGenderDropDown] = useState(true)
@@ -45,51 +51,24 @@ export default function app(){
     const [cardVisible, setcarVisible]=useState(false)
     const[AllDocNum, setAllDocNum] = useState<string | number>('')
 
-    // const decimals = Array.from({ length: 51 }, (_, i) => parseFloat((0 + i * 0.1).toFixed(1)));
     const [ratingFilter, setRatingFilter] = useState<number | null>(null);
     
-    // const expArr = Array.from({ length: 50 }, (_, i) => 0 + i+1);
-    // console.log(expArr)
     const [experienceFilter, setExperienceFilter] = useState<string | null>(null);
     const [genderFilter, setGenderFilter] = useState<number | null>(null);
     const [loading, setLoading] = useState(false);
 
-
-    //pagination
     const [currentPage, setCurrentPage] = useState(1);
     const totalPages = Math.floor(Number(AllDocNum) / 6);
-    // const [data, setData] = useState<string[]>([]);
 
-    // useEffect(() => {
-    //     fetchData(currentPage);
-    // }, [currentPage]);
-
-    // const fetchData = async (page: number) => {
-    //     console.log(`Fetching data for page ${page}...`);
-    //     // Simulating API call
-    //     // setTimeout(() => {
-    //     // setData([`Item ${(page - 1) * 10 + 1}`, `Item ${(page - 1) * 10 + 2}`, `Item ${(page - 1) * 10 + 3}`]);
-    //     // }, 500);
-        
-    // };
-
-    // const doctorsPerPage = 6;
 
     const handlePageChange = (page: number) => {
         if (page >= 1 && page <= totalPages) {
             setCurrentPage(page);
         }
         console.log('page' + page)
-        // setDoctorsSlice(doctors.slice(page+6-2, (page+6-1)+6))
+        
     };
 
-    // const handlePagePrev = (page: number) => {
-    //     if (page >= 1) {
-    //         setCurrentPage(page);
-    //     }
-    //     console.log('page' + page)
-    //     // setDoctorsSlice(doctors.slice(page+6-2, (page+6-1)+6))
-    // };
 
     useEffect(() => {
         async function fetching() {
@@ -115,17 +94,16 @@ export default function app(){
             console.log(doctors.length)
             setcarVisible(true)
         } 
-        // setDoctorsSlice(doctors.slice(0, 6))
     }, [doctors])
 
-    
+ console.log(doctors)
 
     function handleDoctorSearchInp(e:any){
         setsearch(e.target.value)
     }
 
     function handleSerchClick() {
-        setLoading(true); // Show loader before fetching
+        setLoading(true); 
         async function fetching() {
             try {
                 const fetchData = await (await fetch(`http://localhost:8080/api/doctors/search?search=${search}`)).json();
@@ -141,29 +119,13 @@ export default function app(){
     }
     
 
-    const authContext = useContext(IsAuthContext)
-    // console.log('authContext: '+authContext?.isAuth)
-
-    // useEffect(() => {
-    //     if (!authContext?.loading && !authContext?.isAuth) {
-    //         routes.push("/login"); // Redirect if not authenticated
-    //     }
-    //   }, [authContext?.isAuth, authContext?.loading, routes]);
-
-    // if (authContext?.loading) {
-    //     return <p>Loading...</p>; // Show a loading message while checking auth
-    // }
-
-    // console.log(doctors.id)
-
     function handleReset(){
-        // setRatingFilter(decimals)
-        // setExperienceFilter(expArr)
         setGenderFilter(null)
         setExperienceFilter(null)
         setRatingFilter(null)
     }
     // console.log(doctors)
+
     return(
         <>
             <Navbar/>
@@ -209,8 +171,6 @@ export default function app(){
 
                                         <div className={styles.radioInp}>
                                             <input type="radio" onChange={()=>{
-                                                // const decimal = Array.from({ length: 10 }, (_, i) => 1 + i * 0.1);
-                                                // console.log(decimal);
                                                 
                                                 setRatingFilter(1)
                                                 console.log(ratingFilter)
@@ -220,8 +180,6 @@ export default function app(){
 
                                         <div className={styles.radioInp}>
                                             <input type="radio" onChange={()=>{
-                                                // const decimal = Array.from({ length: 10 }, (_, i) => 2 + i * 0.1);
-                                                // console.log(decimal);
                                                 
                                                 setRatingFilter(2)
                                                 console.log(ratingFilter)
@@ -231,8 +189,6 @@ export default function app(){
 
                                         <div className={styles.radioInp}>
                                             <input type="radio" onChange={()=>{
-                                                // const decimal = Array.from({ length: 10 }, (_, i) => 3 + i * 0.1);
-                                                // console.log(decimal);
                                                 
                                                 setRatingFilter(3)
                                                 console.log(ratingFilter)
@@ -242,9 +198,7 @@ export default function app(){
 
                                         <div className={styles.radioInp}>
                                             <input type="radio" onChange={()=>{
-                                                // const decimal = Array.from({ length: 10 }, (_, i) => 4 + i * 0.1);
-                                                // console.log(decimal);
-                                                
+                                            
                                                 setRatingFilter(4)
                                                 console.log(ratingFilter)
                                             }} name='option' value={4}/>
@@ -253,9 +207,7 @@ export default function app(){
 
                                         <div className={styles.radioInp}>
                                             <input type="radio" onChange={()=>{
-                                                // const decimal = Array.from({ length: 10 }, (_, i) => 5 + i * 0.1);
-                                                // console.log(decimal);
-                                                
+                                            
                                                 setRatingFilter(5)
                                                 console.log(ratingFilter)
                                             }} name='option' value={5}/>
@@ -282,7 +234,6 @@ export default function app(){
 
                                         <div className={styles.radioInp}>
                                             <input type="radio" onChange={()=>{
-                                                // const expArr = [10,11,12,13,14,14]
                                                 setExperienceFilter('10-15')
                                             }} name='option1'/>
                                             <label>10-15 years</label>
@@ -290,7 +241,6 @@ export default function app(){
 
                                         <div className={styles.radioInp}>
                                             <input type="radio" onChange={()=>{
-                                                // const expArr = [5,6,7,8,9]
                                                 setExperienceFilter('5-10')
                                             }} name='option1'/>
                                             <label>5-10 years</label>
@@ -298,7 +248,6 @@ export default function app(){
 
                                         <div className={styles.radioInp}>
                                             <input type="radio" onChange={()=>{
-                                                // const expArr = [3,4]
                                                 setExperienceFilter('3-5')
                                             }} name='option1'/>
                                             <label>3-5 years</label>
@@ -306,7 +255,6 @@ export default function app(){
 
                                         <div className={styles.radioInp}>
                                             <input type="radio" onChange={()=>{
-                                                // const expArr = [1,2]
                                                 setExperienceFilter('1-3')
                                             }} name='option1'/>
                                             <label>1-3 years</label>
@@ -314,7 +262,6 @@ export default function app(){
 
                                         <div className={styles.radioInp}>
                                             <input type="radio" onChange={()=>{
-                                                // const expArr = [0,1]
                                                 setExperienceFilter('0-1')
                                             }} name='option1'/>
                                             <label>0-1 years</label>
@@ -339,7 +286,6 @@ export default function app(){
 
                                         <div className={styles.radioInp}>
                                             <input type="radio" onChange={()=>{
-                                                // const genderArr = 'male';
                                                 setGenderFilter(1)
                                             }} name='option2'/>
                                             <label>Male</label>
@@ -347,7 +293,6 @@ export default function app(){
 
                                         <div className={styles.radioInp}>
                                             <input type="radio" onChange={()=>{
-                                                // const genderArr = 'female';
                                                 setGenderFilter(2)
                                             }} name='option2'/>
                                             <label>Female</label>
@@ -360,15 +305,12 @@ export default function app(){
                         {/* ye grid banega */}
                         <div className={`${cardVisible ? styles.doctorCard : ''}`}>
 
-                            {/* Show loader if loading */}
-                                {/* Show loader while fetching data */}
                                 {loading ? (
                                     <div className={styles.loaderContainer}>
                                         <Circles height="60" width="60" color="#1C4A2A" ariaLabel="loading" />
                                     </div>
                                     ) : (
                                     <>
-                                        {/* Render doctor cards only when data is fetched */}
                                         {doctors.length !== 0 ? (
                                             doctors.map((doctor, index) => (
                                                 <div key={index} className={`${styles[`doctor${index + 1}`]}`}>

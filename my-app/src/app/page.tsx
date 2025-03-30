@@ -5,8 +5,10 @@ import styles from './page.module.css'
 import Navbar from '@/app/components/navbar/Navbar'
 import Button from '@/app/components/button/Button'
 import IsAuthProvider from '@/app/components/useContext/ContextProvider'
+import { useRouter } from 'next/navigation'
 
 function page() {
+    const Router = useRouter()
   return (  
     <>
 
@@ -21,7 +23,7 @@ function page() {
                         </div>
 
                         <div className={styles.btndiv}>
-                            <Button text={'Get Started'} onClick={()=>{}} type={'submit'} variant={'mainPageButton'}/>
+                            <Button text={'Get Started'} onClick={()=>{Router.push('/signup')}} type={'submit'} variant={'mainPageButton'}/>
                         </div>
                     </div>
                 </div>

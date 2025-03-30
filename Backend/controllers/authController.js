@@ -1,7 +1,6 @@
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import { getUserByEmail, createUser, getAllUserModel } from "../models/userModel.js";
-import passport from "passport";
 
 const generateToken = (user) => {
   return jwt.sign({ id: user.id, email: user.email, role: user.role }, process.env.JWT_SECRET, { expiresIn: "7d" });
@@ -93,10 +92,4 @@ export const getAllUser = async (req, res) =>{
     console.log('err while getAllUser' + err)
   }
 }
-
-// Google OAuth Callback
-export const googleOAuthCallback = (req, res) => {
-  const token = generateToken(req.user);
-  res.redirect(`${process.env.CLIENT_URL}/auth-success?token=${token}`);
-};
 

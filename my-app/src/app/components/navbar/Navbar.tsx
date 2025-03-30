@@ -7,27 +7,6 @@ import Link from "next/link";
 import { link } from "fs";
 import { useRouter } from "next/navigation";
 
-// interface User {
-//     email: string;
-//     google_id: string | null;
-//     id: string;
-//     name: string;
-//     password: string;
-//     phone: string;
-//     role: string;
-//   }
-  
-//   interface SignupResponse {
-//     message: string;
-//     success: boolean;
-//     token: string;
-//     user: User;
-//   }
-
-// interface NavbarProps {
-//     tokenObj?: SignupResponse | null;
-// }
-
 export default function Navbar() {
 
     const [menuOpen, setMenuOpen] = useState(false);
@@ -83,7 +62,6 @@ export default function Navbar() {
                     }}><i className="fa-solid fa-xmark"></i></li>
                     <li onClick={()=>router.push('/')}>Home</li>
                     <li onClick={()=>handleRoute('/Appointments')}>Appointments</li>
-                    {/* <li onClick={()=>handleRoute('/healthblog')}>Health Blog</li>  --do this when Health blog page is ready, same for Reviews*/}
                     <li>Health Blog</li>
                     <li>Reviews</li>
                     <li className={styles.libtn}>

@@ -5,8 +5,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    /* height: 81vh; */
-    /* width: 100vw; */
     padding:35px;
 }
 
@@ -14,8 +12,8 @@
     width: 440px;
     height: 90%;
     padding: 30px;
-    background: rgba(255, 255, 255, 0.4); /* Transparent Blur Background */
-    backdrop-filter: blur(10px); /* Blur Effect */
+    background: rgba(255, 255, 255, 0.4); 
+    backdrop-filter: blur(10px); 
     -webkit-backdrop-filter: blur(10px);
     border-radius: 10px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
@@ -23,7 +21,6 @@
     font-size: 12px;
 }
 
-/* Login Heading */
 .loginHeading {
     font-size: 20px;
     font-weight: bold;
@@ -32,7 +29,7 @@
     text-align: start;
 }
 
-/* Paragraph Styling */
+
 .para {
     text-align: center;
     color: #555;
@@ -41,7 +38,6 @@
     text-align: start;
 }
 
-/* Form Fields */
 .form {
     padding-top: 15px;
 }
@@ -61,7 +57,6 @@
     font-size: 16px;
 }
 
-/* Button Container */
 .btnContainer {
     display: flex;
     flex-direction: column;
@@ -69,7 +64,7 @@
     margin-top: 15px;
 }
 
-/* Login Button */
+
 .loginBtn {
     flex: 1;
     background: var(--primary-color);
@@ -85,7 +80,7 @@
     background: var(--primary-color);
 }
 
-/* Reset Button */
+
 .registerBtn {
     flex: 1;
     background: #c3a48a;
@@ -101,7 +96,7 @@
     background: #a88b72;
 }
 
-/* Forgot Password */
+
 .forgotPara {
     text-align: center;
     margin-top: 10px;

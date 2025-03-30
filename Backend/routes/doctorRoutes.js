@@ -1,7 +1,6 @@
 import express from "express";
 import { getTopDoctorsController, searchDoctorsController, getDoctorProfileController, createDoctorController, getAllDoctorsController, deleteDoctorController, getAvailableSlotController, updateDoctorController} from "../controllers/doctorController.js";
 import { authenticateJWT } from "../middlewares/authMiddleware.js";
-// import { isAdmin } from "../middlewares/authMiddleware.js";
 
 
 const router = express.Router();

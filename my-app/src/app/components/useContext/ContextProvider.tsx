@@ -1,47 +1,37 @@
 "use client";
 import { createContext, useState, useEffect, ReactNode } from "react";
+import { useRouter } from "next/navigation";
 
-interface AuthContextType {
-  isAuth: boolean;
-  loading: boolean; // New state to track loading
-  setUserAuth: (auth: boolean) => void;
-}
+export const IsAuthContext = createContext({});
 
-// Create context with default values
-export const IsAuthContext = createContext<AuthContextType | null>(null);
+export default function IsAuthProvider({ children }: { children: ReactNode }) {
 
-interface IsAuthProviderProps {
-  children: ReactNode;
-}
-
-export default function IsAuthProvider({ children }: IsAuthProviderProps) {
-  const [isAuth, setUserAuth] = useState(false);
-  const [loading, setLoading] = useState(true); // Track authentication status
-
+  const [isAuth, setIsAuth] = useState(false);
+  const router = useRouter();
+  
   useEffect(() => {
-    async function fetchAuthStatus() {
-      try {
-        const response = await fetch("http://localhost:8080/api/auth/isAuth", {
-          method: "POST",
-          credentials: "include",
-        });
-        const res = await response.json();
-        console.log("Auth Response:", res.success);
+    try{
 
-        setUserAuth(res.success);
-      } catch (error) {
-        console.error("Error fetching auth status:", error);
-        setUserAuth(false);
-      } finally {
-        setLoading(false); // Stop loading when request completes
-      }
+      async function fetching(){
+        const response = await (await fetch('http://localhost:8080/api/auth/isAuth', {
+          method: 'POST',
+          credentials: 'include',
+        })).json()
+        
+        console.log('response')
+        console.log(response)
+        if(response.success) setIsAuth(true)
+        else setIsAuth(false)
+      }fetching()
     }
-
-    fetchAuthStatus();
+    catch(err){
+      console.log('Issue while fetching isAuth: '+ err)
+      setIsAuth(false)
+    }
   }, []);
 
   return (
-    <IsAuthContext.Provider value={{ isAuth, loading, setUserAuth }}>
+    <IsAuthContext.Provider value={{isAuth, setIsAuth}}>
       {children}
     </IsAuthContext.Provider>
   );

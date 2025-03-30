@@ -11,14 +11,7 @@ export const authenticateJWT = (req, res, next) => {
     if (err) return res.status(403).json({ success: false, message: "Forbidden" });
     req.user = user;
     
-    console.log("✅ JWT Verified, Moving to Next Middleware");
+    console.log("JWT Verified, Moving to Next Middleware");
     next();
   });
 };
-
-// export const isAdmin = (req, res, next) => {
-//     if (req.user.role !== "admin") {
-//       return res.status(403).json({ error: "Access denied. Admins only." });
-//     }
-//     next();
-//   };

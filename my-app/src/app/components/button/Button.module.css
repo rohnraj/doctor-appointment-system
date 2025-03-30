@@ -1,5 +1,4 @@
 
-
 .smallGreenBtn{
     padding: 8px 16px;
     border: 1px solid var(--primary-color);
@@ -9,6 +8,10 @@
     background-color: var(--primary-color);
     color: white;
     font-family: var(--primary-font);
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+.smallGreenBtn:hover {
+    transform: scale(1.05); 
 }
 .smallGreenBtn:active{
     background-color: var(--secondary-color);
@@ -26,6 +29,10 @@
     width: 65px;
     height: 30px;
     text-align: center;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+.tinyGreenBtn:hover {
+    transform: scale(1.05);
 }
 .tinyGreenBtn:active{
     background-color: var(--secondary-color);
@@ -46,7 +53,7 @@
     transition: background-color 0.3s ease, transform 0.3s ease;
 }
 .slotGreenBtn:hover {
-    transform: scale(1.05); /* Slightly enlarges the button */
+    transform: scale(1.05); 
 }
 .slotGreenBtn:active{
     background-color: var(--primary-color);
@@ -76,6 +83,10 @@
     background-color: var(--secondary-color);
     color: var(--secondary-color);
     font-family: var(--primary-font);
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+.smallWhiteBtn:hover {
+    transform: scale(1.05); 
 }
 .smallWhiteBtn:active{
     background-color: var(--primary-color);
@@ -110,7 +121,7 @@
     transition: background-color 0.3s ease, transform 0.3s ease;
 }
 .largeGreenBtn:hover {
-    transform: scale(1.05); /* Slightly enlarges the button */
+    transform: scale(1.05); 
 }
 
 .largeBrownBtn{
@@ -126,7 +137,7 @@
     transition: background-color 0.3s ease, transform 0.3s ease;
 }
 .largeBrownBtn:hover {
-    transform: scale(1.05); /* Slightly enlarges the button */
+    transform: scale(1.05); 
 }
 
 .mainPageButton{
@@ -140,6 +151,10 @@
     cursor: pointer;
     transition: all 0.3s ease-in-out;
     display: inline-block;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+.mainPageButton:hover {
+    transform: scale(1.05); 
 }
 
 .cardButton {
@@ -151,11 +166,11 @@
     cursor: pointer;
     font-size: 14px;
     width: 100%;
-    transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transition */
+    transition: background-color 0.3s ease, transform 0.3s ease; 
 }
 
 .cardButton:hover {
-    transform: scale(1.05); /* Slightly enlarges the button */
+    transform: scale(1.05); 
 }
 
 

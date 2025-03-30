@@ -8,7 +8,6 @@
   align-items: center;
   background-color: var(--seconday-color);
   padding: 36px 60px 36px 60px;
-  /* width: 1512px; */
   height: 128px;
 }
 .ultag{
@@ -16,8 +15,6 @@
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-  /* width: 727px;
-  height: 56px; */
 }
 
 .logo {
@@ -27,7 +24,6 @@
   position: relative;
   display: flex;
   align-items: center;
-  /* justify-content: space-between; */
   width: 191px;
   height: 56px;
   cursor: pointer;
@@ -61,10 +57,12 @@
 .navLinks li {
   font-size: 16px;
   cursor: pointer;
-  /* color: #444; */
-  /* transition: color 0.3s ease-in-out; */
   font-family: var(--primary-font);
   white-space: nowrap;
+}
+.navLinks li:hover {
+  color: var(--primary-color);
+  transform: scale(1.05);
 }
 #cros{
   display: none;
@@ -169,8 +167,6 @@
   #cros{
     display: block;
     position: relative;
-    /* left: 100px;
-    top:0; */
   }
 
   .logofst{

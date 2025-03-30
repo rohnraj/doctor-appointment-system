@@ -8,15 +8,12 @@
     font-size:14px;
     height: 90px;
   }
-  
-  /* Month Navigation in a Single Line */
+
   .month_navigation {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 10px;
-    /* font-size: 16px; */
-    /* font-weight: bold; */
     margin-bottom: 5px;
   }
   
@@ -24,17 +21,14 @@
     font-size: 14px;
     font-weight: bold;
   }
-  
-  /* Month Navigation Buttons */
+
   .nav_btn {
     background: none;
     border: none;
     cursor: pointer;
-    /* font-size: 18px; */
     padding: 5px;
   }
   
-  /* Scrollable Date List */
   .scroll_wrapper {
     display: flex;
     align-items: center;
@@ -52,12 +46,11 @@
     max-width: 100%;
   }
   
-  /* Hide default scrollbar */
+
   .dates_list::-webkit-scrollbar {
     display: none;
   }
-  
-  /* Date Button */
+
   .date_button {
     padding: 8px;
     border: none;
@@ -66,18 +59,15 @@
     cursor: pointer;
     text-align: center;
     font-weight: bold;
-    /* font-size: 12px; */
-    /* min-width: 65px;  */
     transition: background 0.3s;
   }
-  
-  /* Selected Date */
+
   .selected {
     background: #0f4c35;
     color: white;
   }
   
-  /* Scroll Buttons */
+
   .scroll_btn {
     background: none;
     border: none;

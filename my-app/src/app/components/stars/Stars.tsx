@@ -10,7 +10,6 @@ const Stars: React.FC<Rating>=({rating})=>{
         let num=ind+0.5
         return(
             <span key={ind} className='star'>
-                {/* {rating>=ind+1 ? <img src='/assets/fullStar.svg'/>: rating>=num ? : <img src='/assets/emptyStar.svg'/>} */}
                 {rating>=ind+1 ? <img src='/assets/fullStar.svg'/> : <img src='/assets/emptyStar.svg'/>}
             </span>
         )

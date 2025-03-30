@@ -1,5 +1,4 @@
 import { getTopDoctors, searchDoctors, getDoctorById, createDoctor, getAllDoctorsModel, deleteDoctorById, availableSlotModel, updateDoctorslot } from "../models/doctorModel.js";
-// import * as res from 'express/lib/response';
 
 // Only Admins Can Create Doctors
 export const createDoctorController = async (req, res) => {
