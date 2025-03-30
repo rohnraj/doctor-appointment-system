@@ -28,6 +28,8 @@ function AddDoctor() {
   const [imagePreview, setImagePreview] = useState<string | null>(null)
   const [selectedDatesArr, setSelectedDatesArr] = useState<string[]> ([])
   const [isEditingDates, setIsEditingDates] = useState(false);
+  // const [ArrOfSelectedTimes, setArrOfSelectedTimes] = useState<string[]>([])
+  const ArrOfSelectedTimes : String[] = []
 
   const authContext = useContext(IsAuthContext)
 
@@ -57,13 +59,16 @@ function AddDoctor() {
       [name]: name === "availableTimes" || name === "availableDate" ? value.split(",").map(time => time.trim()) : value
     }));
 
-
-    if (name === "availableDate") {
-      const dates=e.target.value
-      setSelectedDatesArr(dates.split(", ").map(date => date.trim()));
-    }
   };
   
+  const length = formData.availableDate.split(",").map(time => time.trim()).length
+  console.log('Dates Array Length: '+length)
+
+  for(let i=0; i<length; i++){
+    ArrOfSelectedTimes.push(formData.availableTimes)
+  }
+  console.log(typeof ArrOfSelectedTimes)
+
   console.log(formData)
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -85,6 +90,7 @@ function AddDoctor() {
     // Here you would typically send the data to your API
     // console.log("Form submitted:", formData)
 
+    
     try {
       const response = await fetch("http://localhost:8080/api/doctors/create", {
         method: "POST",
@@ -97,7 +103,7 @@ function AddDoctor() {
           experience: formData.experience,
           degree: formData.degree,
           location: formData.address, 
-          availableTimes: formData.availableTimes, 
+          availableTimes: ArrOfSelectedTimes, 
           photo: imagePreview,
           gender: formData.gender,
           availableDate: formData.availableDate,

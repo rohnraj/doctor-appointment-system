@@ -111,22 +111,27 @@ export const getAvailableSlotController = async(req, res) =>{
 }
 
 export const updateDoctorController = async (req, res) => {
+  const { id } = req.params;
+  const {available_times} = req.body;
+  console.log('available time array')
+  console.log(available_times)
+  console.log(typeof available_times[0])
+
   try {
-    const { id } = req.params;
-    const {newAvailableTimes} = req.body;
 
     // Check for required fields
-    if (!newAvailableTimes) {
+    if (!available_times) {
       return res.status(400).json({ error: "fields are required." });
     }
 
     // Update doctor
     try{
-      const updatedDoctor = await updateDoctorslot(id,newAvailableTimes);
+      const updatedDoctor = await updateDoctorslot(id,available_times);
       res.status(200).json({success: true, message: 'slots updated successfully'})
     }
     catch(err){
-      console.log('in query to update doctor slots '+err)
+      console.log('err query to update doctor slots '+err)
+      res.status(500).json({success: false, message: 'error while updating slots'})
     }
   }
   catch (error) {

@@ -4,6 +4,10 @@ import { v4 as uuidv4 } from "uuid"; // Import UUID generator
 export const createDoctor = async (userId, name, photo, specialty, experience, degree, location, availableTimes, availableDate, gender) => {
   if (!userId) userId = uuidv4(); // Generate UUID if missing
 
+  console.log('availble times type')
+  console.log(availableTimes)
+  console.log(typeof availableTimes[0])
+
   // console.log(typeof availableTimes)
   const availableDates = availableDate.split(',')
   console.log(availableDates)
@@ -178,14 +182,26 @@ export const availableSlotModel = async(id) =>{
   return data.rows[0].available_times;
 }
 
-export const updateDoctorslot = async(id, availableTimes) =>{
-  try{
+export const updateDoctorslot = async (id, available_times) => {
+  try {
+    const availableTimes = typeof available_times === 'string' 
+      ? JSON.parse(available_times) 
+      : available_times;
 
-    const query = `UPDATE doctors SET available_times = $1 WHERE id = $2;`;
-    const data = await pool.query(query, [availableTimes, id]);
+    // Find the maximum length among sub-arrays
+    const maxLength = Math.max(...availableTimes.map(arr => arr.length));
+
+    // Pad shorter arrays with NULL to match dimensions
+    const paddedTimes = availableTimes.map(arr => {
+      while (arr.length < maxLength) arr.push(null);
+      return arr.map(time => time ? (/^\d{2}:\d{2}$/.test(time) ? `${time}:00` : time) : null);
+    });
+
+    const query = `UPDATE doctors SET available_times = $1::TIME[][] WHERE id = $2 RETURNING *;`;
+    const data = await pool.query(query, [paddedTimes, id]);
     return data.rows[0];
+  } catch(err) {
+    console.error('Error updating doctor slot:', err);
+    throw err;
   }
-  catch(err){
-    console.log('some error in query to update doctor slot')
-  }
-}
+};

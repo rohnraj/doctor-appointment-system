@@ -88,48 +88,72 @@ function SlotsApproval() {
   const handleApprove = (id: string, doctor_id : string, date : string , time : string) => {
     // setSlotRequests(slotRequests.map((request) => (request.id === id ? { ...request, status: "approved" } : request)));
     async function fetching(){
-      const response = await (await fetch(`http://localhost:8080/api/appointments/approveSlot?id=${id}`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
-      })).json()
-      console.log(response)
+      try{
+
+        const response = await (await fetch(`http://localhost:8080/api/appointments/approveSlot?id=${id}`, {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+        })).json()
+        console.log(response)
+      }catch(err){
+        console.log('error while doing fetching to approve slot'+err)
+      }
       
-      const dateArr = await (await fetch(`http://localhost:8080/api/doctors/${doctor_id}`, {
-        method: 'GET',
-      })).json()
-      console.log('datesArr" '+ dateArr)
-      const {available_times} = dateArr.doctor
+      try{
+        const dateArr = await (await fetch(`http://localhost:8080/api/doctors/${doctor_id}`, {
+          method: 'GET',
+        })).json()
+        console.log('datesArr" '+ dateArr)
 
-      //@ts-ignore
-      const newAvailableTimes = available_times.filter(item  => item !== time);
+        const {available_times, available_dates} = dateArr.doctor
 
+        if (available_dates) {
+            // @ts-ignore
+            const formattedAvailableDates = available_dates.map(date =>
+                new Date(date).toISOString().split('T')[0] 
+            );
+        
+          const indexOfDate = formattedAvailableDates.indexOf(date)
+          console.log('indexOfDate: '+indexOfDate)
+          // debugger
+          //@ts-ignore
+          const newAvailableTimes = available_times[indexOfDate].filter(item  => item !== time);
+          available_times.splice(indexOfDate, 1, newAvailableTimes)
+          console.log('avaliable times type' + typeof available_times[0][0])
+          // debugger
+        }
 
-      // to edit doctos table date or time 
-      const response1 = await (await fetch(`http://localhost:8080/api/doctors/${doctor_id}`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({newAvailableTimes}),
-        credentials: "include",
-      })).json()
-        console.log(response1)
+        const response1 = await (await fetch(`http://localhost:8080/api/doctors/${doctor_id}`, {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({available_times}),
+          credentials: "include",
+        })).json()
+          console.log(response1)
+  
+          if(response1.success){
+          toast.success('🦄 Slot Approved Successfully!', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Bounce,
+          });}
+      }catch(err){
+        console.log('error while doing working on available dates and times'+err)
+      }
+
     }fetching()
 
-    toast.success('🦄 Slot Approved Successfully!', {
-      position: "top-right",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: false,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-      transition: Bounce,
-    });
 
     // setShowDelete(true);
   };
@@ -145,19 +169,21 @@ function SlotsApproval() {
         credentials: "include",
       })).json()
       console.log(response)
+
+      if(response.success){
+      toast.warn('🦄 Slot Denied Successfully!', {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: false,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          transition: Bounce,
+        }); }
     }fetching()
 
-    toast.warn('🦄 Slot Denied Successfully!', {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: false,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-        transition: Bounce,
-      }); 
 
       // setShowDelete(true);
   };

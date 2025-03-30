@@ -20,7 +20,7 @@ interface Doctor {
     photo: string;
     // id:number;
     location:string;
-    available_times:string[];
+    available_times:string[][];
     available_dates:string[];
     gender:string;
 }
@@ -43,6 +43,7 @@ const page =()=> {
     const [fetchDate, setfetchDate] = useState<string[]>([])
     const [typeofConsult, settypeofConsult] = useState('online')
     const [selectedTImeSlot, setselectedTImeSlot]=useState('')
+    const [indexOfDate, setindexOfDate]=useState<number>(0)
     
 
     
@@ -74,9 +75,18 @@ const page =()=> {
         const formattedDate = `${year}-${month}-${day}`;
 
         setSelectedDate(formattedDate)
+
+        if (doctorData?.available_dates) {
+            const formattedAvailableDates = doctorData.available_dates.map(date =>
+                new Date(date).toISOString().split('T')[0] // Convert to YYYY-MM-DD
+            );
+        
+            setindexOfDate(formattedAvailableDates.indexOf(formattedDate));
+        }
+        
       }
 
-    console.log(selectedDate)
+    console.log('seleceted date: '+selectedDate ,'typof: '+typeof selectedDate, 'index of: '+indexOfDate)
       
     function bookSlot(time: string){
         console.log('Time slot'+time)
@@ -170,14 +180,14 @@ const page =()=> {
                             <hr/>
                             <div>
                             {/* && fetchDate?.includes(selectedDate) */}
-                                <span><Button text={'9:00 AM'} onClick={()=>bookSlot('9:00 AM')} type={'submit'} variant={'slotGreenBtn'}  disabled={doctorData?.available_times.includes('09:00:00') && fetchDate?.includes(selectedDate) ? false : true}/></span>
-                                <span><Button text={'9:30 AM'} onClick={()=>bookSlot('9:30 AM')}  type={'submit'} variant={'slotGreenBtn'} disabled={doctorData?.available_times.includes('09:30:00') && fetchDate?.includes(selectedDate) ? false : true}/></span>
-                                <span><Button text={'10:00 AM'} onClick={()=>bookSlot('10:00 AM')} type={'submit'} variant={'slotGreenBtn'} disabled={doctorData?.available_times.includes('10:00:00') && fetchDate?.includes(selectedDate) ? false : true}/></span>
-                                <span><Button text={'10:30 AM'} onClick={()=>bookSlot('10:30 AM')} type={'submit'} variant={'slotGreenBtn'} disabled={doctorData?.available_times.includes('10:30:00') && fetchDate?.includes(selectedDate) ? false : true}/></span>
-                                <span><Button text={'11:00 AM'} onClick={()=>bookSlot('11:00 AM')} type={'submit'} variant={'slotGreenBtn'} disabled={doctorData?.available_times.includes('11:00:00') && fetchDate?.includes(selectedDate) ? false : true}/></span>
-                                <span><Button text={'11:30 AM'} onClick={()=>bookSlot('11:30 AM')} type={'submit'} variant={'slotGreenBtn'} disabled={doctorData?.available_times.includes('11:30:00') && fetchDate?.includes(selectedDate) ? false : true}/></span>
-                                <span><Button text={'12:00 AM'} onClick={()=>bookSlot('12:00 AM')} type={'submit'} variant={'slotGreenBtn'} disabled={doctorData?.available_times.includes('12:00:00') && fetchDate?.includes(selectedDate) ? false : true}/></span>
-                                <span><Button text={'12:30 PM'} onClick={()=>bookSlot('12:30 PM')} type={'submit'} variant={'slotGreenBtn'} disabled={doctorData?.available_times.includes('12:30:00') && fetchDate?.includes(selectedDate) ? false : true}/></span>
+                                <span><Button text={'9:00 AM'} onClick={()=>bookSlot('9:00 AM')} type={'submit'} variant={'slotGreenBtn'}  disabled={doctorData?.available_times[indexOfDate]?.includes('09:00:00') && fetchDate?.includes(selectedDate) ? false : true}/></span>
+                                <span><Button text={'9:30 AM'} onClick={()=>bookSlot('9:30 AM')}  type={'submit'} variant={'slotGreenBtn'} disabled={doctorData?.available_times[indexOfDate]?.includes('09:30:00') && fetchDate?.includes(selectedDate) ? false : true}/></span>
+                                <span><Button text={'10:00 AM'} onClick={()=>bookSlot('10:00 AM')} type={'submit'} variant={'slotGreenBtn'} disabled={doctorData?.available_times[indexOfDate]?.includes('10:00:00') && fetchDate?.includes(selectedDate) ? false : true}/></span>
+                                <span><Button text={'10:30 AM'} onClick={()=>bookSlot('10:30 AM')} type={'submit'} variant={'slotGreenBtn'} disabled={doctorData?.available_times[indexOfDate]?.includes('10:30:00') && fetchDate?.includes(selectedDate) ? false : true}/></span>
+                                <span><Button text={'11:00 AM'} onClick={()=>bookSlot('11:00 AM')} type={'submit'} variant={'slotGreenBtn'} disabled={doctorData?.available_times[indexOfDate]?.includes('11:00:00') && fetchDate?.includes(selectedDate) ? false : true}/></span>
+                                <span><Button text={'11:30 AM'} onClick={()=>bookSlot('11:30 AM')} type={'submit'} variant={'slotGreenBtn'} disabled={doctorData?.available_times[indexOfDate]?.includes('11:30:00') && fetchDate?.includes(selectedDate) ? false : true}/></span>
+                                <span><Button text={'12:00 AM'} onClick={()=>bookSlot('12:00 AM')} type={'submit'} variant={'slotGreenBtn'} disabled={doctorData?.available_times[indexOfDate]?.includes('12:00:00') && fetchDate?.includes(selectedDate) ? false : true}/></span>
+                                <span><Button text={'12:30 PM'} onClick={()=>bookSlot('12:30 PM')} type={'submit'} variant={'slotGreenBtn'} disabled={doctorData?.available_times[indexOfDate]?.includes('12:30:00') && fetchDate?.includes(selectedDate) ? false : true}/></span>
                             </div>
                         </div>
                         <div className={styles.slotTwo}>
@@ -190,14 +200,14 @@ const page =()=> {
                             </div>
                             <hr/>
                             <div>
-                                <span><Button text={'1:00 PM'} onClick={()=>bookSlot('1:00 PM')} type={'submit'} variant={'slotGreenBtn'} disabled={doctorData?.available_times.includes('13:00:00') && fetchDate?.includes(selectedDate) ? false : true}/></span>
-                                <span><Button text={'1:30 PM'} onClick={()=>bookSlot('1:30 PM')} type={'submit'} variant={'slotGreenBtn'} disabled={doctorData?.available_times.includes('13:30:00') && fetchDate?.includes(selectedDate) ? false : true}/></span>
-                                <span><Button text={'2:00 PM'} onClick={()=>bookSlot('2:00 PM')} type={'submit'} variant={'slotGreenBtn'} disabled={doctorData?.available_times.includes('14:00:00') && fetchDate?.includes(selectedDate) ? false : true}/></span>
-                                <span><Button text={'2:30 PM'} onClick={()=>bookSlot('2:30 PM')} type={'submit'} variant={'slotGreenBtn'} disabled={doctorData?.available_times.includes('14:30:00') && fetchDate?.includes(selectedDate) ? false : true}/></span>
-                                <span><Button text={'3:00 PM'} onClick={()=>bookSlot('3:00 PM')} type={'submit'} variant={'slotGreenBtn'} disabled={doctorData?.available_times.includes('15:00:00') && fetchDate?.includes(selectedDate) ? false : true}/></span>
-                                <span><Button text={'3:30 PM'} onClick={()=>bookSlot('3:30 PM')} type={'submit'} variant={'slotGreenBtn'} disabled={doctorData?.available_times.includes('15:30:00') && fetchDate?.includes(selectedDate) ? false : true}/></span>
-                                <span><Button text={'4:00 PM'} onClick={()=>bookSlot('4:00 PM')} type={'submit'} variant={'slotGreenBtn'} disabled={doctorData?.available_times.includes('16:00:00') && fetchDate?.includes(selectedDate) ? false : true}/></span>
-                                <span><Button text={'4:30 PM'} onClick={()=>bookSlot('4:30 PM')} type={'submit'} variant={'slotGreenBtn'} disabled={doctorData?.available_times.includes('16:30:00') && fetchDate?.includes(selectedDate) ? false : true}/></span>
+                                <span><Button text={'1:00 PM'} onClick={()=>bookSlot('1:00 PM')} type={'submit'} variant={'slotGreenBtn'} disabled={doctorData?.available_times[indexOfDate]?.includes('13:00:00') && fetchDate?.includes(selectedDate) ? false : true}/></span>
+                                <span><Button text={'1:30 PM'} onClick={()=>bookSlot('1:30 PM')} type={'submit'} variant={'slotGreenBtn'} disabled={doctorData?.available_times[indexOfDate]?.includes('13:30:00') && fetchDate?.includes(selectedDate) ? false : true}/></span>
+                                <span><Button text={'2:00 PM'} onClick={()=>bookSlot('2:00 PM')} type={'submit'} variant={'slotGreenBtn'} disabled={doctorData?.available_times[indexOfDate]?.includes('14:00:00') && fetchDate?.includes(selectedDate) ? false : true}/></span>
+                                <span><Button text={'2:30 PM'} onClick={()=>bookSlot('2:30 PM')} type={'submit'} variant={'slotGreenBtn'} disabled={doctorData?.available_times[indexOfDate]?.includes('14:30:00') && fetchDate?.includes(selectedDate) ? false : true}/></span>
+                                <span><Button text={'3:00 PM'} onClick={()=>bookSlot('3:00 PM')} type={'submit'} variant={'slotGreenBtn'} disabled={doctorData?.available_times[indexOfDate]?.includes('15:00:00') && fetchDate?.includes(selectedDate) ? false : true}/></span>
+                                <span><Button text={'3:30 PM'} onClick={()=>bookSlot('3:30 PM')} type={'submit'} variant={'slotGreenBtn'} disabled={doctorData?.available_times[indexOfDate]?.includes('15:30:00') && fetchDate?.includes(selectedDate) ? false : true}/></span>
+                                <span><Button text={'4:00 PM'} onClick={()=>bookSlot('4:00 PM')} type={'submit'} variant={'slotGreenBtn'} disabled={doctorData?.available_times[indexOfDate]?.includes('16:00:00') && fetchDate?.includes(selectedDate) ? false : true}/></span>
+                                <span><Button text={'4:30 PM'} onClick={()=>bookSlot('4:30 PM')} type={'submit'} variant={'slotGreenBtn'} disabled={doctorData?.available_times[indexOfDate]?.includes('16:30:00') && fetchDate?.includes(selectedDate) ? false : true}/></span>
                             </div>
                         </div>
                     </article>
