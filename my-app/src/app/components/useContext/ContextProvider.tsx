@@ -6,6 +6,7 @@ export const IsAuthContext = createContext({});
 
 export default function IsAuthProvider({ children }: { children: ReactNode }) {
 
+
   const [isAuth, setIsAuth] = useState(false);
   const router = useRouter();
   
@@ -20,7 +21,10 @@ export default function IsAuthProvider({ children }: { children: ReactNode }) {
         
         console.log('response')
         console.log(response)
-        if(response.success) setIsAuth(true)
+        if(response.success) {
+          setIsAuth(true)
+          console.log('isAuth: ' + isAuth)
+        }
         else setIsAuth(false)
       }fetching()
     }

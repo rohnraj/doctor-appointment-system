@@ -1,14 +1,17 @@
 'use client'
 
-import React from 'react'
+import React , {useContext} from 'react'
 import styles from './page.module.css'
 import Navbar from '@/app/components/navbar/Navbar'
 import Button from '@/app/components/button/Button'
 import { useRouter } from 'next/navigation'
 import { ToastContainer, toast, Bounce } from 'react-toastify';
+import {IsAuthContext} from '@/app/components/useContext/ContextProvider'
 
 export default function page() {
 
+    //@ts-ignore
+    const { isAuth, setIsAuth} = useContext(IsAuthContext);
     let [eyetoggle, seteyetoggle] = React.useState(true);
     let [passwrdType, setpasswrdType] = React.useState('password');
 
@@ -51,6 +54,7 @@ export default function page() {
                         });
                     // localStorage.setItem('token', res.token); 
                     // localStorage.setItem('user', JSON.stringify(res.user));
+                    setIsAuth(true);
                     router.push('/Appointments')
                 } 
                 else {

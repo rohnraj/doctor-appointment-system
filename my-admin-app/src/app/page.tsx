@@ -6,8 +6,14 @@ import Navbar from '@/app/components/navbar/Navbar'
 import Button from '@/app/components/button/Button'
 import { useRouter } from 'next/navigation'
 import { toast, Bounce } from 'react-toastify';
+import {IsAuthContext} from '@/app/components/useContext/UseContext'
+
 
 export default function page() {
+
+
+    //  @ts-ignore
+    let {isAuth, setIsAuth}=React.useContext(IsAuthContext)
 
     let [eyetoggle, seteyetoggle] = React.useState(true);
     let [passwrdType, setpasswrdType] = React.useState('password');
@@ -52,6 +58,7 @@ export default function page() {
                         });
                     // localStorage.setItem('token', res.token); 
                     // localStorage.setItem('user', JSON.stringify(res.user));
+                    setIsAuth(true);
                     router.push('/home')
                 } 
                 else{

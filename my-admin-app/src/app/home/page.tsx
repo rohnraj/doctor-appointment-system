@@ -14,19 +14,8 @@ function AdminDashboard() {
   const [allUsersNum, setAllUserNum] = useState<number | string>('-')
   const [allDocNum, setAllDocNum] = useState<number | string>('-')
 
-  const authContext = useContext(IsAuthContext)
-  console.log('authcontext: '+authContext?.isAuth)
-  
-      // useEffect(() => {
-      //     if (!authContext?.isAuth) {
-      //         router.push("/"); // Redirect if not authenticated
-      //     }
-      //   }, [authContext?.isAuth, router]);
-  
-      // if (!authContext?.isAuth) {
-      //     return <p>Loading...</p>; // Show a loading message while checking auth
-      // }
-
+  // @ts-ignore
+  const {isAuth} = useContext(IsAuthContext)
     const handleNavigation = (path: string) => {
       router.push(`/${path}`)
     }
@@ -45,64 +34,68 @@ function AdminDashboard() {
   return (
     <>
       <Navbar />
-      <main className={styles.adminContainer}>
-        <div className={styles.headerSection}>
-          <div className={styles.headerContent}>
-            <h1 className={styles.heading}>Admin Dashboard</h1>
-            <p className={styles.subheading}>
-              Manage doctors, appointments, and system settings from one central location.
-            </p>
-          </div>
-        </div>
 
-        <div className={styles.featuresSection}>
-          <div className={styles.featuresGrid}>
-            <div className={styles.featureCard} onClick={() => handleNavigation("add-doctor")}>
-              <div className={styles.iconWrapper}>
-                <LucideUsers className={styles.featureIcon} />
-              </div>
-              <h2 className={styles.featureTitle}>Add Doctor</h2>
-              <p className={styles.featureDescription}>
-                Add new healthcare providers to the system with their specialties and availability.
-              </p>
-              
-            </div>
+      {isAuth ? (
 
-            <div className={styles.featureCard} onClick={() => handleNavigation("remove-doctor")}>
-              <div className={styles.iconWrapper}>
-                <LucideUserMinus className={styles.featureIcon} />
-              </div>
-              <h2 className={styles.featureTitle}>Remove Doctor</h2>
-              <p className={styles.featureDescription}>
-                Remove healthcare providers who are no longer associated with the platform.
+        <main className={styles.adminContainer}>
+          <div className={styles.headerSection}>
+            <div className={styles.headerContent}>
+              <h1 className={styles.heading}>Admin Dashboard</h1>
+              <p className={styles.subheading}>
+                Manage doctors, appointments, and system settings from one central location.
               </p>
-              
-            </div>
-
-            <div className={styles.featureCard} onClick={() => handleNavigation("slots-approval")}>
-              <div className={styles.iconWrapper}>
-                <LucideCalendarCheck className={styles.featureIcon} />
-              </div>
-              <h2 className={styles.featureTitle}>Slots Approval</h2>
-              <p className={styles.featureDescription}>
-                Review and approve or deny appointment slots requested by healthcare providers.
-              </p>
-              
             </div>
           </div>
-        </div>
 
-        <div className={styles.statsSection}>
-          <div className={styles.statCard}>
-            <h3>Total Doctors</h3>
-            <p className={styles.statNumber}>{allDocNum}</p>
+          <div className={styles.featuresSection}>
+            <div className={styles.featuresGrid}>
+              <div className={styles.featureCard} onClick={() => handleNavigation("add-doctor")}>
+                <div className={styles.iconWrapper}>
+                  <LucideUsers className={styles.featureIcon} />
+                </div>
+                <h2 className={styles.featureTitle}>Add Doctor</h2>
+                <p className={styles.featureDescription}>
+                  Add new healthcare providers to the system with their specialties and availability.
+                </p>
+                
+              </div>
+
+              <div className={styles.featureCard} onClick={() => handleNavigation("remove-doctor")}>
+                <div className={styles.iconWrapper}>
+                  <LucideUserMinus className={styles.featureIcon} />
+                </div>
+                <h2 className={styles.featureTitle}>Remove Doctor</h2>
+                <p className={styles.featureDescription}>
+                  Remove healthcare providers who are no longer associated with the platform.
+                </p>
+                
+              </div>
+
+              <div className={styles.featureCard} onClick={() => handleNavigation("slots-approval")}>
+                <div className={styles.iconWrapper}>
+                  <LucideCalendarCheck className={styles.featureIcon} />
+                </div>
+                <h2 className={styles.featureTitle}>Slots Approval</h2>
+                <p className={styles.featureDescription}>
+                  Review and approve or deny appointment slots requested by healthcare providers.
+                </p>
+                
+              </div>
+            </div>
           </div>
-          <div className={styles.statCard}>
-            <h3>Active Users</h3>
-            <p className={styles.statNumber}>{allUsersNum}</p>
+
+          <div className={styles.statsSection}>
+            <div className={styles.statCard}>
+              <h3>Total Doctors</h3>
+              <p className={styles.statNumber}>{allDocNum}</p>
+            </div>
+            <div className={styles.statCard}>
+              <h3>Active Users</h3>
+              <p className={styles.statNumber}>{allUsersNum}</p>
+            </div>
           </div>
-        </div>
-      </main>
+        </main>
+      ) : (<div>loading...</div>) }
       <Footer />
     </>
   )

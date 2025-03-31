@@ -31,19 +31,10 @@ function AddDoctor() {
   // const [ArrOfSelectedTimes, setArrOfSelectedTimes] = useState<string[]>([])
   const ArrOfSelectedTimes : String[] = []
 
-  const authContext = useContext(IsAuthContext)
-
-  // useEffect(() => {
-  //     if (authContext && !authContext.isAuth) {
-  //         router.push("/"); // Redirect if not authenticated
-  //     }
-  //   }, [authContext?.isAuth, router]);
-
-  // if (!authContext?.isAuth) {
-  //     return <p>Loading...</p>; // Show a loading message while checking auth
-  // }
-
   // @ts-ignore
+  const {isAuth} = useContext(IsAuthContext)
+
+  
   // const handleChange = (e) => {
   //   const { name, value } = e.target
   //   console.log(e.target.value)
@@ -131,9 +122,6 @@ function AddDoctor() {
       console.error("Fetch Error:", error);
     }
 
-      
-
-    // router.push("/admin")
   }
 
   // async function handleAddDoc (){
@@ -209,6 +197,9 @@ function AddDoctor() {
   return (
     <>
       <Navbar />
+
+      {isAuth ? (
+
       <main className={styles.addDoctorContainer}>
         <div className={styles.header}>
           <button className={styles.backButton} onClick={() => router.push("/home")}>
@@ -405,7 +396,9 @@ function AddDoctor() {
           </div>
         </form>
       </main>
-      <Footer />
+
+) : (<div> loading....</div>) }
+    <Footer />
     </>
   )
 }

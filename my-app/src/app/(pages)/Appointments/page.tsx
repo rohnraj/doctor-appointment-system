@@ -32,7 +32,7 @@ export default function app(){
 
     let routes=useRouter()
      //@ts-ignore
-    //  const { isAuth, checkAuth} = useContext(IsAuthContext);
+     const { isAuth, setIsAuth} = useContext(IsAuthContext);
     //  useEffect(() => {
     //     if (!isAuth) {
     //         routes.push('/login');
@@ -127,7 +127,8 @@ export default function app(){
     // console.log(doctors)
 
     return(
-        <>
+        isAuth ? (
+            <>
             <Navbar/>
 
             <div className={styles.section}>
@@ -342,5 +343,6 @@ export default function app(){
 
             <Footer/>
         </>
+        ):(<div>loading</div>)
     )
 }

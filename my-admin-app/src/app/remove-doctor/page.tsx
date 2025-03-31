@@ -27,18 +27,8 @@ function RemoveDoctor() {
   const [currentPage, setCurrentPage] = useState(1);
   const[AllDocNum, setAllDocNum] = useState<string | number>('')
 
-  const authContext = useContext(IsAuthContext)
-
-  // useEffect(() => {
-  //     if (authContext && !authContext.isAuth) {
-  //         router.push("/"); // Redirect if not authenticated
-  //     }
-  //   }, [authContext?.isAuth, router]);
-
-  // if (!authContext?.isAuth) {
-  //     return <p>Loading...</p>; // Show a loading message while checking auth
-  // }
-
+  //@ts-ignore
+  const {isAuth} = useContext(IsAuthContext)
   useEffect(() => {
     async function fetching() {
         const fetchData= await(await fetch(`http://localhost:8080/api/doctors/top?page=${currentPage}`)).json();
@@ -111,84 +101,87 @@ function RemoveDoctor() {
   return (
     <>
       <Navbar />
-      <main className={styles.removeDoctorContainer}>
-        <div className={styles.header}>
-          <button className={styles.backButton} onClick={() => router.push("/admin")}>
-            <LucideArrowLeft size={18} />
-            <span>Back to Dashboard</span>
-          </button>
-          <h1 className={styles.heading}>Remove Doctor</h1>
-        </div>
+      {isAuth ? (
 
-        <div className={styles.contentContainer}>
-          <div className={styles.searchContainer}>
-            <div className={styles.searchBar}>
-              <LucideSearch size={20} className={styles.searchIcon} />
-              <input
-                type="text"
-                placeholder="Search by name or speciality..."
-                value={searchTerm}
-                onChange={(e)=>setSearchTerm(e.target.value)}
-              />
-              <button onClick={handleSerchClick}>Search</button>
-            </div>
+        <main className={styles.removeDoctorContainer}>
+          <div className={styles.header}>
+            <button className={styles.backButton} onClick={() => router.push("/admin")}>
+              <LucideArrowLeft size={18} />
+              <span>Back to Dashboard</span>
+            </button>
+            <h1 className={styles.heading}>Remove Doctor</h1>
           </div>
 
-          <div className={styles.doctorsGrid}>
-              {doctors.length > 0 ? (
-                doctors.map((doctor) => (
-                  <div key={doctor.id} className={styles.doctorCard}>
-                    <div className={styles.doctorInfo}>
-                      <img src={doctor.img_url || "/placeholder.svg"} alt={doctor.name} className={styles.doctorImage} />
-                      <div className={styles.doctorDetails}>
-                        <h3>{doctor.name}</h3>
-                        <p>{doctor.degree}</p>
-                        <p>
-                          {doctor.speciality} • {doctor.experience} years exp.
-                        </p>
+          <div className={styles.contentContainer}>
+            <div className={styles.searchContainer}>
+              <div className={styles.searchBar}>
+                <LucideSearch size={20} className={styles.searchIcon} />
+                <input
+                  type="text"
+                  placeholder="Search by name or speciality..."
+                  value={searchTerm}
+                  onChange={(e)=>setSearchTerm(e.target.value)}
+                />
+                <button onClick={handleSerchClick}>Search</button>
+              </div>
+            </div>
+
+            <div className={styles.doctorsGrid}>
+                {doctors.length > 0 ? (
+                  doctors.map((doctor) => (
+                    <div key={doctor.id} className={styles.doctorCard}>
+                      <div className={styles.doctorInfo}>
+                        <img src={doctor.img_url || "/placeholder.svg"} alt={doctor.name} className={styles.doctorImage} />
+                        <div className={styles.doctorDetails}>
+                          <h3>{doctor.name}</h3>
+                          <p>{doctor.degree}</p>
+                          <p>
+                            {doctor.speciality} • {doctor.experience} years exp.
+                          </p>
+                        </div>
                       </div>
+                      <button className={styles.removeButton} onClick={() => handleRemoveClick(doctor)}>
+                        <LucideTrash2 size={18} />
+                        <span>Remove</span>
+                      </button>
                     </div>
-                    <button className={styles.removeButton} onClick={() => handleRemoveClick(doctor)}>
-                      <LucideTrash2 size={18} />
-                      <span>Remove</span>
-                    </button>
+                  ))
+                ) : (
+                  <div className={styles.noResults}>
+                    <LucideSearch size={48} />
+                    <p>No doctors found matching your search criteria.</p>
                   </div>
-                ))
-              ) : (
-                <div className={styles.noResults}>
-                  <LucideSearch size={48} />
-                  <p>No doctors found matching your search criteria.</p>
-                </div>
-              )}
-            </div>          
-        </div>
+                )}
+              </div>          
+          </div>
 
-        {showConfirmation && selectedDoctor && (
-          <div className={styles.confirmationOverlay}>
-            <div className={styles.confirmationDialog}>
-              <div className={styles.confirmationHeader}>
-                <LucideAlertCircle size={24} className={styles.warningIcon} />
-                <h2>Confirm Removal</h2>
-              </div>
-              <p>
-                Are you sure you want to remove <strong>{selectedDoctor.name}</strong> from the system? This action
-                cannot be undone.
-              </p>
-              <div className={styles.confirmationActions}>
-                <button className={styles.cancelButton} onClick={() => setShowConfirmation(false)}>
-                  Cancel
-                </button>
-                <button className={styles.confirmButton} onClick={confirmRemove}>
-                  Confirm Removal
-                </button>
+          {showConfirmation && selectedDoctor && (
+            <div className={styles.confirmationOverlay}>
+              <div className={styles.confirmationDialog}>
+                <div className={styles.confirmationHeader}>
+                  <LucideAlertCircle size={24} className={styles.warningIcon} />
+                  <h2>Confirm Removal</h2>
+                </div>
+                <p>
+                  Are you sure you want to remove <strong>{selectedDoctor.name}</strong> from the system? This action
+                  cannot be undone.
+                </p>
+                <div className={styles.confirmationActions}>
+                  <button className={styles.cancelButton} onClick={() => setShowConfirmation(false)}>
+                    Cancel
+                  </button>
+                  <button className={styles.confirmButton} onClick={confirmRemove}>
+                    Confirm Removal
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
-        )}
+          )}
 
-        
-      {doctors.length!=0 ? (<Pagenation page={currentPage} handlePageChange={handlePageChange}  totalPages={totalPages}/>) : ('')}
-      </main>
+          
+        {doctors.length!=0 ? (<Pagenation page={currentPage} handlePageChange={handlePageChange}  totalPages={totalPages}/>) : ('')}
+        </main>
+      ) : (<div>loading...</div>)}
       <Footer />
     </>
   )
