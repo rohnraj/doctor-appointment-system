@@ -5,8 +5,9 @@ interface ButtonProps {
   text: string;
   onClick?: (e:any) => void;
   type?: "button" | "submit" | "reset";
-  variant?: "primary" |"smallGreenBtn" | "smallWhiteBtn" | "largeGreenBtn" | "largeBrownBtn" | "mainPageButton" | "tinyGreenBtn" | "tinyWhiteBtn" | "cardButton" | "cardButtonGreen" | "slotGreenBtn" | "smallcardButtonGreen"; 
+  variant?: "primary" |"smallGreenBtn" | "smallWhiteBtn" | "largeGreenBtn" | "largeBrownBtn" | "mainPageButton" | "tinyGreenBtn" | "tinyWhiteBtn" | "cardButton" | "cardButtonGreen" | "slotGreenBtn" | "smallcardButtonGreen" | "googleBtn"; 
   disabled?: boolean;
+  icon?:string
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -15,6 +16,7 @@ const Button: React.FC<ButtonProps> = ({
   type = "button",
   variant = "primary",
   disabled = false,
+  icon=''
 }) => {
   return (
     <button
@@ -23,6 +25,7 @@ const Button: React.FC<ButtonProps> = ({
       type={type}
       disabled={disabled}
     >
+      <span className={styles.iconSize}>{icon ? <img src={icon} alt={''}/> : ''}</span> 
       {text}
     </button>
   );

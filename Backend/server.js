@@ -7,7 +7,7 @@ import appointmentRoutes from "./routes/appointmentRoutes.js";
 import { authenticateJWT } from "./middlewares/authMiddleware.js";
 import cookieParser from "cookie-parser";
 import userRoutes from "./routes/userRoutes.js"
-
+import passport from './config/passport.js';
 
 dotenv.config();
 
@@ -21,13 +21,14 @@ app.use(
     credentials: true, // Allow cookies and authentication headers
   })
 );
-
+app.use(passport.initialize());
 app.use(cookieParser())
 
 app.use(express.json());
 
 
 // Routes
+
 app.use("/api/auth", authRoutes);
 app.use("/api/doctors", doctorRoutes);
 app.use("/api/appointments", authenticateJWT, appointmentRoutes);

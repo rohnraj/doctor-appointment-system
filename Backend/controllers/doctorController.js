@@ -114,7 +114,6 @@ export const updateDoctorController = async (req, res) => {
   const {available_times} = req.body;
   console.log('available time array')
   console.log(available_times)
-  console.log(typeof available_times[0])
 
   try {
 

@@ -78,6 +78,26 @@ export default function page() {
             }
 
         }
+
+        async function handleGoogleLogIn(){
+            try{
+                //fetch will not work bcz route redirect to 3rd party webpage
+                // const res=await (await fetch('http://localhost:8080/api/auth/google', {
+                //     headers: {
+                //         'Accept': 'application/json',
+                //       'Content-Type': 'application/json',
+                    
+                //     //   'authorization':`Bearer ${localStorage.getItem('token')}` 
+                //     },
+                //     method: "GET",
+                //     credentials: "include",
+                // })).json()
+
+                window.location.href='http://localhost:8080/api/auth/google';
+            }catch(err){
+                console.log(`Error in hittion route google: ${err}`)
+            }
+        }
     return (
         <>
         
@@ -97,25 +117,38 @@ export default function page() {
                         </div>
 
                         <div className={`${styles.passwrdContainer} ${styles.inputContainer}`}>
-                            {/* <i className="fa-solid fa-lock" ></i> */}
-                            <img src='/assets/Lock.svg' alt='eyeIcon' id={styles.iconLock}/>
-                            <span className={styles.eye} onClick={()=>{
-                                seteyetoggle(prev => !prev);
-                                setpasswrdType(prev => prev === 'password' ? 'text' : 'password');
-                            }}>
-                                {eyetoggle===true ? <i className="fa-solid fa-eye" id={styles.iconeye}></i> : <i className="fa-solid fa-eye-slash" id={styles.iconeye}></i>}
-                            </span>
-
+                            <img src='/assets/Lock.svg' alt='lock icon' className={styles.iconLock}/>
                             <label htmlFor="passwrd">Password</label>
-                            <input type={passwrdType==='password'? 'password' : 'text'} id='passwrd' onChange={(e)=>setpassword(e.target.value)}/><br/><br/>
+                            <input 
+                                type={passwrdType} 
+                                id='passwrd' 
+                                onChange={(e)=>setpassword(e.target.value)}
+                                className={styles.passwordInput}
+                            />
+                            <div 
+                                className={styles.eye} 
+                                onClick={() => {
+                                    seteyetoggle(!eyetoggle);
+                                    setpasswrdType(eyetoggle ? 'text' : 'password');
+                                }}
+                            >
+                                {eyetoggle ? 
+                                    <i className="fa-solid fa-eye" id={styles.iconeye}></i> : 
+                                    <i className="fa-solid fa-eye-slash" id={styles.iconeye}></i>
+                                }
+                            </div>
                         </div>
 
                         <div className={styles.btnContainer}>
-                            <Button text={'Login'} onClick={()=>{}} type={'submit'} variant={'largeGreenBtn'}/>
-                            <Button text={'Reset'} onClick={()=>{}} type={'reset'} variant={'largeBrownBtn'}/>
+                            <Button text={'Login'} type={'submit'} variant={'largeGreenBtn'}/>
+                            <Button text={'Reset'} type={'reset'} variant={'largeBrownBtn'}/>
+                            <Button text={'Sign in with Google'} onClick={()=>{handleGoogleLogIn()}}  type={'button'} variant={'googleBtn'} icon={'/assets/google.svg'}/>
+                                {/* <i className="fa-brands fa-google"></i> */}
                         </div>
 
-                        <div className={styles.forgotPara}><strong>Forgot Password ?</strong></div>
+                        <p className={styles.forgotPara} onClick={() => router.push('/forgot-password')}>
+                            Forgot Password?
+                        </p>
                     </form>
                 </div>
             </div>

@@ -95,7 +95,6 @@ export const getTopDoctors = async (page, rating, experience, gender) => {
     
 
   // Execute the query
-
   try {
 
     console.log("Final Query:", query);

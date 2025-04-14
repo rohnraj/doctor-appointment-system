@@ -97,6 +97,27 @@ export default function page() {
 
 
     let router=useRouter()
+
+
+    async function handleGoogleLogIn(){
+        try{
+            //fetch will not work bcz route redirect to 3rd party webpage
+            // const res=await (await fetch('http://localhost:8080/api/auth/google', {
+            //     headers: {
+            //         'Accept': 'application/json',
+            //       'Content-Type': 'application/json',
+                
+            //     //   'authorization':`Bearer ${localStorage.getItem('token')}` 
+            //     },
+            //     method: "GET",
+            //     credentials: "include",
+            // })).json()
+
+            window.location.href='http://localhost:8080/api/auth/google';
+        }catch(err){
+            console.log(`Error in hittion route google: ${err}`)
+        }
+    }
     return (
         <>
 
@@ -145,6 +166,7 @@ export default function page() {
                         <div className={styles.btnContainer}>
                             <Button text={'Sign Up'} type={'submit'} variant={'largeGreenBtn'}/>
                             <Button text={'Reset'} onClick={()=>{}} type={'submit'} variant={'largeBrownBtn'}/>
+                            <Button text={'Sign in with Google'} onClick={()=>{handleGoogleLogIn()}}  type={'button'} variant={'googleBtn'} icon={'/assets/google.svg'}/>
                         </div>
 
                     </form>

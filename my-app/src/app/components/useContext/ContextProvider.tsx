@@ -34,6 +34,7 @@ export default function IsAuthProvider({ children }: { children: ReactNode }) {
     }
   }, []);
 
+
   return (
     <IsAuthContext.Provider value={{isAuth, setIsAuth}}>
       {children}

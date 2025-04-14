@@ -1,7 +1,7 @@
 'use client'
 
 import Navbar from "@/app/components/navbar/Navbar";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, useRef} from "react";
 import styles from "./page.module.css";
 import Footer from "@/app/components/footer/Footer";
 import Doctorcard from "@/app/components/doctorCard/Doctorcard";
@@ -96,11 +96,36 @@ export default function app(){
         } 
     }, [doctors])
 
- console.log(doctors)
+//  console.log(doctors)
+
+    const debounceRef = useRef<NodeJS.Timeout | null>(null);
+    //@ts-ignore
+    const debouncing = (searchItem: string) => {
+        if (debounceRef.current) {
+            clearTimeout(debounceRef.current);
+        }
+        debounceRef.current = setTimeout(async () => {
+            setLoading(true);
+            try {
+                const response = await fetch(`http://localhost:8080/api/doctors/search?search=${searchItem}`);
+                const fetchData = await response.json();
+
+                console.log(fetchData.doctors);
+                setDoctors(fetchData.doctors);
+                setcarVisible(fetchData.doctors.length !== 0);
+            } catch (err) {
+                console.error("Error searching doctors:", err);
+            } finally {
+                setLoading(false);
+            }
+        }, 3000); // 500ms debounce
+    };
 
     function handleDoctorSearchInp(e:any){
         setsearch(e.target.value)
+        debouncing(e.target.value)
     }
+    
 
     function handleSerchClick() {
         setLoading(true); 
@@ -319,7 +344,7 @@ export default function app(){
                                                         name={doctor.name} 
                                                         degree={doctor.degree} 
                                                         speciality={doctor.specialty} 
-                                                        img_url={doctor.photo} 
+                                                        img_url={doctor.photo.toString()} 
                                                         rating={doctor.rating} 
                                                         experience={doctor.experience} 
                                                         buttonFunctionality={() => routes.push(`/Appointments/${doctor.id}`)}

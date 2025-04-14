@@ -1,4 +1,3 @@
-
 .pageContainer {
     background: url('/assets/loginBackgrndImg.svg') no-repeat;
     background-size: cover;
@@ -7,6 +6,7 @@
     align-items: center;
     height: 81vh;
     width: 100vw;
+    overflow: hidden; /* Prevent scrolling */
 }
 
 .formContainer {
@@ -18,6 +18,7 @@
     border-radius: 10px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
     font-family: var(--primary-font);
+    overflow: hidden; /* Prevent scrolling */
 }
 
 /* Login Heading */
@@ -66,21 +67,22 @@
     margin-top: 15px;
 }
 
-
 /* Forgot Password */
 .forgotPara {
     text-align: center;
     margin-top: 10px;
-    font-size: 14px;
+    font-size: 12px;
     color: #555;
     cursor: pointer;
-    font-size: 12px;
+    text-decoration: underline;
 }
 
-.inputContainer{
+.inputContainer {
     position: relative;
+    margin-bottom: 20px;
 }
-.inputContainer input{
+
+.inputContainer input {
     width: 100%;
     padding: 12px 40px 12px 40px;
     border: 1px solid #ccc;
@@ -90,37 +92,70 @@
     font-family: var(--primary-font);
     font-weight: bold;
     opacity: 0.5;
-}
-#iconeye{
-    position: absolute;
-    left: 90%;
-    top: 50%;
-    transform: translateY(-50%);
-    color: gray;
-    opacity: 1;
-    cursor: pointer;
+    height: 40px; /* Added fixed height */
+    box-sizing: border-box; /* Ensure padding is included in height */
 }
 
-.inputContainer i{
+#iconAt {
     position: absolute;
-    left: 20px;
-    top: 50%;
+    left: 12px;
+    top: 53%; /* Changed from 50% to 65% to match eye icon */
     transform: translateY(-50%);
-    color: gray;
+    width: 20px;
+    height: 20px;
     opacity: 0.5;
 }
-.inputContainer img{
+
+.iconLock{
     position: absolute;
-    left: 20px;
-    top: 50%;
+    left: 12px;
+    top: 65%; /* Changed from 50% to 65% to match eye icon */
     transform: translateY(-50%);
+    width: 16px;
+    height: 16px;
+    opacity: 0.5;
+}
+.eye {
+    position: absolute;
+    right: 12px;
+    top: 65%;
+    transform: translateY(-50%);
+    cursor: pointer;
     color: gray;
     opacity: 0.5;
+    transition: opacity 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+}
+
+.eye:hover {
+    opacity: 1;
+}
+
+#iconeye {
+    font-size: 16px;
+    line-height: 1; /* Ensure icon is centered */
+}
+
+/* Add specific styles for password container */
+.passwrdContainer {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.passwrdContainer label {
+    margin-bottom: 8px;
+    font-size: 12px;
+    color: #333;
 }
 
 #strongSignUp{
     cursor: pointer;
 }
+
 
 /* .eye{
     cursor: pointer;
@@ -141,5 +176,12 @@
         width: 340px;
     }
   }
+    
+/* Add this to prevent body scrolling */
+body {
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+}
     
     

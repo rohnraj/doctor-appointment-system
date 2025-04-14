@@ -1,3 +1,143 @@
+.button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    font-family: var(--primary-font);
+    border: none;
+    outline: none;
+    text-align: center;
+}
+
+/* Base hover and active effects for all buttons */
+.button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.button:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Large Green Button */
+.largeGreenBtn {
+    padding: 12px 24px;
+    border-radius: 6px;
+    font-size: 16px;
+    background-color: var(--primary-color);
+    color: white;
+    font-weight: 500;
+}
+
+/* .largeGreenBtn:hover {
+    background-color: #2e7d32; 
+} */
+
+.largeGreenBtn:active {
+    background-color: #1b5e20; /* Even darker green */
+}
+
+/* Large Brown Button */
+.largeBrownBtn {
+    padding: 12px 24px;
+    border-radius: 6px;
+    font-size: 16px;
+    background-color: #8D6E63;
+    color: white;
+    font-weight: 500;
+}
+
+/* .largeBrownBtn:hover {
+    background-color: #6D4C41; 
+} */
+
+.largeBrownBtn:active {
+    background-color: #5D4037; /* Even darker brown */
+}
+
+/* Google Button */
+.googleBtn {
+    padding: 12px 24px;
+    border-radius: 6px;
+    font-size: 16px;
+    background-color: white;
+    color: #333;
+    border: 1px solid #ccc;
+    font-weight: 500;
+}
+
+/* .googleBtn:hover {
+    background-color: #f5f5f5;
+    border-color: #999;
+} */
+
+.googleBtn:active {
+    background-color: #e0e0e0;
+}
+
+/* Small Green Button */
+.smallGreenBtn {
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 14px;
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.smallGreenBtn:hover {
+    background-color: #2e7d32;
+}
+
+.smallGreenBtn:active {
+    background-color: #1b5e20;
+}
+
+/* Small White Button */
+.smallWhiteBtn {
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 14px;
+    background-color: white;
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+}
+
+.smallWhiteBtn:hover {
+    background-color: #f5f5f5;
+}
+
+.smallWhiteBtn:active {
+    background-color: #e0e0e0;
+}
+
+/* Disabled state for all buttons */
+.button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.button:disabled:hover {
+    transform: none;
+    box-shadow: none;
+}
+
+/* Icon styling */
+.iconSize {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.iconSize img {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+}
 
 .smallGreenBtn{
     padding: 8px 16px;
@@ -105,39 +245,6 @@
     width: 65px;
     height: 30px;
     text-align: center;
-}
-
-
-.largeGreenBtn{
-    flex: 1;
-    background: var(--primary-color);
-    color: white;
-    padding: 10px;
-    border: none;
-    font-size: 16px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-family: var(--primary-font);
-    transition: background-color 0.3s ease, transform 0.3s ease;
-}
-.largeGreenBtn:hover {
-    transform: scale(1.05); 
-}
-
-.largeBrownBtn{
-    flex: 1;
-    background: var(--third-color);
-    color: white;
-    padding: 10px;
-    border: none;
-    font-size: 16px;
-    border-radius: 5px;
-    cursor: pointer; 
-    font-family: var(--primary-font);
-    transition: background-color 0.3s ease, transform 0.3s ease;
-}
-.largeBrownBtn:hover {
-    transform: scale(1.05); 
 }
 
 .mainPageButton{
