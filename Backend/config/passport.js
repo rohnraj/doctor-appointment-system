@@ -18,13 +18,13 @@ passport.use(
 );
 
 // Serialize user
-passport.serializeUser((user, done) => {
-  done(null, user);
-});
+// passport.serializeUser((user, done) => {
+//   done(null, user);
+// });
 
-// Deserialize user
-passport.deserializeUser((user, done) => {
-  done(null, user);
-});
+// // Deserialize user
+// passport.deserializeUser((user, done) => {
+//   done(null, user);
+// });
 
 export default passport;

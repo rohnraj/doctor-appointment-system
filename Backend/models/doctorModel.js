@@ -7,19 +7,23 @@ export const createDoctor = async (userId, name, photo, specialty, experience, d
   console.log('availble times type')
   console.log(availableTimes)
   console.log(typeof availableTimes[0])
+  try{
 
+    const availableDates = availableDate.split(',')
+    console.log(availableDates)
+    const query = `
+      INSERT INTO doctors (user_id, name, photo, specialty, experience, degree, location, available_times, available_dates, gender, rating) 
+      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, 0) 
+      RETURNING *;
+    `;
+    const values = [userId, name, photo, specialty, experience, degree, location, availableTimes, availableDates, gender];
+  
+    const result = await pool.query(query, values);
+    return result.rows[0];
+  }catch(err){
+    console.log(`error in inserting doctor data in database: ${err}`)
+  }
   // console.log(typeof availableTimes)
-  const availableDates = availableDate.split(',')
-  console.log(availableDates)
-  const query = `
-    INSERT INTO doctors (user_id, name, photo, specialty, experience, degree, location, available_times, available_dates, gender, rating) 
-    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, 0) 
-    RETURNING *;
-  `;
-  const values = [userId, name, photo, specialty, experience, degree, location, availableTimes, availableDates, gender];
-
-  const result = await pool.query(query, values);
-  return result.rows[0];
 };
 
 

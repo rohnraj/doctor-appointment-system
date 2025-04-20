@@ -96,7 +96,7 @@ export default function app(){
         } 
     }, [doctors])
 
-//  console.log(doctors)
+ console.log(doctors)
 
     const debounceRef = useRef<NodeJS.Timeout | null>(null);
     //@ts-ignore
@@ -344,7 +344,7 @@ export default function app(){
                                                         name={doctor.name} 
                                                         degree={doctor.degree} 
                                                         speciality={doctor.specialty} 
-                                                        img_url={doctor.photo.toString()} 
+                                                        img_url={doctor.photo} 
                                                         rating={doctor.rating} 
                                                         experience={doctor.experience} 
                                                         buttonFunctionality={() => routes.push(`/Appointments/${doctor.id}`)}

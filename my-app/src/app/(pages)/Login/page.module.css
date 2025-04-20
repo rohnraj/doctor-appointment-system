@@ -177,11 +177,6 @@
     }
   }
     
-/* Add this to prevent body scrolling */
-body {
-    overflow: hidden;
-    margin: 0;
-    padding: 0;
-}
+
     
     

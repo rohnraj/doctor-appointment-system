@@ -26,6 +26,7 @@ function AddDoctor() {
     gender: "",
   })
   const [imagePreview, setImagePreview] = useState<string | null>(null)
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [selectedDatesArr, setSelectedDatesArr] = useState<string[]> ([])
   const [isEditingDates, setIsEditingDates] = useState(false);
   // const [ArrOfSelectedTimes, setArrOfSelectedTimes] = useState<string[]>([])
@@ -68,13 +69,14 @@ function AddDoctor() {
       const reader = new FileReader()
       reader.onloadend = () => {
         setImagePreview(reader.result as string)
+        setSelectedFile(file)
       }
       reader.readAsDataURL(file)
       // console.log(file)
       // console.log('---------------')
     }
   }
-  // console.log(imagePreview)
+  console.log(selectedFile)
   
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -95,7 +97,7 @@ function AddDoctor() {
           degree: formData.degree,
           location: formData.address, 
           availableTimes: ArrOfSelectedTimes, 
-          photo: imagePreview,
+          photo: selectedFile,
           gender: formData.gender,
           availableDate: formData.availableDate,
         }),
@@ -123,44 +125,6 @@ function AddDoctor() {
     }
 
   }
-
-  // async function handleAddDoc (){
-  //     const data = await (await fetch('http://localhost:8080/api/doctors/create', {
-  //       method: 'POST',
-  //       headers: {
-  //         'Content-Type': 'application/json'
-  //       },
-  //       credentials: "include",
-
-  //       //{ name, specialty, experience, degree, location, availableTimes }
-  //       //@ts-ignore
-  //       body: JSON.stringify({name, speciality, experience, degree, location:address, avaliableTimes, photo:imagePreview})
-  //     })).json()
-
-  //     console.log(data)
-  // }
-  // async function handleAddDoc() {
-  //   console.log("🚀 Sending API Request...");
-  
-    
-  // }
-
-  // function gettingDataFromChild(data: Date){
-  //   // const formattedDate = data.toISOString().split("T")[0];
-  //   // setSelectedDatesArr([...selectedDatesArr, formattedDate])
-  //   // console.log('selected Dates '+selectedDatesArr)
-  //   // console.log('typeof'+ typeof selectedDatesArr[0])
-
-  //   const year = data.getUTCFullYear();
-  //   const month = String(data.getUTCMonth() + 1).padStart(2, "0"); 
-  //   const day = String(data.getUTCDate()).padStart(2, "0");
-    
-  //   const formattedDate = `${year}-${month}-${day}`;
-  //   setSelectedDatesArr([...selectedDatesArr, formattedDate]);
-  //   // console.log("selected Dates " + selectedDatesArr);
-    
-    
-  // }
 
   function gettingDataFromChild(data: Date) {
     const year = data.getUTCFullYear();
