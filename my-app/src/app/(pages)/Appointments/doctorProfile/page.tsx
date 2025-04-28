@@ -4,9 +4,6 @@ import React, { useEffect, useState } from 'react'
 import Navbar from '@/app/components/navbar/Navbar'
 import Footer from '@/app/components/footer/Footer'
 import styles from './page.module.css'
-import { FaStar, FaStarHalf, FaUserMd, FaCalendarAlt, FaClock } from 'react-icons/fa';
-import { MdSchool } from 'react-icons/md';
-import { BsGenderAmbiguous } from 'react-icons/bs';
 
 interface Doctor {
     name: string,
@@ -20,21 +17,6 @@ interface Doctor {
     available_dates: string[],
     available_times: string[][],
 }
-
-const RatingStars = ({ rating }: { rating: number }) => {
-    const fullStars = Math.floor(rating);
-    const hasHalfStar = rating % 1 !== 0;
-    
-    return (
-        <div className={styles.rating}>
-            {[...Array(fullStars)].map((_, i) => (
-                <FaStar key={i} />
-            ))}
-            {hasHalfStar && <FaStarHalf />}
-            <span>({rating})</span>
-        </div>
-    );
-};
 
 export default function page() {
     const [doctor, setdoctor] = useState<Doctor | null>(null)
@@ -57,53 +39,35 @@ export default function page() {
                                 <h1 className={styles.profileName}>{doctor.name}</h1>
                                 <p className={styles.profileSpecialty}>{doctor.specialty}</p>
                                 <p className={styles.profileLocation}>{doctor.location}</p>
-                                {/* <RatingStars rating={doctor.rating} /> */}
                             </div>
                         </div>
                         <div className={styles.details}>
-                            <p>
-                                <FaUserMd />
-                                <strong>Experience:</strong>
-                                <span>{doctor.experience}</span>
-                            </p>
-                            <p>
-                                <MdSchool />
-                                <strong>Degree:</strong>
-                                <span>{doctor.degree}</span>
-                            </p>
-                            <p>
-                                <BsGenderAmbiguous />
-                                <strong>Gender:</strong>
-                                <span>{doctor.gender}</span>
-                            </p>
+                            <p><strong>Experience:</strong> {doctor.experience}</p>
+                            <p><strong>Rating:</strong> {doctor.rating}</p>
+                            <p><strong>Degree:</strong> {doctor.degree}</p>
+                            <p><strong>Gender:</strong> {doctor.gender}</p>
                         </div>
                         <div className={styles.availability}>
-                            <div>
-                                <h3><FaCalendarAlt /> Available Dates</h3>
-                                <ul>
-                                    {doctor.available_dates.map((date, index) => (
-                                        <li key={index}>{date.split('T')[0]}</li>
-                                    ))}
-                                </ul>
-                            </div>
-                            <div>
-                                <h3><FaClock /> Available Times</h3>
-                                <ul>
-                                    {doctor.available_times.map((times, index) => (
-                                        <li key={index}>{`${times[index].split(':')[0]}: ${times[index].split(':')[1]}`}</li>
-                                    ))}
-                                </ul>
-                            </div>
+                            <h3>Available Dates:</h3>
+                            <ul>
+                                {doctor.available_dates.map((date, index) => (
+                                    <li key={index}>{date}</li>
+                                ))}
+                            </ul>
+                            <h3>Available Times:</h3>
+                            <ul>
+                                {doctor.available_times.map((times, index) => (
+                                    <li key={index}>{times.join(', ')}</li>
+                                ))}
+                            </ul>
                         </div>
                         <div className={styles.actions}>
-                            <button className={styles.editButton}>Book Appointment</button>
+                            <button className={styles.editButton}>Edit Profile</button>
+                            <button className={styles.settingsButton}>Settings</button>
                         </div>
                     </div>
                 ) : (
-                    <div className={styles.loading}>
-                        {/* <div className={styles.spinner}></div> */}
-                        {/* <p>Loading doctor's profile...</p> */}
-                    </div>
+                    <p>Loading...</p>
                 )}
             </div>
             <Footer />

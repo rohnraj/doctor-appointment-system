@@ -26,7 +26,7 @@ const Doctorcard : React.FC<DoctorcardProps> =({
         <>
             <div className={styles.doctor}>
                 <div className={styles.displayPhoto}>
-                    <img src={'https://images.unsplash.com/photo-1622253692010-333f2da6031d?q=80&w=764&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'} alt={name} />
+                    <img src={'https://plus.unsplash.com/premium_photo-1661578535048-7a30e3a71d25?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'} alt={name} />
                 </div>
                 <div>
                     <h3 className={styles.name}>{name}, {degree}</h3>

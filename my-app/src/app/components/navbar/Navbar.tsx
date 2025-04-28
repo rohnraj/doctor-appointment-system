@@ -50,7 +50,7 @@ export default function Navbar() {
         <ul className={styles.ultag}>
             <li className={styles.logo} onClick={()=>router.push('/')}>
                 <div className={styles.logofst}><img src='/assets/Trust.png' alt='logo here' className={styles.logoImg} /></div>
-                <div className={styles.logoscd}>MedCare</div>
+                <div className={styles.logoscd}>MediGate</div>
             </li>
             <li className={styles.navLinkContainer}>
                 <i className="fa-solid fa-bars" id={styles.bars} onClick={()=>{
