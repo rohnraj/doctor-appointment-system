@@ -17,7 +17,12 @@ const app = express();
 // Middleware
 app.use(
   cors({
-    origin: ["https://doctor-appointment-system-q8td.vercel.app", "http://localhost:3000" ,  'http://localhost:3002', 'http://localhost:3001'], // Allow requests from frontend
+    origin: ["https://doctor-appointment-system-q8td.vercel.app", 
+      "https://doctor-appointment-system-ingv.vercel.app/", 
+      "http://localhost:3000" ,  
+      'http://localhost:3002', 
+      'http://localhost:3001'
+    ], // Allow requests from frontend
     credentials: true, // Allow cookies and authentication headers
   })
 );
