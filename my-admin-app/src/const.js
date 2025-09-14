@@ -1,0 +1,1 @@
+export const API_URL = "https://doctor-appointment-system-tux3.vercel.app";

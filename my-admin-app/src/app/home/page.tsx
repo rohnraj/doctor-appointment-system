@@ -7,6 +7,7 @@ import Footer from "@/app/components/footer/Footer"
 import { useRouter } from "next/navigation"
 import { LucideUsers, LucideUserMinus, LucideCalendarCheck, LucideShield } from "lucide-react"
 import {IsAuthContext} from '@/app/components/useContext/UseContext'
+import {API_URL} from "../../const.js"
 
 function AdminDashboard() {
   const router = useRouter()
@@ -22,8 +23,8 @@ function AdminDashboard() {
 
   useEffect(()=>{
     async function fetching(){
-      const res = await(await fetch('http://localhost:8080/api/auth/getAllUser')).json()
-      const res1 = await(await fetch('http://localhost:8080/api/doctors/getAllDoc')).json()
+      const res = await(await fetch(`${API_URL}/api/auth/getAllUser`)).json()
+      const res1 = await(await fetch(`${API_URL}/api/doctors/getAllDoc`)).json()
 
       setAllDocNum(res1.doctors)
       setAllUserNum(res.data)

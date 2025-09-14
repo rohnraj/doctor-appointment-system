@@ -11,6 +11,7 @@ import Calendar from "@/app/components/calendar/Calendar"
 import { LucideArrowLeft, LucideUpload } from "lucide-react"
 import { toast , Bounce} from "react-toastify"
 import {IsAuthContext} from '@/app/components/useContext/UseContext'
+import {API_URL} from "../../const.js"
 
 
 function AddDoctor() {
@@ -85,7 +86,7 @@ function AddDoctor() {
 
     
     try {
-      const response = await fetch("http://localhost:8080/api/doctors/create", {
+      const response = await fetch(`${API_URL}/api/doctors/create`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include", 

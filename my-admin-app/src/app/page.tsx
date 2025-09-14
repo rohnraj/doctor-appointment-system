@@ -7,6 +7,7 @@ import Button from '@/app/components/button/Button'
 import { useRouter } from 'next/navigation'
 import { toast, Bounce } from 'react-toastify';
 import {IsAuthContext} from '@/app/components/useContext/UseContext'
+import {API_URL} from "../const.js"
 
 
 export default function page() {
@@ -27,7 +28,7 @@ export default function page() {
             e.preventDefault();
             try{
     
-                const res=await (await fetch(`http://localhost:8080/api/auth/login`,
+                const res=await (await fetch(`${API_URL}/api/auth/login`,
                     {
                         headers: {
                             'Accept': 'application/json',

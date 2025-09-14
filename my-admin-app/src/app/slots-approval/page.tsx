@@ -7,6 +7,7 @@ import Footer from "@/app/components/footer/Footer";
 import { useRouter } from "next/navigation";
 import { toast, Bounce } from 'react-toastify';
 import {IsAuthContext} from '@/app/components/useContext/UseContext'
+import {API_URL} from "../../const.js"
 
 interface UserInfo {
   fullName: string;
@@ -58,7 +59,7 @@ function SlotsApproval() {
   useEffect(() => {
     async function fetchAppointments() {
       try {
-        const response = await fetch("http://localhost:8080/api/appointments/bookedslot", {
+        const response = await fetch(`${API_URL}/api/appointments/bookedslot`, {
           credentials: "include",
           headers: {
             "Content-Type": "application/json",
@@ -90,7 +91,7 @@ function SlotsApproval() {
     async function fetching(){
       try{
 
-        const response = await (await fetch(`http://localhost:8080/api/appointments/approveSlot?id=${id}`, {
+        const response = await (await fetch(`${API_URL}/api/appointments/approveSlot?id=${id}`, {
           method: "PATCH",
           headers: {
             "Content-Type": "application/json",
@@ -103,7 +104,7 @@ function SlotsApproval() {
       }
       
       try{
-        const dateArr = await (await fetch(`http://localhost:8080/api/doctors/${doctor_id}`, {
+        const dateArr = await (await fetch(`${API_URL}/api/doctors/${doctor_id}`, {
           method: 'GET',
         })).json()
         console.log('datesArr" '+ dateArr)
@@ -126,7 +127,7 @@ function SlotsApproval() {
           // debugger
         }
 
-        const response1 = await (await fetch(`http://localhost:8080/api/doctors/${doctor_id}`, {
+        const response1 = await (await fetch(`${API_URL}/api/doctors/${doctor_id}`, {
           method: "PATCH",
           headers: {
             "Content-Type": "application/json",
@@ -161,7 +162,7 @@ function SlotsApproval() {
   const handleDeny = (id: string) => {
     // setSlotRequests(slotRequests.map((request) => (request.id === id ? { ...request, status: "denied" } : request)));
     async function fetching(){
-      const response = await (await fetch(`http://localhost:8080/api/appointments/rejectSlot?id=${id}`, {
+      const response = await (await fetch(`${API_URL}/api/appointments/rejectSlot?id=${id}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
@@ -194,7 +195,7 @@ function SlotsApproval() {
     try{
 
       async function fetching(){
-        const response = await (await fetch(`http://localhost:8080/api/appointments/deleteSlot?id=${id}`, {
+        const response = await (await fetch(`${API_URL}/api/appointments/deleteSlot?id=${id}`, {
           method: "DELETE",
           headers: {
             "Content-Type": "application/json",

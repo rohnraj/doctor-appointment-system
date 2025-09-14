@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation"
 import { LucideArrowLeft, LucideSearch, LucideTrash2, LucideAlertCircle } from "lucide-react"
 import Pagenation from '../components/pagenation/Pagenation'
 import {IsAuthContext} from '@/app/components/useContext/UseContext'
+import {API_URL} from "../../const.js"
 
 interface Doctor {
   id: number
@@ -31,8 +32,8 @@ function RemoveDoctor() {
   const {isAuth} = useContext(IsAuthContext)
   useEffect(() => {
     async function fetching() {
-        const fetchData= await(await fetch(`http://localhost:8080/api/doctors/top?page=${currentPage}`)).json();
-        const res1 = await(await fetch('http://localhost:8080/api/doctors/getAllDoc')).json()
+        const fetchData= await(await fetch(`${API_URL}/api/doctors/top?page=${currentPage}`)).json();
+        const res1 = await(await fetch(`${API_URL}/api/doctors/getAllDoc`)).json()
         console.log(fetchData.doctors)
         setDoctors(fetchData.doctors);
         setAllDocNum(res1.doctors)
@@ -42,7 +43,7 @@ function RemoveDoctor() {
 
     function handleSerchClick(){
       async function fetching() {
-          const fetchData= await (await fetch(`http://localhost:8080/api/doctors/search?search=${searchTerm}`)).json();
+          const fetchData= await (await fetch(`${API_URL}/api/doctors/search?search=${searchTerm}`)).json();
           console.log(fetchData.doctors)
           setDoctors(fetchData.doctors);
       }
@@ -52,7 +53,7 @@ function RemoveDoctor() {
     const handleRemoveClick = (doctor: Doctor) => {
       async function fetching() {
         try {
-          const response = await fetch(`http://localhost:8080/api/doctors/deleteDoc/${doctor.id}`, {
+          const response = await fetch(`${API_URL}/api/doctors/deleteDoc/${doctor.id}`, {
             method: "DELETE",
             credentials: "include", // ✅ Send cookies with the request
             headers: {
