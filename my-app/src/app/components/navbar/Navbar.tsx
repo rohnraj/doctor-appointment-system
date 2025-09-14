@@ -6,6 +6,7 @@ import Button from "../button/Button";
 import Link from "next/link";
 import { link } from "fs";
 import { useRouter } from "next/navigation";
+import {API_URL} from "../../../const.js"
 
 export default function Navbar() {
 
@@ -15,7 +16,7 @@ export default function Navbar() {
 
     useEffect(()=>{
         async function fetching(){
-            const res = await (await fetch('http://localhost:8080/api/auth/isAuth', {
+            const res = await (await fetch(`${API_URL}/api/auth/isAuth`, {
                 method: "POST",
                 credentials: "include",
             })).json()
@@ -36,7 +37,7 @@ export default function Navbar() {
 
     const handleLogout = async() => {
         
-        const res = await (await fetch('http://localhost:8080/api/auth/logout', {
+        const res = await (await fetch(`${API_URL}/api/auth/logout`, {
             method: "POST",
             credentials: "include",
         })).json();

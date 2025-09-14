@@ -7,6 +7,7 @@ import Navbar from '@/app/components/navbar/Navbar'
 import Button from '@/app/components/button/Button'
 import { useRouter } from 'next/navigation'
 import { toast, Bounce } from 'react-toastify';
+import {API_URL} from "../../../const.js"
 
 interface User {
     email: string;
@@ -42,7 +43,7 @@ export default function page() {
         e.preventDefault();
         try{
 
-            const res:SignupResponse=await (await fetch('http://localhost:8080/api/auth/signup',
+            const res:SignupResponse=await (await fetch(`${API_URL}/api/auth/signup`,
                 {
                     headers: {
                         'Accept': 'application/json',
@@ -113,7 +114,7 @@ export default function page() {
             //     credentials: "include",
             // })).json()
 
-            window.location.href='http://localhost:8080/api/auth/google';
+            window.location.href=`${API_URL}/api/auth/google`;
         }catch(err){
             console.log(`Error in hittion route google: ${err}`)
         }

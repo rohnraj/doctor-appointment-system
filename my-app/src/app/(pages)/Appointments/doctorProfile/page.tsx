@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react'
 import Navbar from '@/app/components/navbar/Navbar'
 import Footer from '@/app/components/footer/Footer'
 import styles from './page.module.css'
+import {API_URL} from "../../../../const.js"
 
 interface Doctor {
     name: string,
@@ -22,7 +23,7 @@ export default function page() {
     const [doctor, setdoctor] = useState<Doctor | null>(null)
     useEffect(() => {
         (async function () {
-            const doctorData = await (await fetch('http://localhost:8080/api/doctors/70af0cd9-dfb6-4276-b227-3b58861a6a71')).json()
+            const doctorData = await (await fetch(`${API_URL}/api/doctors/70af0cd9-dfb6-4276-b227-3b58861a6a71`)).json()
             setdoctor(doctorData.doctor)
         })();
     }, []);

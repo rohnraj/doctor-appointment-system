@@ -1,6 +1,7 @@
 "use client";
 import { createContext, useState, useEffect, ReactNode } from "react";
 import { useRouter } from "next/navigation";
+import {API_URL} from "../../../const.js"
 
 export const IsAuthContext = createContext({});
 
@@ -14,7 +15,7 @@ export default function IsAuthProvider({ children }: { children: ReactNode }) {
     try{
 
       async function fetching(){
-        const response = await (await fetch('http://localhost:8080/api/auth/isAuth', {
+        const response = await (await fetch(`${API_URL}/api/auth/isAuth`, {
           method: 'POST',
           credentials: 'include',
         })).json()

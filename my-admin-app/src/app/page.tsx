@@ -27,7 +27,7 @@ export default function page() {
             e.preventDefault();
             try{
     
-                const res=await (await fetch('http://localhost:8080/api/auth/login',
+                const res=await (await fetch(`http://localhost:8080/api/auth/login`,
                     {
                         headers: {
                             'Accept': 'application/json',

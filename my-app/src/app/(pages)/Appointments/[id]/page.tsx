@@ -9,6 +9,7 @@ import Button from '@/app/components/button/Button'
 import Footer from '@/app/components/footer/Footer'
 import { useParams } from 'next/navigation'
 import Calendar from '@/app/components/calendar/Calendar'
+import {API_URL} from "../../../../const.js"
 
 // name, specialty, experience, degree, location, availableTimes, availableDate, photo, gender
 interface Doctor {
@@ -49,7 +50,7 @@ const page =()=> {
     
     useEffect(()=>{ 
         async function fetching(){
-            let fetchData=await(await fetch(`http://localhost:8080/api/doctors/${id}`)).json()
+            let fetchData=await(await fetch(`${API_URL}/api/doctors/${id}`)).json()
             setdoctorData(fetchData.doctor)
         }
         fetching()

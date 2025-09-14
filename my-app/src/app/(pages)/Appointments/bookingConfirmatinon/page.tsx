@@ -10,6 +10,7 @@ import Button from "@/app/components/button/Button"
 import Footer from "@/app/components/footer/Footer"
 import { LucideArrowLeft, LucideCalendar, LucideClock, LucideMapPin, LucideUser } from "lucide-react"
 import { ToastContainer, toast, Bounce } from 'react-toastify';
+import {API_URL} from "../../../../const.js"
 
 interface userInformation{
     id: string,
@@ -48,7 +49,7 @@ const BookingConfirmation = () => {
     useEffect(()=>{
         async function fetching(){
 
-            const fetchUesr = await (await fetch('http://localhost:8080/api/user',{
+            const fetchUesr = await (await fetch(`${API_URL}/api/user`,{
                 headers: {
                     'Accept': 'application/json',
                   'Content-Type': 'application/json',
@@ -73,7 +74,7 @@ const BookingConfirmation = () => {
   //@ts-ignore
   async function handleSubmit(e){
     e.preventDefault()
-    const response = await (await fetch('http://localhost:8080/api/appointments/book',{
+    const response = await (await fetch(`${API_URL}/api/appointments/book`,{
         headers: {
             'Accept': 'application/json',
           'Content-Type': 'application/json',

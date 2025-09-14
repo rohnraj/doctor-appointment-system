@@ -9,7 +9,7 @@ import { useRouter } from "next/navigation";
 import Pagenation from '@/app/components/pagenation/Pagenation'
 import { Circles } from 'react-loader-spinner'
 import {IsAuthContext} from '@/app/components/useContext/ContextProvider'
-
+import {API_URL} from "../../../const.js"
 
 interface Doctor {
     name: string;
@@ -74,8 +74,8 @@ export default function app(){
         async function fetching() {
             setLoading(true); // Show loader
             try {
-                const fetchData = await (await fetch(`http://localhost:8080/api/doctors/top?page=${currentPage}&rating=${ratingFilter}&experience=${experienceFilter}&gender=${genderFilter}`)).json();
-                const res1 = await (await fetch('http://localhost:8080/api/doctors/getAllDoc')).json();
+                const fetchData = await (await fetch(`${API_URL}/api/doctors/top?page=${currentPage}&rating=${ratingFilter}&experience=${experienceFilter}&gender=${genderFilter}`)).json();
+                const res1 = await (await fetch(`${API_URL}/api/doctors/getAllDoc`)).json();
                 
                 setDoctors(fetchData.doctors);
                 setAllDocNum(res1.doctors);
@@ -107,7 +107,7 @@ export default function app(){
         debounceRef.current = setTimeout(async () => {
             setLoading(true);
             try {
-                const response = await fetch(`http://localhost:8080/api/doctors/search?search=${searchItem}`);
+                const response = await fetch(`${API_URL}/api/doctors/search?search=${searchItem}`);
                 const fetchData = await response.json();
 
                 console.log(fetchData.doctors);
@@ -131,7 +131,7 @@ export default function app(){
         setLoading(true); 
         async function fetching() {
             try {
-                const fetchData = await (await fetch(`http://localhost:8080/api/doctors/search?search=${search}`)).json();
+                const fetchData = await (await fetch(`${API_URL}/api/doctors/search?search=${search}`)).json();
                 setDoctors(fetchData.doctors);
                 setcarVisible(fetchData.doctors.length !== 0);
             } catch (error) {
