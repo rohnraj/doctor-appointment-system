@@ -30,7 +30,7 @@ export default function Navbar() {
         if(isAuth){
             router.push(route);
         }else{
-            router.push("/login");
+            router.push("/Login");
         }
     }
 
@@ -41,7 +41,7 @@ export default function Navbar() {
             credentials: "include",
         })).json();
 
-        if(res.success) router.push("/login"); 
+        if(res.success) router.push("/Login"); 
     };
 
   return (
@@ -72,7 +72,7 @@ export default function Navbar() {
                     ) : (
                         <>
                             <span>
-                                <Button text={"Login"} onClick={() => router.push("/login")} type={"submit"} variant={"tinyWhiteBtn"} />
+                                <Button text={"Login"} onClick={() => router.push("/Login")} type={"submit"} variant={"tinyWhiteBtn"} />
                             </span>
                             <span>
                                 <Button text={"Register"} onClick={() => router.push("/signup")} type={"submit"} variant={"tinyGreenBtn"} />
@@ -91,7 +91,7 @@ export default function Navbar() {
                 ) : (
                     <>
                         <li>
-                            <Button text={"Login"} onClick={() => router.push("/login")} type={"submit"} variant={"smallWhiteBtn"} />
+                            <Button text={"Login"} onClick={() => router.push("/Login")} type={"submit"} variant={"smallWhiteBtn"} />
                         </li>
                         <li>
                             <Button text={"Register"} onClick={() => router.push("/signup")} type={"submit"} variant={"smallGreenBtn"} />

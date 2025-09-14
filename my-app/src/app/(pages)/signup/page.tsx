@@ -72,7 +72,7 @@ export default function page() {
                     });
                 // localStorage.setItem('token', res.token); 
                 // localStorage.setItem('user', JSON.stringify(res.user));
-                router.push('/login')
+                router.push('/Login')
             } 
             else{
                 alert('Failed To Resgistered')
