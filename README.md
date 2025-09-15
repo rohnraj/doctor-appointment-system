@@ -147,5 +147,5 @@ npm run dev
 ### Project CMS Frontend
 ![CMS Home Screen](./my-app/public/assets/first1.png)
 ![Add Doctor Screen](./my-app/public/assets/second1.png)
-![Delete Doctor Screen](./my-app/public/assets/third1.png)
 ![Delete Doctor Screen](./my-app/public/assets/forth1.png)
+![Delete Doctor Screen](./my-app/public/assets/fiveth1.png)
