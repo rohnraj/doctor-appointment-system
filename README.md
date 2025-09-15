@@ -140,9 +140,9 @@ npm run dev
 ![Home Screen](./my-app/public/assets/first.png)
 ![Login Screen](./my-app/public/assets/second.png)
 ![Signup Screen](./my-app/public/assets/third.png)
-![Doctor Listing Screen](./my-app/public/assets/fiveth.png)
-![Slot Booking Screen](./my-app/public/assets/first.png)
-![Slot Booking Form Screen](./my-app/public/assets/first.png)
+![Doctor Listing Screen](./my-app/public/assets/fourth.png)
+![Slot Booking Screen](./my-app/public/assets/fiveth.png)
+![Slot Booking Form Screen](./my-app/public/assets/sixth.png)
 
 ### Project CMS Frontend
 ![CMS Home Screen](./my-app/public/assets/first1.png)
