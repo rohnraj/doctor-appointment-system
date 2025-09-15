@@ -130,10 +130,8 @@ npm run dev
 
 **Rohan Raj**
 
-- 📧 [rohn.raj027@gmail.com](mailto:rohn.raj027@gmail.com)
+- 📧 [rohn.raj027@gmail.com](https://mail.google.com/mail/u/0/#inbox?compose=new)
 - 💼 [LinkedIn](https://www.linkedin.com/in/rohan-raj-%F0%9F%91%8B-54a1601ab/)
-- 💻 [Portfolio](https://rohnraj.github.io/) <!-- Replace with your actual portfolio URL -->
-
 ---
 
 ### Project Frontend
